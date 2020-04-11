@@ -106,7 +106,47 @@ class _PageViewDemoState extends State<PageViewDemo> {
       children: [
         MyHomePage(title: 'Lower Macungie Historical Society Geocaching'),
         CachePage(),
+        CacheInfoPage(),
       ],
+    );
+  }
+}
+
+class CacheInfoPage extends StatelessWidget {
+  GoogleMapController mapController;
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
+  final LatLng _cacheLoc = const LatLng(40.533940, -75.506032);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: AppBar(title: Text("Cache #1 Information")),
+      body: ListView(
+        children: <Widget>[
+          Title(color: Colors.blue, child: Text("Cache #1")),
+          Text("Location: Lat, Long"),
+          SizedBox(
+            height: 300,
+            child: GoogleMap(
+              onMapCreated: _onMapCreated,
+              initialCameraPosition: CameraPosition(
+                target: _cacheLoc,
+                zoom: 15.0,
+              ),
+            ),
+          ),
+          Title(color: Colors.blue, child: Text("History")),
+          Text("This is an explanation of the historical significance of the location of Cache #1."),
+          Title(color: Colors.blue, child: Text("Instructions")),
+          Text("These are the instructions to find Cache #1."),
+          Title(color: Colors.blue, child: Text("Comments")),
+          Text("I have no idea how to format these."),
+        ],
+      )
     );
   }
 }
