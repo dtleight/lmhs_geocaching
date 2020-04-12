@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,16 +34,23 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   GoogleMapController mapController;
   LatLng _pos = const LatLng(40.523938, -75.547719);
-  void loadPosition() async
-  {
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    _pos = LatLng(position.latitude,position.longitude);
-  }
+  LocationData currentLocation;
+  Location location;
 
-  void _onMapCreated(GoogleMapController controller) {
+
+  void _onMapCreated(GoogleMapController controller) async{
     mapController = controller;
   }
-
+  void _getLocation() async {
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+      setState(
+              () {}); //rebuild the widget after getting the current location of the user
+    } on Exception {
+      currentLocation = null;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     // The Flutter framework has been optimized to make rerunning build methods
@@ -61,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
             target: _pos,
             zoom: 15.0,
           ),
+          myLocationEnabled: true,
         ));
   }
 }
