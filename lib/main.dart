@@ -74,6 +74,7 @@ class CachePage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.map),
             title: Text('Cache Title #1'),
+            onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage()));} ,
           ),
           ListTile(
             leading: Icon(Icons.map),
@@ -112,7 +113,6 @@ class _PageViewDemoState extends State<PageViewDemo> {
       children: [
         MyHomePage(title: 'Lower Macungie Historical Society Geocaching'),
         CachePage(),
-        CacheInfoPage(),
       ],
     );
   }
