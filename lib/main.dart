@@ -51,8 +51,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter()
-  {
+  void _incrementCounter() {
     //Testing slack integration using a comment
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -63,11 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
   //Method for lake transportation
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
+
   Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _kGooglePlex = CameraPosition(
@@ -95,18 +96,18 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-    body: GoogleMap(
-    mapType: MapType.hybrid,
-    initialCameraPosition: _kGooglePlex,
-    onMapCreated: (GoogleMapController controller) {
-      _controller.complete(controller);
-    },
-    ),
-    floatingActionButton: FloatingActionButton.extended(
-    onPressed: _goToTheLake,
-    label: Text('To the lake!'),
-    icon: Icon(Icons.directions_boat),
-    ),
+      body: GoogleMap(
+        mapType: MapType.hybrid,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _goToTheLake,
+        label: Text('To the lake!'),
+        icon: Icon(Icons.directions_boat),
+      ),
     );
   }
 }
