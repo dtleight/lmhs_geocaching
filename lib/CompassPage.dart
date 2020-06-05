@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:flutter_compass/flutter_compass.dart';
-
-class CompassPage extends StatelessWidget {
+/**
+class CompassPage extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -80,3 +80,4 @@ class CompassPage extends StatelessWidget {
     );
   }
 }
+**/
