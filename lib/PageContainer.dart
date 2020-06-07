@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'CachePage.dart';
 import 'HomePage.dart';
+import 'CompassPage.dart';
 
 class PageContainer extends StatefulWidget {
   @override
@@ -25,6 +26,7 @@ class _PageViewDemoState extends State<PageContainer> {
       children: [
         HomePage(title: 'Lower Macungie Historical Society Geocaching'),
         CachePage(),
+        CompassPage(),
       ],
     );
   }
