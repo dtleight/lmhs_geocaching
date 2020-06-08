@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'CachePage.dart';
+import 'package:lmhsgeocaching/CompassPage.dart';
+import 'CacheInfoPage.dart';
+import 'CompassPage.dart';
 
 class CacheContainer extends StatefulWidget {
   @override
@@ -22,8 +24,8 @@ class _PageViewDemoState extends State<CacheContainer> {
     return PageView(
       controller: _controller,
       children: [
-        CachePage(),
-
+        CacheInfoPage(),
+        CompassPage(),
       ],
     );
   }
