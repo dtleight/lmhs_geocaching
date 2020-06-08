@@ -10,7 +10,7 @@ class CacheContainer extends StatefulWidget {
 
 class _PageViewDemoState extends State<CacheContainer> {
   PageController _controller = PageController(
-    initialPage: 0,
+    initialPage: 1,
   );
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'CacheContainer.dart';
 
 class CacheInfoPage extends StatelessWidget {
   GoogleMapController mapController;
@@ -18,7 +19,11 @@ class CacheInfoPage extends StatelessWidget {
     String _cacheLat = _cacheLatLngList[0].substring(7, _cacheLatLngList[0].length);
     String _cacheLng = _cacheLatLngList[1].substring(0, _cacheLatLngList[1].length - 1);
     return new Scaffold(
-        appBar: AppBar(title: Text(_cacheName + " Information")),
+        appBar: AppBar
+          (
+            title: Text(_cacheName + " Information"),
+            actions: <Widget>[IconButton( icon: Icon(Icons.my_location), onPressed: () { Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheContainer())); },),],
+          ),
         body: ListView(
           children: <Widget>[
             Text(

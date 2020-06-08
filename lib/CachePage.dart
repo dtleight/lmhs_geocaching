@@ -12,8 +12,7 @@ class CachePage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.map),
             title: Text('Cache Title #1'),
-            //onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage()));} ,
-              onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheContainer()));} ,
+            onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage()));} ,
           ),
           ListTile(
             leading: Icon(Icons.map),

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'CachePage.dart';
 import 'HomePage.dart';
-import 'CompassPage.dart';
 import 'UtilitySelector.dart';
 
 class PageContainer extends StatefulWidget {
@@ -28,7 +27,6 @@ class _PageViewDemoState extends State<PageContainer> {
         HomePage(title: 'Lower Macungie Historical Society Geocaching'),
         CachePage(),
         UtilitySelector(),
-        CompassPage(),
       ],
     );
   }
