@@ -8,7 +8,7 @@ class CompassPage extends StatelessWidget
 {
   @override
   Widget build(BuildContext context)
-  {
+  {  
     //title: 'Flutter Compass Demo',//theme: ThemeData(brightness: Brightness.dark),//darkTheme: ThemeData.dark(),
     return new Scaffold(
         appBar: AppBar(title: Text('Cache Name')),
