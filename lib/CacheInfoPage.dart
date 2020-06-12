@@ -17,6 +17,7 @@ class CacheInfoPage extends StatelessWidget {
     List<String> _cacheLatLngList = _cacheLatLng.toString().split(",");
     String _cacheLat = _cacheLatLngList[0].substring(7, _cacheLatLngList[0].length);
     String _cacheLng = _cacheLatLngList[1].substring(0, _cacheLatLngList[1].length - 1);
+
     return new Scaffold(
         appBar: AppBar(title: Text(_cacheName + " Information")),
         body: ListView(
