@@ -20,4 +20,9 @@ class Badge
       }
     return imageSRC.substring(0,imageSRC.indexOf(".jpg"))+"(grayscale).jpg";
   }
+
+  obtained()
+  {
+    this.isObtained = true;
+  }
 }

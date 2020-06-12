@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
-import 'CachePage.dart';
-import 'HomePage.dart';
-import 'UtilitySelector.dart';
+import 'package:lmhsgeocaching/CompassPage.dart';
+import 'CacheInfoPage.dart';
+import 'CompassPage.dart';
 
-class PageContainer extends StatefulWidget {
+class CacheContainer extends StatefulWidget {
   @override
   _PageViewDemoState createState() => _PageViewDemoState();
 }
 
-class _PageViewDemoState extends State<PageContainer> {
+class _PageViewDemoState extends State<CacheContainer> {
   PageController _controller = PageController(
-    initialPage: 0,
+    initialPage: 1,
   );
 
   @override
@@ -24,9 +24,8 @@ class _PageViewDemoState extends State<PageContainer> {
     return PageView(
       controller: _controller,
       children: [
-        HomePage(title: 'Lower Macungie Historical Society Geocaching'),
-        CachePage(),
-        UtilitySelector(),
+        CacheInfoPage(),
+        CompassPage(),
       ],
     );
   }
