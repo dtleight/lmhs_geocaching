@@ -1,5 +1,6 @@
 class Badge
 {
+  String name;
   String imageSRC;
   bool isObtained;
   String description;
@@ -7,22 +8,24 @@ class Badge
 
 
   //Constructor
-  Badge(String src)
-  {
+  Badge(String name, String src) {
+    this.name = name;
     this.imageSRC = src;
   }
 
-  getSrc()
-  {
+  getName() {
+    return name;
+  }
+
+  getSrc() {
     if(isObtained)
       {
         return imageSRC;
       }
-    return imageSRC.substring(0,imageSRC.indexOf(".jpg"))+"(grayscale).jpg";
+    return imageSRC/*.substring(0,imageSRC.indexOf(".jpg"))+"(grayscale).jpg"*/;
   }
 
-  obtained()
-  {
+  obtained() {
     this.isObtained = true;
   }
 }
