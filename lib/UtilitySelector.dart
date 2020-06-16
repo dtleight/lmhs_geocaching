@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lmhsgeocaching/ProfilePage.dart';
 import 'package:lmhsgeocaching/BadgeDisplayPage.dart';
 
 class UtilitySelector extends StatelessWidget {
@@ -11,7 +12,7 @@ class UtilitySelector extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text('Profile'),
-            //onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage()));} ,
+            onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new ProfilePage()));} ,
           ),
           ListTile(
             leading: Icon(Icons.star_border),

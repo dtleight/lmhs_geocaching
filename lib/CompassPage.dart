@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:geodesy/geodesy.dart';
 
 import 'package:flutter_compass/flutter_compass.dart';
 class CompassPage extends StatelessWidget
 {
   @override
   Widget build(BuildContext context)
-  {
+  {  
     //title: 'Flutter Compass Demo',//theme: ThemeData(brightness: Brightness.dark),//darkTheme: ThemeData.dark(),
     return new Scaffold(
         appBar: AppBar(title: Text('Cache Name')),
@@ -26,6 +27,7 @@ class Compass extends StatefulWidget
 
 class _CompassState extends State<Compass>
 {
+  //Default 0, coordinate of geocache vs. person using trig.c
   double _heading = 0;
   String get _readout => _heading.toStringAsFixed(0) + '°';
   @override
@@ -57,7 +59,7 @@ class CompassPainter extends CustomPainter {
   CompassPainter({ @required this.angle }) : super();
 
   final double angle;
-
+  //gets orientation of angle
   double get rotation => -2 * pi * (angle / 360);
 
   Paint get _brush =>
@@ -75,6 +77,7 @@ class CompassPainter extends CustomPainter {
 
     double radius = min(size.width / 2.2, size.height / 2.2);
     Offset center = Offset(size.width / 2, size.height / 2);
+    //Location of needle points
     Offset start = Offset.lerp(Offset(center.dx, radius), center, .4);
     Offset end = Offset.lerp(Offset(center.dx, radius), center, 0.1);
 
