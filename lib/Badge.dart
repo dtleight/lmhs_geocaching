@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Badge
 {
   String name;
@@ -13,6 +11,7 @@ class Badge
   Badge(String name, String src) {
     this.name = name;
     this.imageSRC = src;
+    isObtained = true;
   }
 
   getName() {
@@ -24,10 +23,10 @@ class Badge
       {
         return imageSRC;
       }
-    return imageSRC/*.substring(0,imageSRC.indexOf(".jpg"))+"(grayscale).jpg"*/;
+    return imageSRC.substring(0,imageSRC.indexOf(".jpg"))+"(grayscale).jpg";
   }
 
   obtained() {
-    this.isObtained = true;
+    isObtained = true;
   }
 }
