@@ -92,6 +92,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - Firebase/Analytics
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_core_web (from `.symlinks/plugins/firebase_core_web/ios`)
@@ -160,6 +161,6 @@ SPEC CHECKSUMS:
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   qrscan: 42f49ba37d3c423a3b140434003e821135cfc4c3
 
-PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+PODFILE CHECKSUM: 37babddc5e10ac6f5f26c9e36cc217ae1c518feb
 
 COCOAPODS: 1.9.3
