@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:lmhsgeocaching/BadgeInfoPage.dart';
 
 import 'Badge.dart';
+import 'Profile.dart';
 
 class BadgeDisplayPage extends StatelessWidget {
 
   List<Badge> badgeList;
-  List<String> badgeIconFiles;
 
   @override
   Widget build(BuildContext context) {
-    badgeList = new List<Badge>();
-    badgeList.add(new Badge("School", "badge-images/school.jpg"));
-    badgeList.add(new Badge("Church", "badge-images/church.jpg"));
-    badgeList.add(new Badge("Barn", "badge-images/barn.jpg"));
+    badgeList = Profile.badgeList;
 
 
 
