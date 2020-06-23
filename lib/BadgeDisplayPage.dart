@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:lmhsgeocaching/BadgeInfoPage.dart';
 
 import 'Badge.dart';
@@ -24,7 +25,7 @@ class BadgeDisplayPage extends StatelessWidget {
         itemBuilder: (context, position) {
           return Card(
             child: FlatButton(
-              child: Image(image: AssetImage(badgeList[position].getSrc())),
+              child: Image.memory(badgeList[position].getImage()),
               shape: CircleBorder(
                 side: BorderSide(
                   width: 10
