@@ -25,7 +25,7 @@ class BadgeDisplayPage extends StatelessWidget {
         itemBuilder: (context, position) {
           return Card(
             child: FlatButton(
-              child: Image.memory(badgeList[position].getImage()),
+              child: Image(image: AssetImage(badgeList[position].getSRC())),
               shape: CircleBorder(
                 side: BorderSide(
                   width: 10

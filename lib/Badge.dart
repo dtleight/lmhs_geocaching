@@ -28,7 +28,7 @@ class Badge
     return name;
   }
 
-  getImage() {
+  /*getImage() {
     print("got not"); // Do not question my debugging tactics
     File file = new File(imageSRC);
     print("got milk");
@@ -42,6 +42,10 @@ class Badge
         return img.getBytes();
       }
     return grayscale(img).getBytes();
+  }*/
+
+  getSRC() {
+    return imageSRC;
   }
 
   cacheFound() {
