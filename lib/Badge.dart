@@ -29,10 +29,13 @@ class Badge
   }
 
   getImage() {
-    print("got not");
+    print("got not"); // Do not question my debugging tactics
     File file = new File(imageSRC);
+    print("got milk");
+    List<int> bytes = file.readAsBytesSync();
+    //TODO: Fix error caused by the above line - doens't like the file paths given to it
     print("got here");
-    Image img = decodeImage(file.readAsBytesSync());
+    Image img = decodeJpg(bytes);
     print("got there");
     if(isObtained)
       {
