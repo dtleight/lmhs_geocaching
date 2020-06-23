@@ -27,7 +27,7 @@ class _PageViewDemoState extends State<PageContainer> {
       children: [
         HomePage(title: 'Lower Macungie Historical Society Geocaching'),
         CachePage(),
-        UtilitySelector(),
+        //UtilitySelector(),
         DatabaseTest(),
       ],
     );

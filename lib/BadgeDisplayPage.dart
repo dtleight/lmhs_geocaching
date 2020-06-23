@@ -15,7 +15,7 @@ class BadgeDisplayPage extends StatelessWidget {
 
 
 
-    return new Scaffold(
+    return new Scaffold (
       appBar: AppBar(
         title: Text("Badges"),
       ),
