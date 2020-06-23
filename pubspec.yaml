@@ -24,6 +24,7 @@ dependencies:
   flutter_compass: '^0.4.1'
   firebase_core: ^0.4.0+9
   firebase_analytics: ^5.0.2
+  cloud_firestore: ^0.11.0
   qrscan: ^0.2.17
   geodesy: 0.3.2
   cupertino_icons: ^0.1.3
