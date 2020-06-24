@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:lmhsgeocaching/CompassPage.dart';
+import 'Cache.dart';
 import 'CacheInfoPage.dart';
 import 'CompassPage.dart';
 
@@ -24,7 +25,7 @@ class _PageViewDemoState extends State<CacheContainer> {
     return PageView(
       controller: _controller,
       children: [
-        CacheInfoPage(),
+        CacheInfoPage(new Cache()), //TODO: Insert database values into cache initializer
         CompassPage(),
       ],
     );

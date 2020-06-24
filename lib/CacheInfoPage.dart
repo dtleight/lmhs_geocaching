@@ -1,23 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'CacheContainer.dart';
+import 'Cache.dart';
 
 class CacheInfoPage extends StatelessWidget {
   GoogleMapController mapController;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
-  }
-  final String _cacheName = "Cache #1";
-  final String _cacheLoc = "Emmaus High School";
-  final LatLng _cacheLatLng = const LatLng(40.533940, -75.506032);
+  } // _onMapCreated
+  static String _cacheName;
+  static GeoPoint _cacheLoc;
+  static int _cacheID;
+
+  CacheInfoPage(Cache C)
+  {
+    _cacheName = C.name;
+    _cacheLoc = C.location;
+    _cacheID = C.cacheID;
+  } // CacheInfoPage Constructor
+
 
   @override
   Widget build(BuildContext context) {
-    List<String> _cacheLatLngList = _cacheLatLng.toString().split(",");
-    String _cacheLat = _cacheLatLngList[0].substring(7, _cacheLatLngList[0].length);
-    String _cacheLng = _cacheLatLngList[1].substring(0, _cacheLatLngList[1].length - 1);
+    String _cacheLat = _cacheLoc.latitude.toString();
+    String _cacheLng = _cacheLoc.longitude.toString();
+    LatLng _cacheLatLng = new LatLng(_cacheLoc.latitude, _cacheLoc.longitude);
 
     return new Scaffold(
         appBar: AppBar
@@ -28,7 +38,7 @@ class CacheInfoPage extends StatelessWidget {
         body: ListView(
           children: <Widget>[
             Text(
-              "Location: " + _cacheLoc + "\nLat: " + _cacheLat + " Long: " + _cacheLng,
+              "Location: " + _cacheName + "\nLat: " + _cacheLat + " Long: " + _cacheLng,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20,
@@ -98,4 +108,4 @@ class CacheInfoPage extends StatelessWidget {
         )
     );
   }
-}
+}// CacheInfoPage Class
