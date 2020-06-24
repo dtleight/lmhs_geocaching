@@ -10,6 +10,14 @@ class AboutPage extends StatelessWidget
       appBar: AppBar(
         title: Text("About"),
       ),
+      body:  ListView(
+          children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.announcement),
+            title: Text('Licensing'),
+          ),
+    ]
+    ),
     );
   }
 }
