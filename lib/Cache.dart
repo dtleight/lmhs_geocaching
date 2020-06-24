@@ -1,17 +1,26 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'Badge.dart';
 
-class Cache {
+class Cache
+{
+  GeoPoint location;
+  int cacheID;
+  String name;
 
-  List<Badge> _badgeCompletionList;
+  //List<Badge> _badgeCompletionList;
 
-  Cache() {}
+  Cache(GeoPoint location, int cacheID, String name)
+  {
+    this.location = location;
+    this.cacheID = cacheID;
+    this.name = name;
+  }
 
   //TODO: Instantiate _badgeCompletionList based on Badge's in Profile.dart
 
-  void found() {
-    for(Badge badge in _badgeCompletionList) {
-      badge.cacheFound();
-    }
+  void onCacheFound() {
+    //updateBadges(this);
   }
 
 }
