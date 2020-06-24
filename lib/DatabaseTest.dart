@@ -1,3 +1,4 @@
+//import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,10 @@ class DatabaseTest extends StatelessWidget {
           default:
             return new ListView(
               children: snapshot.data.documents.map((DocumentSnapshot document) {
+                print(document['location']);
                 return new ListTile(
-                  title: new Text(document['cacheID']),
-                  subtitle: new Text(document['location']),
+                  title: new Text("Hi"),
+                  subtitle: new Text("Bye"),
                 );
               }).toList(),
             );
