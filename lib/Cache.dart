@@ -4,17 +4,18 @@ import 'Badge.dart';
 
 class Cache
 {
-  GeoPoint location;
-  int cacheID;
   String name;
+  int cacheID;
+  GeoPoint location;
+
 
   //List<Badge> _badgeCompletionList;
 
-  Cache(GeoPoint location, int cacheID, String name)
+  Cache(String name, int cacheID, GeoPoint location )
   {
-    this.location = location;
-    this.cacheID = cacheID;
     this.name = name;
+    this.cacheID = cacheID;
+    this.location = location;
   }
 
   //TODO: Instantiate _badgeCompletionList based on Badge's in Profile.dart

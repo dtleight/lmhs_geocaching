@@ -24,7 +24,7 @@ class DatabaseTest extends StatelessWidget {
                     double lat = gp.latitude;
                     double longitude = gp.longitude;
                     return new ListTile(
-                      title: new Text(document['cacheID'].toString()),
+                      title: new Text(document.documentID),
                       subtitle: new Text(lat.toString() + "," + longitude.toString()),
                     );
                   }).toList(),

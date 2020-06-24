@@ -25,7 +25,7 @@ class _PageViewDemoState extends State<CacheContainer> {
     return PageView(
       controller: _controller,
       children: [
-        CacheInfoPage(new Cache()), //TODO: Insert database values into cache initializer
+       // CacheInfoPage(new Cache()), //TODO: Insert database values into cache initializer
         CompassPage(),
       ],
     );
