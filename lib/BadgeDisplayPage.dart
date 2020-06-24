@@ -1,24 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:lmhsgeocaching/BadgeInfoPage.dart';
 
 import 'Badge.dart';
+import 'Profile.dart';
 
 class BadgeDisplayPage extends StatelessWidget {
 
   List<Badge> badgeList;
-  List<String> badgeIconFiles;
 
   @override
   Widget build(BuildContext context) {
-    badgeList = new List<Badge>();
-    badgeList.add(new Badge("School", "badge-images/school.jpg"));
-    badgeList.add(new Badge("Church", "badge-images/church.jpg"));
-    badgeList.add(new Badge("Barn", "badge-images/barn.jpg"));
+    badgeList = Profile.badgeList;
 
 
 
-    return new Scaffold(
+    return new Scaffold (
       appBar: AppBar(
         title: Text("Badges"),
       ),
@@ -27,7 +25,7 @@ class BadgeDisplayPage extends StatelessWidget {
         itemBuilder: (context, position) {
           return Card(
             child: FlatButton(
-              child: Image(image: AssetImage(badgeList[position].getSrc())),
+              child: Image(image: AssetImage(badgeList[position].getSRC())),
               shape: CircleBorder(
                 side: BorderSide(
                   width: 10
