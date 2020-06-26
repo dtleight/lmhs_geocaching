@@ -7,15 +7,17 @@ class Cache
   String name;
   int cacheID;
   GeoPoint location;
+  bool found;
 
 
   //List<Badge> _badgeCompletionList;
 
-  Cache(String name, int cacheID, GeoPoint location )
+  Cache(String name, int cacheID, GeoPoint location)
   {
     this.name = name;
     this.cacheID = cacheID;
     this.location = location;
+    this.found = false;
   }
 
   //TODO: Instantiate _badgeCompletionList based on Badge's in Profile.dart
