@@ -8,6 +8,7 @@ class Cache
   int cacheID;
   GeoPoint location;
   bool found;
+  DateTime foundDate;
 
 
   //List<Badge> _badgeCompletionList;
