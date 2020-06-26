@@ -23,17 +23,30 @@ class BadgeDisplayPage extends StatelessWidget {
 
       body: GridView.builder(
         itemBuilder: (context, position) {
-          return Card(
-            child: FlatButton(
-              child: Image(image: AssetImage(badgeList[position].getSRC())),
-              shape: CircleBorder(
-                side: BorderSide(
-                  width: 10
-                )
+          return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:
+              [
+              InkWell(
+              child: CircleAvatar(
+                backgroundColor: Color(0xffFDCF09),
+                radius:90,
+                child: CircleAvatar(backgroundImage: AssetImage(badgeList[position].getSRC()),radius: 85,)),
+              onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(badgeList[position])));},
               ),
-              onPressed: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(badgeList[position])));},
-            ),
+                Text(badgeList[position].getName())
+              ]
+
           );
+          /**
+          return InkWell(
+            child: Container(
+              child: Flexible(child:CircleAvatar(backgroundImage: AssetImage(badgeList[position].getSRC()),)),
+              ),
+              onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(badgeList[position])));},
+            );
+              **/
         },
         itemCount: badgeList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

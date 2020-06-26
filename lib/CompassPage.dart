@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -13,10 +14,11 @@ class CompassPage extends StatelessWidget
     return new Scaffold(
         appBar: AppBar(title: Text('Cache Name')),
         backgroundColor: Colors.black,
-        body: Compass()
+        //body: Compass()
     );
   }
 }
+/**
 
 class Compass extends StatefulWidget
 {
@@ -91,3 +93,59 @@ class CompassPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
+**/
+/**
+class Compass extends StatefulWidget
+{
+  GeoPoint destination;
+  GeoPoint currLoc;
+  double distance;
+  double needleHeading;
+  Compass(GeoPoint destination, GeoPoint currLoc)
+  {
+    this.destination = destination;
+    this.currLoc = currLoc;
+    needleHeading = atan((destination.longitude-currLoc.longitude)/(destination.latitude-currLoc.latitude));
+  }
+}
+
+class CompassState extends State<Compass> {
+  double _direction;
+
+  @override
+  void initState() {
+    super.initState();
+    FlutterCompass.events.listen((double direction) {
+      setState(() {
+        _direction = direction;
+      });
+    });
+  }
+  ///trig
+  ///Device orientation = _direction
+  ///Angle from orientation to destination
+  ///arctan(x/y)
+
+  @override
+  Widget build(BuildContext context) {
+    //Needle
+    //atan()
+    return new MaterialApp(
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: const Text('Flutter Compass'),
+        ),
+        body: new Container(
+          alignment: Alignment.center,
+          color: Colors.white,
+          //If no direction found, use 0, else use direction
+          child: new Transform.rotate(
+            angle: ((_direction ?? 0) * (pi / 180) * -1),
+            child: new Image.asset('assets/compass.jpg'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+    **/
