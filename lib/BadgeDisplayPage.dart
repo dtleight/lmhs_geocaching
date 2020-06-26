@@ -39,14 +39,6 @@ class BadgeDisplayPage extends StatelessWidget {
               ]
 
           );
-          /**
-          return InkWell(
-            child: Container(
-              child: Flexible(child:CircleAvatar(backgroundImage: AssetImage(badgeList[position].getSRC()),)),
-              ),
-              onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(badgeList[position])));},
-            );
-              **/
         },
         itemCount: badgeList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

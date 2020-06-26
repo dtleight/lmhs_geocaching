@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'ProfilePage.dart';
 import 'BadgeDisplayPage.dart';
@@ -32,20 +33,17 @@ class _MyHomePageState extends State<HomePage> {
     try {
       currentLocation = await location.getLocation();
       setState(
-              () {}); //rebuild the widget after getting the current location of the user
+              () {});
     } on Exception {
       currentLocation = null;
     }
   }
+
+  Set<Marker> markers ={new Marker(position: LatLng(40.515203,-75.543555), markerId: MarkerId("Test"),)};
   @override
   Widget build(BuildContext context) {
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
         appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
         drawer: Drawer(
@@ -98,11 +96,14 @@ class _MyHomePageState extends State<HomePage> {
         ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,
+          mapType: MapType.terrain,
           initialCameraPosition: CameraPosition(
             target: _pos,
             zoom: 15.0,
           ),
           myLocationEnabled: true,
+          markers: markers,
         ));
   }
 }
+
