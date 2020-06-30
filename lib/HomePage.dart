@@ -24,20 +24,22 @@ class _MyHomePageState extends State<HomePage> {
   LatLng _pos = const LatLng(40.523938, -75.547719);
   LocationData currentLocation;
   Location location;
+  Set<Marker> markers;
   @override
   void initState() {
     super.initState();
+    loadDatabase();
   }
 
-  void _onMapCreated(GoogleMapController controller) async{
+  void _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
   }
+
   void _getLocation() async {
     var location = new Location();
     try {
       currentLocation = await location.getLocation();
-      setState(
-              () {});
+      setState(() {});
     } on Exception {
       currentLocation = null;
     }
@@ -46,103 +48,119 @@ class _MyHomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: Text("Luigi"),
-                accountEmail: Text("luigi.green@gmail.com"),
-                currentAccountPicture: GestureDetector(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text("Luigi"),
+              accountEmail: Text("luigi.green@gmail.com"),
+              currentAccountPicture: GestureDetector(
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://vignette.wikia.nocookie.net/nintendo/images/0/04/New_Super_Mario_Bros._U_Deluxe_-_Luigi_01.png/revision/latest?cb=20181226204244&path-prefix=en"),
+                ),
+              ),
+              otherAccountsPictures: <Widget>[
+                GestureDetector(
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage("https://vignette.wikia.nocookie.net/nintendo/images/0/04/New_Super_Mario_Bros._U_Deluxe_-_Luigi_01.png/revision/latest?cb=20181226204244&path-prefix=en"),
+                    backgroundImage: NetworkImage(
+                        "https://vignette.wikia.nocookie.net/nintendo/images/d/d8/New_Super_Mario_Bros._U_Deluxe_-_Mario_01.png/revision/latest?cb=20181226204245&path-prefix=en"),
                   ),
                 ),
-                otherAccountsPictures: <Widget>[
-                  GestureDetector(
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage("https://vignette.wikia.nocookie.net/nintendo/images/d/d8/New_Super_Mario_Bros._U_Deluxe_-_Mario_01.png/revision/latest?cb=20181226204245&path-prefix=en"),
-                    ),
-                  ),
-                ],
-                decoration: BoxDecoration(
+              ],
+              decoration: BoxDecoration(
                   image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage("https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg")
-                  )
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.account_circle),
-                title: Text('Profile'),
-                onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new ProfilePage()));} ,
-              ),
-              ListTile(
-                leading: Icon(Icons.star_border),
-                title: Text('Badges'),
-                onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeDisplayPage()));} ,
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new SettingsPage()));} ,
-              ),
-              ListTile(
-                leading: Icon(Icons.announcement),
-                title: Text('About'),
-                onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new AboutPage()));} ,
-              )
-            ],
-          ),
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                          "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"))),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (ctxt) => new ProfilePage()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.star_border),
+              title: Text('Badges'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (ctxt) => new BadgeDisplayPage()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (ctxt) => new SettingsPage()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.announcement),
+              title: Text('About'),
+              onTap: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (ctxt) => new AboutPage()));
+              },
+            )
+          ],
         ),
-        //Convert to a FutureBuilder
-    body: FutureBuilder
-    (
-      future:  loadDatabase(),
-      builder: (context,snapshot)
-      {
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return new Text('Loading...');
-          default:
-            return GoogleMap
-              (
-              onMapCreated: _onMapCreated,
-              mapType: MapType.terrain,
-              initialCameraPosition: CameraPosition
+      ),
+      body: FutureBuilder
+        (
+        future:  loadDatabase(),
+        builder: (context,snapshot)
+        {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return new Text('Loading...');
+            default:
+              return GoogleMap
                 (
-                target: _pos,
-                zoom: 15.0,
-              ),
-              myLocationEnabled: true,
-              markers: markers,
-            );
-        }
-      },
-    ),
+                onMapCreated: _onMapCreated,
+                mapType: MapType.terrain,
+                initialCameraPosition: CameraPosition
+                  (
+                  target: _pos,
+                  zoom: 15.0,
+                ),
+                myLocationEnabled: true,
+                //markers: markers,
+              );
+          }
+        },
+      ),
     );
   }
 
   //Not loading
 
-  Future<Set<Marker>> loadDatabase()  async
-  {
-    Set<Marker> markers = <Marker>{};
-    List<Cache> caches;
+   loadDatabase() async
+   {
+     markers = Set();
+    List<Cache> caches = new List();
     CollectionReference ref = Firestore.instance.collection('caches');
     QuerySnapshot eventsQuery = await ref.getDocuments();
-    eventsQuery.documents.forEach((document)
-    {
+    eventsQuery.documents.forEach((document) {
       print(document.documentID);
-      caches.add(new Cache(document.documentID,document['cacheID'],document['location']));
+      GeoPoint gp = document['location'];
+      caches.add(new Cache(document.documentID, document['cacheID'], document['location']));
       //markers.add(new Marker(position: new LatLng(40.507904, -75.543555),markerId: new MarkerId("Test")));
-      markers.add(new Marker(position: document['location'], markerId: new MarkerId(document.documentID)));
+      markers.add(new Marker(
+          position: new LatLng(gp.latitude, gp.longitude),
+          markerId: new MarkerId(document.documentID)));
     });
-    return markers;
   }
 }
-
-
-
