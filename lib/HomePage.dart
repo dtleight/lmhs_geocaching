@@ -8,6 +8,7 @@ import 'ProfilePage.dart';
 import 'BadgeDisplayPage.dart';
 import 'SettingsPage.dart';
 import 'AboutPage.dart';
+import 'Cache.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -23,7 +24,10 @@ class _MyHomePageState extends State<HomePage> {
   LatLng _pos = const LatLng(40.523938, -75.547719);
   LocationData currentLocation;
   Location location;
-
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _onMapCreated(GoogleMapController controller) async{
     mapController = controller;
@@ -39,7 +43,6 @@ class _MyHomePageState extends State<HomePage> {
     }
   }
 
-  Set<Marker> markers ={new Marker(position: LatLng(40.515203,-75.543555), markerId: MarkerId("Test"),)};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,16 +97,52 @@ class _MyHomePageState extends State<HomePage> {
             ],
           ),
         ),
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          mapType: MapType.terrain,
-          initialCameraPosition: CameraPosition(
-            target: _pos,
-            zoom: 15.0,
-          ),
-          myLocationEnabled: true,
-          markers: markers,
-        ));
+        //Convert to a FutureBuilder
+    body: FutureBuilder
+    (
+      future:  loadDatabase(),
+      builder: (context,snapshot)
+      {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return new Text('Loading...');
+          default:
+            return GoogleMap
+              (
+              onMapCreated: _onMapCreated,
+              mapType: MapType.terrain,
+              initialCameraPosition: CameraPosition
+                (
+                target: _pos,
+                zoom: 15.0,
+              ),
+              myLocationEnabled: true,
+              markers: markers,
+            );
+        }
+      },
+    ),
+    );
+  }
+
+  //Not loading
+
+  Future<Set<Marker>> loadDatabase()  async
+  {
+    Set<Marker> markers = <Marker>{};
+    List<Cache> caches;
+    CollectionReference ref = Firestore.instance.collection('caches');
+    QuerySnapshot eventsQuery = await ref.getDocuments();
+    eventsQuery.documents.forEach((document)
+    {
+      print(document.documentID);
+      caches.add(new Cache(document.documentID,document['cacheID'],document['location']));
+      //markers.add(new Marker(position: new LatLng(40.507904, -75.543555),markerId: new MarkerId("Test")));
+      markers.add(new Marker(position: document['location'], markerId: new MarkerId(document.documentID)));
+    });
+    return markers;
   }
 }
+
+
 

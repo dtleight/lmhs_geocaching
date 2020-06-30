@@ -1,6 +1,8 @@
 import 'dart:io';
 
-import 'package:image/image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+//import 'package:image/image.dart';
 
 class Badge
 {
@@ -28,6 +30,10 @@ class Badge
     return name;
   }
 
+  Image getImage()
+  {
+    return Image.asset("filepath");
+  }
   /*getImage() {
     print("got not"); // Do not question my debugging tactics
     File file = new File(imageSRC);

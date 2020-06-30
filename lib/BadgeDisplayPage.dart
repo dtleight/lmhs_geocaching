@@ -33,11 +33,10 @@ class BadgeDisplayPage extends StatelessWidget {
                 backgroundColor: Color(0xffFDCF09),
                 radius:90,
                 child: CircleAvatar(backgroundImage: AssetImage(badgeList[position].getSRC()),radius: 85,)),
-              onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(badgeList[position])));},
+            onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(badgeList[position])));},
               ),
                 Text(badgeList[position].getName())
               ]
-
           );
         },
         itemCount: badgeList.length,
