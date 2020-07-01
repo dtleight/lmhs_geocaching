@@ -4,11 +4,15 @@ import 'Badge.dart';
 
 class BadgeInfoPage extends StatelessWidget {
 
-  Badge _badge; // Badge to be described on this page
+  static bool _obtained;
+  static String _badgeName;
+  static int _badgeID;
 
   //Constructor
-  BadgeInfoPage(Badge badge){
-    _badge = badge;
+  BadgeInfoPage(Badge B){
+    _obtained = B.isObtained;
+    _badgeName = B.name;
+    _badgeID = B.badgeID;
   }
 
 
@@ -16,7 +20,7 @@ class BadgeInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_badge.getName()),
+        title: Text(_badge.getName()), //TODO: Design UI
       ),
     );
   }

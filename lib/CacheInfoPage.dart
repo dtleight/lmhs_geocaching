@@ -5,12 +5,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'CacheContainer.dart';
 import 'Cache.dart';
 
-class CacheInfoPage extends StatelessWidget {
+class CacheInfoPage extends StatelessWidget
+{
   GoogleMapController mapController;
 
-  void _onMapCreated(GoogleMapController controller) {
+  void _onMapCreated(GoogleMapController controller)
+  {
     mapController = controller;
   } // _onMapCreated
+
   static String _cacheName;
   static GeoPoint _cacheLoc;
   static int _cacheID;
@@ -22,9 +25,9 @@ class CacheInfoPage extends StatelessWidget {
     _cacheID = C.cacheID;
   } // CacheInfoPage Constructor
 
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     String _cacheLat = _cacheLoc.latitude.toString();
     String _cacheLng = _cacheLoc.longitude.toString();
     LatLng _cacheLatLng = new LatLng(_cacheLoc.latitude, _cacheLoc.longitude);

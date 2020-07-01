@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 class Badge
 {
   String name;
+  int badgeID;
   String imageSRC;
   bool isObtained;
   String description;
@@ -17,10 +18,11 @@ class Badge
 
 
   //Constructor
-  Badge(String name, String src, int need) {
+  Badge(String name, String src, int need, int ID) {
     this.name = name;
     this.imageSRC = src;
     isObtained = true;
+    badgeID = ID;
 
     _cachesCollected = 0;
     _cachesNeeded = need;
