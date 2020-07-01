@@ -24,7 +24,7 @@ class Cache
   //TODO: Instantiate _badgeCompletionList based on Badge's in Profile.dart
 
   void onCacheFound() {
-    //updateBadges(this);
+    //updateBadges();
   }
 
 }
