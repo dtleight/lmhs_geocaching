@@ -28,10 +28,6 @@ class Badge
     _cachesNeeded = need;
   }
 
-  getName() {
-    return name;
-  }
-
   Image getImage()
   {
     return Image.asset("filepath");
@@ -52,14 +48,8 @@ class Badge
     return grayscale(img).getBytes();
   }*/
 
-  getSRC() {
-    return imageSRC;
-  }
-
-  cacheFound() {
-    _cachesCollected++;
-    if(_cachesCollected == _cachesNeeded) {
-      isObtained = true;
-    }
+  updateBadges()
+  {
+    //for each badge, call checkObtained
   }
 }

@@ -20,7 +20,7 @@ class BadgeInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_badge.getName()), //TODO: Design UI
+        title: Text(_badgeName), //TODO: Design UI
       ),
     );
   }
