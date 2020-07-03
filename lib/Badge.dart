@@ -21,7 +21,7 @@ class Badge
   Badge(String name, String src, int need, int ID) {
     this.name = name;
     this.imageSRC = src;
-    isObtained = true;
+    isObtained = false;
     badgeID = ID;
 
     _cachesCollected = 0;
