@@ -18,14 +18,13 @@ class Badge
 
 
   //Constructor
-  Badge(String name, String src, int need, int ID) {
+  Badge(String name, String src, int ID) {
     this.name = name;
     this.imageSRC = src;
     isObtained = true;
     badgeID = ID;
 
     _cachesCollected = 0;
-    _cachesNeeded = need;
   }
 
   Image getImage()
@@ -51,5 +50,13 @@ class Badge
   updateBadges()
   {
     //for each badge, call checkObtained
+  }
+
+  Badge.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    description = json['description'];
+    //src = json['src'];
+    //id = json['id'];
+    //requirement = json['requirement'];
   }
 }
