@@ -13,9 +13,6 @@ class BadgeDisplayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     badgeList = Profile.badgeList;
-
-
-
     return new Scaffold (
       appBar: AppBar(
         title: Text("Badges"),
