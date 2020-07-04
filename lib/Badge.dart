@@ -37,7 +37,7 @@ class Badge
     File file = new File(imageSRC);
     print("got milk");
     List<int> bytes = file.readAsBytesSync();
-    //TODO: Fix error caused by the above line - doens't like the file paths given to it
+    //TODO: Fix error caused by the above line - doesn't like the file paths given to it
     print("got here");
     Image img = decodeJpg(bytes);
     print("got there");
