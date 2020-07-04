@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-//import 'package:image/image.dart';
 
 class Badge
 {
@@ -13,24 +12,21 @@ class Badge
   String description;
   DateTime unlockDate;
 
-  int _cachesCollected;
-  int _cachesNeeded;
-
 
   //Constructor
-  Badge(String name, String src, int ID) {
+  Badge(String name, String src, int ID)
+  {
     this.name = name;
     this.imageSRC = src;
     isObtained = false;
     badgeID = ID;
-
-    _cachesCollected = 0;
   }
 
   Image getImage()
   {
     return Image.asset("filepath");
   }
+
   /*getImage() {
     print("got not"); // Do not question my debugging tactics
     File file = new File(imageSRC);
@@ -52,11 +48,12 @@ class Badge
     //for each badge, call checkObtained
   }
 
-  Badge.fromJson(Map<String, dynamic> json) {
+  Badge.fromJson(Map<String, dynamic> json)
+  {
     name = json['name'];
     description = json['description'];
-    //src = json['src'];
-    //id = json['id'];
+    imageSRC = json['src'];
+    badgeID = json['id'];
     //requirement = json['requirement'];
   }
 }

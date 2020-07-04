@@ -4,14 +4,14 @@
     {
       "name": "Ready, Set, Go",
       "description": "Find your first cache.",
-      "src": "internal_file_path.png",
+      "src": "badge-images/barn.jpg",
       "id": 1,
       "requirement": 1
     },
     {
       "name": "Freshman",
       "description" : "Find a schoolhouse",
-      "src": "internal_file_path.png",
+      "src": "badge-images/school.jpg",
       "id": 2,
       "requirement": [1]
     }

@@ -10,7 +10,8 @@ import 'SettingsPage.dart';
 import 'AboutPage.dart';
 import 'Cache.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget
+{
   HomePage({Key key, this.title}) : super(key: key);
 
   final String title;
@@ -25,6 +26,7 @@ class _MyHomePageState extends State<HomePage> {
   LocationData currentLocation;
   Location location;
   Set<Marker> markers;
+
   @override
   void initState() {
     super.initState();
@@ -144,8 +146,6 @@ class _MyHomePageState extends State<HomePage> {
       ),
     );
   }
-
-  //Not loading
 
    loadDatabase() async
    {
