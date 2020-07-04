@@ -13,9 +13,6 @@ class BadgeDisplayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     badgeList = Profile.badgeList;
-
-
-
     return new Scaffold (
       appBar: AppBar(
         title: Text("Badges"),
@@ -32,10 +29,10 @@ class BadgeDisplayPage extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: Color(0xffFDCF09),
                 radius:90,
-                child: CircleAvatar(backgroundImage: AssetImage(badgeList[position].getSRC()),radius: 85,)),
+                child: CircleAvatar(backgroundImage: AssetImage(badgeList[position].imageSRC),radius: 85,)),
             onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(badgeList[position])));},
               ),
-                Text(badgeList[position].getName())
+                Text(badgeList[position].name)
               ]
           );
         },
