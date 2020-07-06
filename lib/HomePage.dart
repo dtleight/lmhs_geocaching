@@ -10,7 +10,8 @@ import 'SettingsPage.dart';
 import 'AboutPage.dart';
 import 'Cache.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget
+{
   HomePage({Key key, this.title}) : super(key: key);
 
   final String title;
@@ -25,10 +26,11 @@ class _MyHomePageState extends State<HomePage> {
   LocationData currentLocation;
   Location location;
   Set<Marker> markers;
+
   @override
   void initState() {
     super.initState();
-    loadDatabase();
+    //loadDatabase();
   }
 
   void _onMapCreated(GoogleMapController controller) async {
@@ -120,7 +122,7 @@ class _MyHomePageState extends State<HomePage> {
       ),
       body: FutureBuilder
         (
-        future:  loadDatabase(),
+        //future:  loadDatabase(),
         builder: (context,snapshot)
         {
           switch (snapshot.connectionState) {
@@ -145,8 +147,6 @@ class _MyHomePageState extends State<HomePage> {
     );
   }
 
-  //Not loading
-
    loadDatabase() async
    {
      markers = Set();
@@ -154,10 +154,8 @@ class _MyHomePageState extends State<HomePage> {
     CollectionReference ref = Firestore.instance.collection('caches');
     QuerySnapshot eventsQuery = await ref.getDocuments();
     eventsQuery.documents.forEach((document) {
-      print(document.documentID);
       GeoPoint gp = document['location'];
       caches.add(new Cache(document.documentID, document['cacheID'], document['location']));
-      //markers.add(new Marker(position: new LatLng(40.507904, -75.543555),markerId: new MarkerId("Test")));
       markers.add(new Marker(
           position: new LatLng(gp.latitude, gp.longitude),
           markerId: new MarkerId(document.documentID)));

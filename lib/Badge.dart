@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-//import 'package:image/image.dart';
 
 class Badge
 {
@@ -13,31 +12,27 @@ class Badge
   String description;
   DateTime unlockDate;
 
-  int _cachesCollected;
-  int _cachesNeeded;
-
 
   //Constructor
-  Badge(String name, String src, int need, int ID) {
+  Badge(String name, String src, int ID)
+  {
     this.name = name;
     this.imageSRC = src;
-    isObtained = true;
+    isObtained = false;
     badgeID = ID;
-
-    _cachesCollected = 0;
-    _cachesNeeded = need;
   }
 
   Image getImage()
   {
     return Image.asset("filepath");
   }
+
   /*getImage() {
     print("got not"); // Do not question my debugging tactics
     File file = new File(imageSRC);
     print("got milk");
     List<int> bytes = file.readAsBytesSync();
-    //TODO: Fix error caused by the above line - doens't like the file paths given to it
+    //TODO: Fix error caused by the above line - doesn't like the file paths given to it
     print("got here");
     Image img = decodeJpg(bytes);
     print("got there");
@@ -51,5 +46,14 @@ class Badge
   updateBadges()
   {
     //for each badge, call checkObtained
+  }
+
+  Badge.fromJson(Map<String, dynamic> json)
+  {
+    name = json['name'];
+    description = json['description'];
+    imageSRC = json['src'];
+    badgeID = json['id'];
+    //requirement = json['requirement'];
   }
 }
