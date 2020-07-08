@@ -1,6 +1,6 @@
 import 'Badge.dart';
 class Profile {
-  //TODO: Write profile info to internal storage
+  //TODO: Write profile info to the database
   String sort='alpha';
   static List<Badge> badgeList = [
     new Badge("School", "badge-images/school.jpg", 1),
@@ -10,18 +10,17 @@ class Profile {
   Profile() {}
 
   //this should automatically run whenever the user goes to look at his/her badges
-  for(var i=0; i<badgeList.length; i++){
+  //for(var i=0; i<badgeList.length; i++){
 
-  alphasort(){
+  alphasort()  {
 
   }
+
   topicsort() {
-  }
 
   }
+
   newestsort() {
 
   }
-}
-
 }

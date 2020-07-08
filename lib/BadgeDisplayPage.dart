@@ -15,6 +15,7 @@ class BadgeDisplayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
+    badgeList = Profile.badgeList;
     return new Scaffold (
       appBar: AppBar(
         title: Text("Badges"),
@@ -48,7 +49,28 @@ class BadgeDisplayPage extends StatelessWidget {
         future: DefaultAssetBundle.of(context).loadString('badge-images/badge_data.json'),
         builder: (context,position)
         {
-          return Column(
+          return GridView.builder(
+            itemBuilder: (context, position) {
+              return Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children:
+                  [
+                    InkWell(
+                      child: CircleAvatar(
+                          backgroundColor: Color(0xffFDCF09),
+                          radius:90,
+                          child: CircleAvatar(backgroundImage: AssetImage(badgeList[position].imageSRC),radius: 85,)),
+                      onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(badgeList[position])));},
+                    ),
+                    Text(badgeList[position].name)
+                  ]
+              );
+            },
+            itemCount: badgeList.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          );
+          /**return Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children:
@@ -62,7 +84,7 @@ class BadgeDisplayPage extends StatelessWidget {
                 ),
                 Text(badgeList[position].name)
               ]
-          );
+          );**/
         },
       ),
     );
