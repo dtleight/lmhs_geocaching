@@ -2,7 +2,6 @@ import 'package:lmhsgeocaching/Badge.dart';
 
 class BadgeLoader {
   List<Badge> badges;
-
   BadgeLoader({this.badges});
 
   BadgeLoader.fromJson(Map<String, dynamic> json) {
