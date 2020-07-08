@@ -11,17 +11,17 @@ class Badge
   bool isObtained;
   String description;
   DateTime unlockDate;
+  dynamic requirement;
 
 
   //Constructor
-  Badge(String name, String src, int ID)
-  {
+  Badge(String name, String src, int ID) {
     this.name = name;
     this.imageSRC = src;
     isObtained = false;
     badgeID = ID;
-  }
 
+  }
   Image getImage()
   {
     return Image.asset("filepath");

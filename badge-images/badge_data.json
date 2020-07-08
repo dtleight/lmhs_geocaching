@@ -10,10 +10,10 @@
     },
     {
       "name": "Freshman",
-      "description" : "Find a schoolhouse",
+      "description" : "Find the schoolhouse in Macungie",
       "src": "badge-images/school.jpg",
       "id": 2,
-      "requirement": [1]
+      "requirement": [1,2,3,4]
     }
   ]
 }
