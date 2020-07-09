@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:lmhsgeocaching/BadgeInfoPage.dart';
 import 'Badge.dart';
+import 'BadgeLoader.dart';
 import 'Profile.dart';
 
 class BadgeDisplayPage extends StatelessWidget {
@@ -47,14 +48,10 @@ class BadgeDisplayPage extends StatelessWidget {
         builder: (context,snapshot)
         {
           List<Widget> children = <Widget>[Column()];
+          //print(snapshot.data);
           if(snapshot.hasData)
             {
               List<Badge> lb = List<Badge>.from(snapshot.data);
-              print("Data found");
-              //List<BadgeLoader> badgeloaderList = parseJson(snapshot.data.toString());
-              print("No messs");
-              //List<Badge> badgeList = badgeloaderList.elementAt(0).badges;
-              print("The issue is here");
               lb.forEach((badge)
               {
                 children.add
@@ -111,34 +108,10 @@ class BadgeDisplayPage extends StatelessWidget {
 
   Future<List<Badge>> loadBadgeList() async {
     String jsonString = await _loadBadgeList();
+    print(jsonString);
     final jsonResponse = json.decode(jsonString);
     BadgeLoader bl = new BadgeLoader.fromJson(jsonResponse);
+    print(bl.badges);
     return bl.badges;
   }
-}
-
-class BadgeLoader
-{
-  List<Badge> badges;
-
-  BadgeLoader({this.badges});
-
-  factory BadgeLoader.fromJson(Map<String, dynamic> parsedJson)
-  {
-    List<Badge> badgesList = List<Badge>();
-    List<String> rawBadgeData = new List<String>.from(parsedJson['badges']);
-    rawBadgeData.forEach((badgeString)
-    {
-      badgesList.add(Badge.fromJson(json.decode(badgeString)));
-    });
-    return BadgeLoader(badges: badgesList);
-  }
-  /**
-    if (json['badges'] != null) {
-      badges = new List<Badge>();
-      json['badges'].forEach((v) {
-        badges.add(new Badge.fromJson(v));
-      });
-
-**/
 }
