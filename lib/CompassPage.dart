@@ -3,10 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:geodesy/geodesy.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:flutter_compass/flutter_compass.dart';
+
+import 'Cache.dart';
 class CompassPage extends StatelessWidget
 {
+  Cache _target;
+
+  CompassPage(Cache c) {
+    _target = c;
+  }
+
   @override
   Widget build(BuildContext context)
   {  
@@ -14,23 +23,43 @@ class CompassPage extends StatelessWidget
     return new Scaffold(
         appBar: AppBar(title: Text('Cache Name')),
         backgroundColor: Colors.black,
-        //body: Compass()
+        body: Compass(target: _target,)
     );
   }
 }
-/**
+
 
 class Compass extends StatefulWidget
 {
-  Compass({Key key}) : super(key: key);
+  Cache target;
+
+  Compass({Key key, this.target}) : super(key: key);
   @override
   _CompassState createState() => _CompassState();
 }
 
 class _CompassState extends State<Compass>
 {
-  //Default 0, coordinate of geocache vs. person using trig.c
-  double _heading = 0;
+  Cache _target;
+  double _heading;
+
+  _CompassState(Cache c) {
+    _target = c;
+
+    Geodesy geodesy = Geodesy();
+
+    GeoPoint targetLoc = _target.location;
+    LatLng targetLatLng = LatLng(targetLoc.latitude, targetLoc.longitude);
+
+    //TODO: Make the below code run in async
+    GeolocationStatus geolocationStatus = await Geolocator().checkGeolocationPermissionStatus();
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    LatLng userLatLng = LatLng(position.latitude, position.longitude);
+
+    _heading = geodesy.bearingBetweenTwoGeoPoints(targetLatLng, userLatLng);
+  }
+
+
   String get _readout => _heading.toStringAsFixed(0) + '°';
   @override
   void initState()
@@ -60,7 +89,7 @@ class _CompassState extends State<Compass>
 class CompassPainter extends CustomPainter {
   CompassPainter({ @required this.angle }) : super();
 
-  final double angle;
+  double angle;
   //gets orientation of angle
   double get rotation => -2 * pi * (angle / 360);
 
@@ -91,9 +120,12 @@ class CompassPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    angle = atan(0);
+    return true;
+  }
 }
-**/
+
 /**
 class Compass extends StatefulWidget
 {
