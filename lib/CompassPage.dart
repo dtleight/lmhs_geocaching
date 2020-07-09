@@ -10,20 +10,23 @@ import 'package:flutter_compass/flutter_compass.dart';
 import 'Cache.dart';
 class CompassPage extends StatelessWidget
 {
-  Cache _target;
+  LatLng _targetLoc;
 
   CompassPage(Cache c) {
-    _target = c;
+    GeoPoint gp = c.location;
+    _targetLoc = LatLng(gp.latitude, gp.longitude);
   }
 
   @override
   Widget build(BuildContext context)
-  {  
+  {
+
+
     //title: 'Flutter Compass Demo',//theme: ThemeData(brightness: Brightness.dark),//darkTheme: ThemeData.dark(),
     return new Scaffold(
         appBar: AppBar(title: Text('Cache Name')),
         backgroundColor: Colors.black,
-        body: Compass(target: _target,)
+        body: Compass(targetLoc: _targetLoc,)
     );
   }
 }
@@ -31,34 +34,22 @@ class CompassPage extends StatelessWidget
 
 class Compass extends StatefulWidget
 {
-  Cache target;
+  LatLng targetLoc;
 
-  Compass({Key key, this.target}) : super(key: key);
+  Compass({Key key, this.targetLoc}) : super(key: key);
   @override
-  _CompassState createState() => _CompassState(target);
+  _CompassState createState() => _CompassState(targetLoc);
 }
 
 class _CompassState extends State<Compass>
 {
-  Cache _target;
+  LatLng _targetLoc;
   double _heading;
 
-  _CompassState(Cache c) {
-    _target = c;
-
-    Geodesy geodesy = Geodesy();
-
-    GeoPoint targetLoc = _target.location;
-    LatLng targetLatLng = LatLng(targetLoc.latitude, targetLoc.longitude);
-
-    //TODO: Make the below code run in async
-    GeolocationStatus geolocationStatus = await Geolocator().checkGeolocationPermissionStatus();
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    LatLng userLatLng = LatLng(position.latitude, position.longitude);
-
-    _heading = geodesy.bearingBetweenTwoGeoPoints(targetLatLng, userLatLng);
+  _CompassState(LatLng t) {
+    _targetLoc = t;
+    _heading = 0;
   }
-
 
   String get _readout => _heading.toStringAsFixed(0) + '°';
   @override
@@ -87,8 +78,9 @@ class _CompassState extends State<Compass>
 }
 
 class CompassPainter extends CustomPainter {
-  CompassPainter({ @required this.angle }) : super();
+  CompassPainter({ @required this.angle, this.targetLoc }) : super();
 
+  LatLng targetLoc;
   double angle;
   //gets orientation of angle
   double get rotation => -2 * pi * (angle / 360);
@@ -112,6 +104,8 @@ class CompassPainter extends CustomPainter {
     Offset start = Offset.lerp(Offset(center.dx, radius), center, .4);
     Offset end = Offset.lerp(Offset(center.dx, radius), center, 0.1);
 
+    getAngle();
+
     canvas.translate(center.dx, center.dy);
     canvas.rotate(rotation);
     canvas.translate(-center.dx, -center.dy);
@@ -121,8 +115,17 @@ class CompassPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    angle = atan(0);
     return true;
+  }
+
+  Future<void> getAngle() async {
+    Geodesy geodesy = Geodesy();
+
+    await Geolocator().checkGeolocationPermissionStatus();
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    LatLng userLatLng = LatLng(position.latitude, position.longitude);
+
+    angle =  geodesy.bearingBetweenTwoGeoPoints(targetLoc, userLatLng);
   }
 }
 
