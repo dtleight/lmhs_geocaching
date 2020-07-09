@@ -35,7 +35,7 @@ class Compass extends StatefulWidget
 
   Compass({Key key, this.target}) : super(key: key);
   @override
-  _CompassState createState() => _CompassState();
+  _CompassState createState() => _CompassState(target);
 }
 
 class _CompassState extends State<Compass>

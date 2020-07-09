@@ -17,9 +17,10 @@ class CacheInfoPage extends StatelessWidget
   static String _cacheName;
   static GeoPoint _cacheLoc;
   static int _cacheID;
-
+  Cache c;
   CacheInfoPage(Cache C)
   {
+    c = C;
     _cacheName = C.name;
     _cacheLoc = C.location;
     _cacheID = C.cacheID;
@@ -36,7 +37,7 @@ class CacheInfoPage extends StatelessWidget
         appBar: AppBar
           (
             title: Text(_cacheName + " Information"),
-            actions: <Widget>[IconButton( icon: Icon(Icons.my_location), onPressed: () { Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheContainer())); },),],
+            actions: <Widget>[IconButton( icon: Icon(Icons.my_location), onPressed: () { Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheContainer(c))); },),],
           ),
         body: ListView(
           children: <Widget>[
