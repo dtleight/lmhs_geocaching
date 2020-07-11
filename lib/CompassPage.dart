@@ -115,6 +115,8 @@ class CompassPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
+    print("Angle::");
+    getAngle();
     return true;
   }
 
@@ -123,9 +125,11 @@ class CompassPainter extends CustomPainter {
 
     await Geolocator().checkGeolocationPermissionStatus();
     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print('Angle:: $position' + position.latitude.toString());
     LatLng userLatLng = LatLng(position.latitude, position.longitude);
 
     angle =  geodesy.bearingBetweenTwoGeoPoints(targetLoc, userLatLng);
+    print('Angle:: $angle');
   }
 }
 

@@ -1,6 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geodesy/geodesy.dart';
+import 'package:lmhsgeocaching/CompassPage.dart';
 import 'package:lmhsgeocaching/PageContainer.dart';
+
+import 'Cache.dart';
 
 void main() {
   //Flutter's app loader, instantiates a copy of the app.  Implicitly calls MyApp.build().
@@ -12,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'LMHS Geocaching',
-        home: Scaffold(
+        home: CompassPage(Cache("Bob", 0, GeoPoint(40, -75.55)))/*Scaffold(
             appBar: AppBar(
               title: Text('LMHS Geocaching'),
               backgroundColor: Colors.blueGrey,
@@ -37,6 +42,7 @@ class MyApp extends StatelessWidget {
               ),
             )
         )
+        */
     );
   }
 }
