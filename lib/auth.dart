@@ -10,20 +10,20 @@ class AuthService {
   final Firestore _db = Firestore.instance;
 
   // Shared State for Widgets
-  Observable<FirebaseUser> user; // firebase user
-  Observable<Map<String, dynamic>> profile; // custom user data in Firestore
+  Stream<FirebaseUser> user; // firebase user
+  Stream<Map<String, dynamic>> profile; // custom user data in Firestore
   PublishSubject loading = PublishSubject();
 
   // constructor
   AuthService() {
-    user = Observable(_auth.onAuthStateChanged);
+    user = Stream(_auth.onAuthStateChanged);
 
     profile=user.switchMap((FirebaseUser u){
       if(u!=null){
         return _db.collection('users').document(u.uid).snapshots().map((snap) => snap.data);
       }
       else{
-        return Observable.just({ });
+        return Stream.just({ });
       }
     });
   }
