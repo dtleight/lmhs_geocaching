@@ -4,15 +4,27 @@ import 'Cache.dart';
 import 'CacheInfoPage.dart';
 import 'CompassPage.dart';
 
-class CacheContainer extends StatefulWidget {
+class CacheContainer extends StatefulWidget
+{
+Cache c;
+  CacheContainer(Cache c)
+  {
+    c = this.c;
+  }
+
   @override
-  _PageViewDemoState createState() => _PageViewDemoState();
+  CacheContainerState createState() => CacheContainerState(c);
 }
 
-class _PageViewDemoState extends State<CacheContainer> {
-  PageController _controller = PageController(
-    initialPage: 1,
-  );
+class CacheContainerState extends State<CacheContainer>
+{
+  Cache cache;
+  CacheContainerState(Cache cache)
+  {
+    this.cache = cache;
+  }
+
+  PageController _controller = PageController(initialPage: 1,);
 
   @override
   void dispose() {
@@ -24,9 +36,10 @@ class _PageViewDemoState extends State<CacheContainer> {
   Widget build(BuildContext context) {
     return PageView(
       controller: _controller,
-      children: [
-       // CacheInfoPage(new Cache()), //TODO: Insert database values into cache initializer
-        CompassPage(),
+      children:
+      [
+        CacheInfoPage(cache),
+        CompassPage(cache)
       ],
     );
   }

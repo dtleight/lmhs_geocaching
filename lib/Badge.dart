@@ -13,15 +13,21 @@ class Badge
   DateTime unlockDate;
   dynamic requirement;
 
-
-  //Constructor
-  Badge(String name, String src, int ID) {
+  ///General Constructor
+  Badge(String name, String description, String src, int ID) {
     this.name = name;
     this.imageSRC = src;
     isObtained = false;
     badgeID = ID;
 
   }
+  ///JSON Constructor
+  factory Badge.fromJson(Map<String, dynamic> json)
+  {
+    return Badge(json['name'], json['description'], json['src'], json['id']);
+    //requirement = json['requirement'];
+  }
+
   Image getImage()
   {
     return Image.asset("filepath");
@@ -48,12 +54,4 @@ class Badge
     //for each badge, call checkObtained
   }
 
-  Badge.fromJson(Map<String, dynamic> json)
-  {
-    name = json['name'];
-    description = json['description'];
-    imageSRC = json['src'];
-    badgeID = json['id'];
-    //requirement = json['requirement'];
-  }
 }
