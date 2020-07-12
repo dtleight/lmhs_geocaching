@@ -71,7 +71,7 @@ class _CompassState extends State<Compass>
   Widget build(BuildContext context) {
 
     return CustomPaint(
-        foregroundPainter: CompassPainter(angle: _heading),
+        foregroundPainter: CompassPainter(angle: _heading, targetLoc: _targetLoc),
         child: Center(child: Text(_readout, style: _style))
     );
   }
@@ -82,6 +82,7 @@ class CompassPainter extends CustomPainter {
 
   LatLng targetLoc;
   double angle;
+  bool loading = false;
   //gets orientation of angle
   double get rotation => -2 * pi * (angle / 360);
 
@@ -115,21 +116,26 @@ class CompassPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    print("Angle::");
-    getAngle();
+    if(!loading) {
+      print("Angle::");
+      loading = true;
+      getAngle();
+    }
     return true;
   }
 
   Future<void> getAngle() async {
+    print('Angle:: getAngle()');
     Geodesy geodesy = Geodesy();
 
     await Geolocator().checkGeolocationPermissionStatus();
     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    print('Angle:: $position' + position.latitude.toString());
+    print('Angle:: $position; $targetLoc');
     LatLng userLatLng = LatLng(position.latitude, position.longitude);
 
-    angle =  geodesy.bearingBetweenTwoGeoPoints(targetLoc, userLatLng);
+    angle = geodesy.bearingBetweenTwoGeoPoints(userLatLng, targetLoc);
     print('Angle:: $angle');
+    await for
   }
 }
 
