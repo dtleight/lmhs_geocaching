@@ -14,9 +14,11 @@ class MyApp extends StatelessWidget
   {
     return MaterialApp(
         title: 'LMHS Geocaching',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         home: PageContainer());
+
   }
 }
