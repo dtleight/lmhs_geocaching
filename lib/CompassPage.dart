@@ -80,9 +80,11 @@ class _CompassState extends State<Compass>
 class CompassPainter extends CustomPainter {
   CompassPainter({ @required this.angle, this.targetLoc }) : super();
 
+  //TODO: Stop getAngle() from running on top of itself
+
   LatLng targetLoc;
   double angle;
-  bool loading = false;
+  bool loading;
   //gets orientation of angle
   double get rotation => -2 * pi * (angle / 360);
 
@@ -105,7 +107,14 @@ class CompassPainter extends CustomPainter {
     Offset start = Offset.lerp(Offset(center.dx, radius), center, .4);
     Offset end = Offset.lerp(Offset(center.dx, radius), center, 0.1);
 
-    getAngle();
+    if(loading == null || !loading) {
+      //print("loading: $loading");
+      loading = true;
+      //print('loading2: $loading');
+      getAngle();
+    }
+    print('ang: $angle');
+    print('rot: $rotation; ' + (-2 * pi * (angle / 360)).toString());
 
     canvas.translate(center.dx, center.dy);
     canvas.rotate(rotation);
@@ -116,26 +125,35 @@ class CompassPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    if(!loading) {
-      print("Angle::");
-      loading = true;
-      getAngle();
-    }
     return true;
   }
 
   Future<void> getAngle() async {
     print('Angle:: getAngle()');
+    //print('loading3: $loading');
     Geodesy geodesy = Geodesy();
 
-    await Geolocator().checkGeolocationPermissionStatus();
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((position) {
+      print('Angle:: $position; $targetLoc');
+      LatLng userLatLng = LatLng(position.latitude, position.longitude);
+
+      angle = geodesy.bearingBetweenTwoGeoPoints(userLatLng, targetLoc);
+      print('Angle:: $angle');
+      loading = false;
+      //print('loading4: $loading');
+    });
+    /*
+    position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     print('Angle:: $position; $targetLoc');
     LatLng userLatLng = LatLng(position.latitude, position.longitude);
 
     angle = geodesy.bearingBetweenTwoGeoPoints(userLatLng, targetLoc);
     print('Angle:: $angle');
-    await for
+    if(position.latitude > 0) {
+      loading = false;
+    }
+    */
   }
 }
 
