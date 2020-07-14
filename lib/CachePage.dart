@@ -29,7 +29,7 @@ class CachePage extends StatelessWidget {
                       leading: Icon(Icons.map),
                       title: new Text(document.documentID),
                       subtitle: new Text(lat.toString() + "," + longitude.toString()),
-                        //onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage(new Cache(document.documentID,document['cacheID'],gp))));}
+                        onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage(new Cache(document.documentID,document['cacheID'],gp))));}
                     );
                   }).toList(),
                 );

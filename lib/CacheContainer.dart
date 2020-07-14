@@ -9,7 +9,7 @@ class CacheContainer extends StatefulWidget
 Cache c;
   CacheContainer(Cache c)
   {
-    c = this.c;
+    this.c = c;
   }
 
   @override
