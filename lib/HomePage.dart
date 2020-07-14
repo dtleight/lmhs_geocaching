@@ -9,6 +9,7 @@ import 'BadgeDisplayPage.dart';
 import 'SettingsPage.dart';
 import 'AboutPage.dart';
 import 'Cache.dart';
+import 'CacheInfoPage.dart';
 
 class HomePage extends StatefulWidget
 {
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    //loadDatabase();
+    loadDatabase();
   }
 
   void _onMapCreated(GoogleMapController controller) async {
@@ -122,7 +123,7 @@ class _MyHomePageState extends State<HomePage> {
       ),
       body: FutureBuilder
         (
-        //future:  loadDatabase(),
+        future:  loadDatabase(),
         builder: (context,snapshot)
         {
           switch (snapshot.connectionState) {
@@ -139,14 +140,14 @@ class _MyHomePageState extends State<HomePage> {
                   zoom: 15.0,
                 ),
                 myLocationEnabled: true,
-                //markers: markers,
+                markers: markers,
               );
           }
         },
       ),
     );
   }
-
+  ///TODO Clean up memory usage
    loadDatabase() async
    {
      markers = Set();
@@ -158,7 +159,10 @@ class _MyHomePageState extends State<HomePage> {
       caches.add(new Cache(document.documentID, document['cacheID'], document['location']));
       markers.add(new Marker(
           position: new LatLng(gp.latitude, gp.longitude),
-          markerId: new MarkerId(document.documentID)));
+          markerId: new MarkerId(document.documentID),
+          onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage(new Cache(document.documentID,document['cacheID'],gp))));}
+      )
+      );
     });
   }
 }

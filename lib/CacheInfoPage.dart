@@ -18,12 +18,12 @@ class CacheInfoPage extends StatelessWidget
   static GeoPoint _cacheLoc;
   static int _cacheID;
   Cache c;
-  CacheInfoPage(Cache C)
+  CacheInfoPage(Cache cache)
   {
-    c = C;
-    _cacheName = C.name;
-    _cacheLoc = C.location;
-    _cacheID = C.cacheID;
+    this.c = cache;
+    _cacheName = c.name;
+    _cacheLoc = c.location;
+    _cacheID = c.cacheID;
   } // CacheInfoPage Constructor
 
   @override
