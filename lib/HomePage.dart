@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lmhsgeocaching/DatabaseRouting.dart';
 import 'package:location/location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -10,6 +11,7 @@ import 'SettingsPage.dart';
 import 'AboutPage.dart';
 import 'Cache.dart';
 import 'CacheInfoPage.dart';
+import 'DatabaseRouting.dart';
 
 class HomePage extends StatefulWidget
 {
@@ -31,7 +33,9 @@ class _MyHomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    loadDatabase();
+    //DatabaseRouting db = new DatabaseRouting();
+    //db.updateUser();
+    //loadDatabase();
   }
 
   void _onMapCreated(GoogleMapController controller) async {
@@ -123,7 +127,7 @@ class _MyHomePageState extends State<HomePage> {
       ),
       body: FutureBuilder
         (
-        future:  loadDatabase(),
+//        future:  loadDatabase(),
         builder: (context,snapshot)
         {
           switch (snapshot.connectionState) {

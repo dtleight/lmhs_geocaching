@@ -49,9 +49,9 @@ class Badge
     return grayscale(img).getBytes();
   }*/
 
-  updateBadges()
-  {
-    //for each badge, call checkObtained
-  }
+ bool isCompleted()
+ {
+
+ }
 
 }
