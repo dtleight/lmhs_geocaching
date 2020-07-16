@@ -91,3 +91,5 @@ class BadgeDisplayPage extends StatelessWidget
     return bl.badges;
   }
 }
+
+

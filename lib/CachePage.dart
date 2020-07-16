@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lmhsgeocaching/CacheContainer.dart';
 import 'CacheInfoPage.dart';
 import 'Cache.dart';
 
