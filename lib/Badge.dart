@@ -14,18 +14,20 @@ class Badge
   dynamic requirement;
 
   ///General Constructor
-  Badge(String name, String description, String src, int ID) {
+  Badge(String name, String description, String src, int ID, dynamic requirement) {
     this.name = name;
+    this.description = description;
     this.imageSRC = src;
+    this.badgeID = ID;
+    requirement = this.requirement;
+
     isObtained = false;
-    badgeID = ID;
 
   }
   ///JSON Constructor
   factory Badge.fromJson(Map<String, dynamic> json)
   {
-    return Badge(json['name'], json['description'], json['src'], json['id']);
-    //requirement = json['requirement'];
+    return Badge(json['name'], json['description'], json['src'], json['id'], json['requirement']);
   }
 
   Image getImage()
@@ -49,9 +51,24 @@ class Badge
     return grayscale(img).getBytes();
   }*/
 
- bool isCompleted()
+///Handles requirements
+ bool isCompleted(Set<int> cachesCompleted)
  {
-
+   print(requirement.runtimeType);
+   if(requirement is int)
+     {
+       return cachesCompleted.length > requirement;
+     }
+   else if(requirement is List<int>)
+     {
+       bool test = true;
+       for(int i in requirement)
+         {
+           test = test && cachesCompleted.contains(i);
+         }
+       return test;
+     }
+   return false;
  }
 
 }

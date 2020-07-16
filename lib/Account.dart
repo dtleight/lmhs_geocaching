@@ -30,7 +30,7 @@ class Account
   {
     badges.forEach( (badge)
     {
-      if(badge.isCompleted())
+      if(badge.isCompleted(cacheCompletions))
         {
           badgeCompletions.add(badge.badgeID);
         }
