@@ -55,6 +55,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - assets/images/
     - badge-images/school.jpg
     - badge-images/church.jpg
     - badge-images/barn.jpg
