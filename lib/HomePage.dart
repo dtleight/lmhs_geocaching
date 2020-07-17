@@ -29,12 +29,12 @@ class _MyHomePageState extends State<HomePage> {
   LocationData currentLocation;
   Location location;
   Set<Marker> markers;
+  DatabaseRouting db;
 
   @override
   void initState() {
     super.initState();
-    //DatabaseRouting db = new DatabaseRouting();
-    //db.updateUser();
+    db = new DatabaseRouting();
     //loadDatabase();
   }
 
@@ -127,7 +127,7 @@ class _MyHomePageState extends State<HomePage> {
       ),
       body: FutureBuilder
         (
-//        future:  loadDatabase(),
+       future:  db.loadCaches(),
         builder: (context,snapshot)
         {
           switch (snapshot.connectionState) {
@@ -144,7 +144,7 @@ class _MyHomePageState extends State<HomePage> {
                   zoom: 15.0,
                 ),
                 myLocationEnabled: true,
-                markers: markers,
+                markers: db.markers,
               );
           }
         },
