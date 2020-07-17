@@ -32,7 +32,7 @@ class Badge
 
   Image getImage()
   {
-    return Image.asset("filepath");
+    return Image.asset(imageSRC);
   }
 
   /*getImage() {

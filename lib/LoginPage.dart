@@ -18,6 +18,8 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Image.asset('badge-images/googlelogo.jpg', height: 200,),
+              SizedBox(height: 50),
               _signInButton(),
 
             ],
@@ -49,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                'Sign In',
+                'Sign in with Google',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
