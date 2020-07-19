@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:lmhsgeocaching/DatabaseRouting.dart';
 import 'package:location/location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -29,13 +28,11 @@ class _MyHomePageState extends State<HomePage> {
   LocationData currentLocation;
   Location location;
   Set<Marker> markers;
-  DatabaseRouting db;
 
   @override
   void initState() {
     super.initState();
-    db = new DatabaseRouting();
-    //loadDatabase();
+    new DatabaseRouting().loadCaches();
   }
 
   void _onMapCreated(GoogleMapController controller) async {
@@ -127,7 +124,7 @@ class _MyHomePageState extends State<HomePage> {
       ),
       body: FutureBuilder
         (
-       future:  db.loadCaches(),
+       future:  new DatabaseRouting().loadCaches(),
         builder: (context,snapshot)
         {
           switch (snapshot.connectionState) {
@@ -144,7 +141,7 @@ class _MyHomePageState extends State<HomePage> {
                   zoom: 15.0,
                 ),
                 myLocationEnabled: true,
-                markers: db.markers,
+                markers: new DatabaseRouting().markers,
               );
           }
         },

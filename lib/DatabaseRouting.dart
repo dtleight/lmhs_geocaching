@@ -12,22 +12,37 @@ import 'package:flutter/services.dart' show rootBundle;
 
 class DatabaseRouting
 {
+  static final DatabaseRouting _db = DatabaseRouting._internal();
 
   List<Cache> caches;
   Set<Marker> markers;
   List<Badge> badges;
   BuildContext context;
 
+  factory DatabaseRouting()
+  {
+    return _db;
+  }
+
+  DatabaseRouting._internal();
+  /**
   DatabaseRouting()
   {
-    this.context = context;
-    loadCaches();
-    //badges = loadBadges()
+      this.context = context;
+      loadCaches();
+      loadBadges()
+
   }
+      **/
   Future<QuerySnapshot> loadDatabase(String collection) async
   {
     CollectionReference ref = Firestore.instance.collection(collection);
     return await ref.getDocuments();
+  }
+
+  List<Cache> getCaches()
+  {
+    return caches;
   }
 
   //Writes to each element
@@ -64,6 +79,8 @@ class DatabaseRouting
       //temp.setMarker(new Marker(position: new LatLng(gp.latitude, gp.longitude), markerId: new MarkerId(document.documentID)));
       caches.add(temp);
       markers.add(temp.mapMarker);
+      print(markers.toString());
+      print(caches.toString());
       /**
       markers.add(new Marker(
           position: new LatLng(gp.latitude, gp.longitude),
@@ -86,10 +103,11 @@ class DatabaseRouting
   ///
   /// Retrieves list data from JSON file
   ///
-  Future<List<Badge>> loadBadges() async {
+   loadBadges() async
+   {
     String jsonString = await _loadBadgeList();
     final jsonResponse = json.decode(jsonString);
     BadgeLoader bl = new BadgeLoader.fromJson(jsonResponse);
-    return bl.badges;
+    badges = bl.badges;
   }
 }

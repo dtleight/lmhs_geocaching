@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lmhsgeocaching/DatabaseRouting.dart' as database;
+import 'package:lmhsgeocaching/HomePage.dart';
 import 'CacheInfoPage.dart';
 import 'Cache.dart';
 
@@ -36,5 +38,23 @@ class CachePage extends StatelessWidget {
           },
         ));
   }
+/**
+  Widget build2(BuildContext context)
+  {
+    return new Scaffold(
+      body: ListView.builder(
+          itemBuilder: (BuildContext context,int index)
+          {
+            return new ListTile(
+                leading: Icon(Icons.map),
+                title: new Text(),
+                subtitle: new Text(lat.toString() + "," + longitude.toString()),
+                onTap: (){ Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage(new Cache(document.documentID,document['cacheID'],gp))));}
+            );
+          }
+      ),
+    );
+  }
+**/
 
 }
