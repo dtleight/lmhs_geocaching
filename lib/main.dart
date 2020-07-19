@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
+    //Potentially removes extra database instantiations
     /**
     return Provider<DatabaseRouting>(
       builder: (_) => new DatabaseRouting(),

@@ -25,15 +25,11 @@ class DatabaseRouting
   }
 
   DatabaseRouting._internal();
-  /**
-  DatabaseRouting()
+  void init()
   {
-      this.context = context;
-      loadCaches();
-      loadBadges()
-
+    loadCaches();
+    loadBadges();
   }
-      **/
   Future<QuerySnapshot> loadDatabase(String collection) async
   {
     CollectionReference ref = Firestore.instance.collection(collection);
@@ -76,11 +72,8 @@ class DatabaseRouting
     eventsQuery.documents.forEach((document) {
       GeoPoint gp = document['location'];
       Cache temp = new Cache.withMarker(document.documentID, document['cacheID'], document['location'], new LatLng(gp.latitude, gp.longitude), new MarkerId(document.documentID));
-      //temp.setMarker(new Marker(position: new LatLng(gp.latitude, gp.longitude), markerId: new MarkerId(document.documentID)));
       caches.add(temp);
       markers.add(temp.mapMarker);
-      print(markers.toString());
-      print(caches.toString());
       /**
       markers.add(new Marker(
           position: new LatLng(gp.latitude, gp.longitude),

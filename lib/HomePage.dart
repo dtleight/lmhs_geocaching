@@ -32,7 +32,7 @@ class _MyHomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    new DatabaseRouting().loadCaches();
+    new DatabaseRouting().init();
   }
 
   void _onMapCreated(GoogleMapController controller) async {
