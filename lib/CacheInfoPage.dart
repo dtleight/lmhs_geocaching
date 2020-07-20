@@ -50,7 +50,7 @@ class CacheInfoPage extends StatelessWidget
             ),
             SizedBox(
               height: 300,
-              child: GoogleMap( //Map seems to take a long time to load in on my phone - Matt
+              child: GoogleMap(
                 onMapCreated: _onMapCreated,
                 initialCameraPosition: CameraPosition(
                   target: _cacheLatLng,
