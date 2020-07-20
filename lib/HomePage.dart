@@ -10,6 +10,7 @@ import 'SettingsPage.dart';
 import 'AboutPage.dart';
 import 'Cache.dart';
 import 'CacheInfoPage.dart';
+import 'DatabaseRouting.dart';
 
 class HomePage extends StatefulWidget
 {
@@ -31,7 +32,7 @@ class _MyHomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    loadDatabase();
+    new DatabaseRouting().init();
   }
 
   void _onMapCreated(GoogleMapController controller) async {
@@ -123,7 +124,7 @@ class _MyHomePageState extends State<HomePage> {
       ),
       body: FutureBuilder
         (
-        future:  loadDatabase(),
+       future:  new DatabaseRouting().loadCaches(),
         builder: (context,snapshot)
         {
           switch (snapshot.connectionState) {
@@ -140,7 +141,7 @@ class _MyHomePageState extends State<HomePage> {
                   zoom: 15.0,
                 ),
                 myLocationEnabled: true,
-                markers: markers,
+                markers: new DatabaseRouting().markers,
               );
           }
         },

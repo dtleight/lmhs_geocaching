@@ -21,6 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_maps_flutter: ^0.5.11
+  provider: ^3.0.0
   location: ^2.3.5
   flutter_compass: '^0.4.1'
   firebase_core: ^0.4.0
@@ -55,6 +56,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - badge-images/googlelogo.jpg
     - badge-images/school.jpg
     - badge-images/church.jpg
     - badge-images/barn.jpg

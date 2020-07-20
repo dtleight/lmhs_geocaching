@@ -1,21 +1,14 @@
 import 'Badge.dart';
+import 'Account.dart';
 class Profile {
-  String name;
-  String UUID;
-  DateTime joinDate;
-  List<int> cacheCompletions;
-  List<int> badgeCompletions;
 
+  Account account;
 
-
-  Profile(String name, String UUID, DateTime joinDate, List<int> cacheCompletions, List<int> badgeCompletions)
+  Profile(Account account)
   {
-   this.name = name;
-   this.UUID = UUID;
-   this.joinDate = joinDate;
-   this.cacheCompletions = cacheCompletions;
-   this.badgeCompletions = badgeCompletions;
+    this.account = account;
   }
+
   //TODO: Write profile info to the database
   String sort='alpha';
 /**

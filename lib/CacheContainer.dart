@@ -3,6 +3,7 @@ import 'package:lmhsgeocaching/CompassPage.dart';
 import 'Cache.dart';
 import 'CacheInfoPage.dart';
 import 'CompassPage.dart';
+import 'CompletionTestPage.dart';
 
 class CacheContainer extends StatefulWidget
 {
@@ -39,7 +40,8 @@ class CacheContainerState extends State<CacheContainer>
       children:
       [
         CacheInfoPage(cache),
-        CompassPage(cache)
+        //CompassPage(cache),
+        CompletionTestPage()
       ],
     );
   }
