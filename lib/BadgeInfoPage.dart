@@ -13,8 +13,9 @@ class BadgeInfoPage extends StatelessWidget {
   static String _badgeName;
   static int _badgeID;
   static Image badgeImage;
-
-
+  static DateTime _unlockDate;
+  static String dateGot;
+  static String description;
 
   //Constructor
   BadgeInfoPage(Badge B){
@@ -22,35 +23,51 @@ class BadgeInfoPage extends StatelessWidget {
     _badgeName = B.name;
     _badgeID = B.badgeID;
     badgeImage = B.getImage();
+    _unlockDate = B.unlockDate;
   }
 
   @override
   Widget build(BuildContext context)
   {
-    //String _unlockDate = unlockDate.toString();
+    dateGot= _unlockDate.toString();
     return new Scaffold(
         appBar: AppBar
           (
         title: Text(_badgeName),
           ),
-        body:
+        body: ListView(
+          children: <Widget>[
           SizedBox(
-          width: 500,
+          width: 800,
           height: 200,
           child: badgeImage,
-          )
-           /* Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children:
-                [
-                  InkWell(
-                  child: CircleAvatar(
-                  backgroundColor: Color(0xffFDCF09),
-                  radius:90,                                                //badge image src
-                    child: CircleAvatar(backgroundImage: AssetImage(imageSRC),radius: 85,)),
-                  ),
-            ]),*/
-      );
+          ),
+          Text(
+            "Congrats on earning the " + _badgeName + " badge!",
+              style: TextStyle(
+              fontSize: 18,
+              ),
+          ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              "You earned this badge on: " + dateGot,
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              "Description",
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            Text("The badge's description will go here. Right under the description header."/*description*/),
+        ]),
+    );
   }
 }
