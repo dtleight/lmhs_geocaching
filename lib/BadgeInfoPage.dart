@@ -12,7 +12,7 @@ class BadgeInfoPage extends StatelessWidget {
   static bool _obtained;
   static String _badgeName;
   static int _badgeID;
-  static Image badgeImage;
+  static dynamic badgeImage;
 
 
 
@@ -29,15 +29,14 @@ class BadgeInfoPage extends StatelessWidget {
   {
     //String _unlockDate = unlockDate.toString();
     return new Scaffold(
-        appBar: AppBar
-          (
-        title: Text(_badgeName),
-          ),
+        appBar: AppBar (
+          title: Text(_badgeName),
+        ),
         body:
           SizedBox(
-          width: 500,
-          height: 200,
-          child: badgeImage,
+              width: 500,
+              height: 200,
+              child: badgeImage,
           )
            /* Column(
                 mainAxisAlignment: MainAxisAlignment.end,

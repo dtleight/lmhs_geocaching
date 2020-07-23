@@ -27,8 +27,8 @@ class BadgeDisplayPage extends StatelessWidget
                   InkWell(
                     child: CircleAvatar(
                         backgroundColor: Color(0xffFDCF09),
-                        radius:90,                                                //badge image src
-                        child: CircleAvatar(backgroundImage: AssetImage(db.badges[index].imageSRC),radius: 85,)),
+                        radius:45,                                                //badge image src
+                        child: CircleAvatar(backgroundImage: AssetImage(db.badges[index].imageSRC),radius: 40,)),
                     onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(db.badges[index])));},
                   ),
                   Text(db.badges[index].name)
