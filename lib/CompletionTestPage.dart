@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
+import 'CacheNotFoundPage.dart';
+
 class CompletionTestPage extends StatefulWidget
 {
   @override
@@ -33,10 +35,21 @@ class _CompletionTestState extends State<CompletionTestPage> {
                     onPressed: scan,
                     child: const Text('START CAMERA SCAN')
                 ),
-              )
-            ],
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 8.0),
+                child: RaisedButton(
+                  color: Colors.red,
+                  textColor: Colors.white,
+                  splashColor: Colors.blueGrey,
+                  child: const Text('Cache Not Found'),
+                  onPressed: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheNotFoundPage()));},
+                ),
+                ),
+              ],
           ),
-        ));
+          ),
+        );
   }
 
   Future scan() async {
@@ -52,6 +65,7 @@ class _CompletionTestState extends State<CompletionTestPage> {
     }
   }
 }
+
 /**
 import 'dart:async';
 
