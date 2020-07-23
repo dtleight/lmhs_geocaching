@@ -15,6 +15,7 @@ class CachePage extends StatelessWidget
   {
     return new Scaffold(
       body: ListView.builder(
+          itemCount: db.caches.length,
           itemBuilder: (BuildContext context,int index)
           {
             return new ListTile(
