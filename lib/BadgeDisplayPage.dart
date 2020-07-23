@@ -18,26 +18,28 @@ class BadgeDisplayPage extends StatelessWidget
   {
 
     return new Scaffold (
-      appBar: AppBar(title: Text("Badges"),),
-      body: ListView.builder(
-          itemBuilder: (BuildContext context,int index)
-          {
-            return Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children:
-                [
-                  InkWell(
-                    child: CircleAvatar(
-                        backgroundColor: Color(0xffFDCF09),
-                        radius:45,                                                //badge image src
-                        child: db.badges[index].decideFilter(CircleAvatar(backgroundImage: AssetImage(db.badges[index].imageSRC),radius: 40,))),
-                    onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(db.badges[index])));},
-                  ),
-                  Text(db.badges[index].name)
-                ]
-            );
-          }
+      appBar: AppBar(
+        title: Text("Badges"),
+      ),
+      body: GridView.builder(
+        itemBuilder: (context, position) {
+          return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  child: CircleAvatar(
+                      backgroundColor: Color(0xffFDCF09),
+                      radius:45,                                                //badge image src
+                      child: db.badges[position].decideFilter(CircleAvatar(backgroundImage: AssetImage(db.badges[position].imageSRC),radius: 40,))),
+                  onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(db.badges[position])));},
+                ),
+                Text(db.badges[position].name),
+              ]
+          );
+        },
+        itemCount: db.badges.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       ),
     );
   }
