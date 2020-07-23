@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:lmhsgeocaching/DatabaseRouting.dart';
-import 'package:lmhsgeocaching/PageContainer.dart';
-import 'package:provider/provider.dart';
 
 import 'LoginPage.dart';
 

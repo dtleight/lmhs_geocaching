@@ -4,9 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class Cache
 {
   String name;
+  String completionCode;
   int cacheID;
   GeoPoint location;
-  bool found;
   DateTime foundDate;
   Marker mapMarker;
 
@@ -15,7 +15,7 @@ class Cache
     this.name = name;
     this.cacheID = cacheID;
     this.location = location;
-    this.found = false;
+    //this.completionCode = completionCode;
   }
   Cache.withMarker(String name, int cacheID, GeoPoint location, LatLng position, MarkerId markerId)
   {
@@ -23,7 +23,6 @@ class Cache
     this.cacheID = cacheID;
     this.location = location;
     this.mapMarker = new Marker(position: position, markerId: markerId);
-    this.found = false;
   }
   ///Allows for forward referencing of marker
   void setMarker(Marker marker)

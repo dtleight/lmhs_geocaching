@@ -17,6 +17,7 @@ class BadgeDisplayPage extends StatelessWidget
     return new Scaffold (
       appBar: AppBar(title: Text("Badges"),),
       body: ListView.builder(
+        itemCount: db.badges.length,
           itemBuilder: (BuildContext context,int index)
           {
             return Column(

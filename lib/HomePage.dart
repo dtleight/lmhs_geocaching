@@ -50,7 +50,8 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -147,23 +148,5 @@ class _MyHomePageState extends State<HomePage> {
         },
       ),
     );
-  }
-  ///TODO Clean up memory usage
-   loadDatabase() async
-   {
-     markers = Set();
-    List<Cache> caches = new List();
-    CollectionReference ref = Firestore.instance.collection('caches');
-    QuerySnapshot eventsQuery = await ref.getDocuments();
-    eventsQuery.documents.forEach((document) {
-      GeoPoint gp = document['location'];
-      caches.add(new Cache(document.documentID, document['cacheID'], document['location']));
-      markers.add(new Marker(
-          position: new LatLng(gp.latitude, gp.longitude),
-          markerId: new MarkerId(document.documentID),
-          onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage(new Cache(document.documentID,document['cacheID'],gp))));}
-      )
-      );
-    });
   }
 }
