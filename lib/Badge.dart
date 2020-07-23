@@ -23,7 +23,7 @@ class Badge {
     this.badgeID = ID;
     this.requirement = requirement;
 
-    isObtained = true;
+    isObtained = false;
   }
 
   ///JSON Constructor
@@ -34,11 +34,11 @@ class Badge {
         json['requirement']);
   }
 
-  dynamic getImage() {
-    if (isObtained) {
-      return Image.asset(imageSRC);
+  /// Takes a widget and applies a grayscale filter if needed
+  Widget decideFilter(Widget widget) {
+    if(isObtained) {
+      return widget;
     }
-
     return ColorFiltered(
       colorFilter: ColorFilter.matrix(<double>[
         0.2126,0.7152,0.0722,0,0,
@@ -46,25 +46,10 @@ class Badge {
         0.2126,0.7152,0.0722,0,0,
         0,0,0,1,0,
       ]),
-      child: Image.asset(imageSRC),
+      child: widget,
     );
   }
 
-/*getImage() {
-    print("got not"); // Do not question my debugging tactics
-    File file = new File(imageSRC);
-    print("got milk");
-
-    List<int> bytes = file.readAsBytesSync();
-    //TODO: Fix error caused by the above line - doesn't like the file paths given to it
-    print("got here");
-    Image img = decodeJpg(bytes);
-    if(isObtained)
-      {
-        return img.getBytes();
-      }
-    return grayscale(img).getBytes();
-  }*/
 
     /// Handles requirements
     bool isCompleted(Set<int> cachesCompleted) {

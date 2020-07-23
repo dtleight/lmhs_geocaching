@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lmhsgeocaching/BadgeInfoPage.dart';
 import 'package:lmhsgeocaching/DatabaseRouting.dart';
 
+import 'Badge.dart';
+
 class BadgeDisplayPage extends StatelessWidget
 {
   static DatabaseRouting db;
@@ -14,6 +16,7 @@ class BadgeDisplayPage extends StatelessWidget
 
   Widget build(BuildContext context)
   {
+
     return new Scaffold (
       appBar: AppBar(title: Text("Badges"),),
       body: ListView.builder(
@@ -28,7 +31,7 @@ class BadgeDisplayPage extends StatelessWidget
                     child: CircleAvatar(
                         backgroundColor: Color(0xffFDCF09),
                         radius:45,                                                //badge image src
-                        child: CircleAvatar(backgroundImage: AssetImage(db.badges[index].imageSRC),radius: 40,)),
+                        child: db.badges[index].decideFilter(CircleAvatar(backgroundImage: AssetImage(db.badges[index].imageSRC),radius: 40,))),
                     onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(db.badges[index])));},
                   ),
                   Text(db.badges[index].name)

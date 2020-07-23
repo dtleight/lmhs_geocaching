@@ -12,7 +12,7 @@ class BadgeInfoPage extends StatelessWidget {
   static bool _obtained;
   static String _badgeName;
   static int _badgeID;
-  static dynamic badgeImage;
+  static Widget badgeImage;
   static DateTime _unlockDate;
   static String dateGot;
   static String description;
@@ -22,7 +22,7 @@ class BadgeInfoPage extends StatelessWidget {
     _obtained = B.isObtained;
     _badgeName = B.name;
     _badgeID = B.badgeID;
-    badgeImage = B.getImage();
+    badgeImage = B.decideFilter(Image.asset(B.imageSRC));
     _unlockDate = B.unlockDate;
   }
 
