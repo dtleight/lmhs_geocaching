@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lmhsgeocaching/DatabaseRouting.dart';
 import 'Cache.dart';
 import 'Badge.dart';
 
@@ -18,6 +19,16 @@ class Account
     this.joinDate = joinDate;
     this.cacheCompletions = cacheCompletions;
     this.badgeCompletions = badgeCompletions;
+  }
+
+  Account.init(String name, String UUID, Timestamp joinDate)
+  {
+    this.name = name;
+    this.UUID = UUID;
+    this.joinDate = joinDate;
+    this.cacheCompletions = new Set<int>();
+    this.badgeCompletions = new Set<int>();
+    new DatabaseRouting().createUser(this);
   }
 
   onCacheCompletion(Cache c)

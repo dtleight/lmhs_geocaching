@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'Cache.dart';
 import 'Badge.dart';
 import 'CacheInfoPage.dart';
+import 'Account.dart';
 import 'BadgeLoader.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
@@ -42,6 +43,8 @@ class DatabaseRouting
   }
 
   //Writes to each element
+  /**
+   *
   void createUser() async
   {
     QuerySnapshot querySnapshot = await loadDatabase('users');
@@ -51,7 +54,18 @@ class DatabaseRouting
     }
     );
   }
-
+**/
+  void createUser(Account account)
+  {
+    Firestore.instance.collection('users').add(
+        {
+          'uuid': account.UUID,
+          'joinDate': account.joinDate,
+          'cachesCompleted':account.cacheCompletions,
+          'badgesCompleted':account.badgeCompletions,
+        }
+        );
+  }
   //Creates a new user
   void createUser2() async
   {
