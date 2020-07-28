@@ -27,13 +27,13 @@ class BadgeDisplayPage extends StatelessWidget
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                InkWell(
+                db.badges[position].decideFilter(InkWell(
                   child: CircleAvatar(
                       backgroundColor: Color(0xffFDCF09),
                       radius:45,                                                //badge image src
-                      child: db.badges[position].decideFilter(CircleAvatar(backgroundImage: AssetImage(db.badges[position].imageSRC),radius: 40,))),
+                      child: CircleAvatar(backgroundImage: AssetImage(db.badges[position].imageSRC),radius: 40,)),
                   onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new BadgeInfoPage(db.badges[position])));},
-                ),
+                )),
                 Text(db.badges[position].name),
               ]
           );
