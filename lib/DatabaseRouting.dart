@@ -59,7 +59,6 @@ class DatabaseRouting
   {
     Firestore.instance.collection('users').add(
         {
-          'uuid': account.UUID,
           'joinDate': account.joinDate,
           'cachesCompleted':account.cacheCompletions,
           'badgesCompleted':account.badgeCompletions,

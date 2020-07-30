@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lmhsgeocaching/Account.dart';
 import 'package:location/location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -60,12 +61,11 @@ class _MyHomePageState extends State<HomePage> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("Luigi"),
-              accountEmail: Text("luigi.green@gmail.com"),
+              accountName: Text(new Account().name),
+              accountEmail: Text(new Account().email),
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://vignette.wikia.nocookie.net/nintendo/images/0/04/New_Super_Mario_Bros._U_Deluxe_-_Luigi_01.png/revision/latest?cb=20181226204244&path-prefix=en"),
+                  backgroundImage: NetworkImage(new Account().imageSrc),
                 ),
               ),
               otherAccountsPictures: <Widget>[

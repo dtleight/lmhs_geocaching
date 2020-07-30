@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:lmhsgeocaching/Account.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -24,17 +26,16 @@ Future<String> signInWithGoogle() async
   name= user.displayName;
   email=user.email;
   imageUrl=user.photoUrl;
-
-  print("DALTON LEIGHT WAS HERE");
-  print(name);
-  print(email);
-  print(imageUrl);
-  print("Stop 1");
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
   print("Stop 2");
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
+  //Create an account in database
+  //Run a check if they have an account
+  //else
+  Account a = Account.instantiate(name,email, imageUrl, Timestamp.now());
+
   return 'signInWithGoogle succeeded: $user';
 }
 
