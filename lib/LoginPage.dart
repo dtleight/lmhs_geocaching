@@ -34,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          print("Bebop");
           Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new PageContainer()));
         });
       },

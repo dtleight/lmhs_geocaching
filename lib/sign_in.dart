@@ -12,15 +12,15 @@ String imageUrl;
 
 Future<String> signInWithGoogle() async
 {
-  print("SIGN IN called");
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-  final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+  final GoogleSignInAuthentication googleSignInAuthentication =
+  await googleSignInAccount.authentication;
 
   final AuthCredential credential = GoogleAuthProvider.getCredential(
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
   );
-  print("AUTHORIZING");
+
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
   name= user.displayName;
@@ -28,7 +28,7 @@ Future<String> signInWithGoogle() async
   imageUrl=user.photoUrl;
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
-  print("Stop 2");
+
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
   //Create an account in database
@@ -44,4 +44,3 @@ void signOutGoogle() async {
 
   print("User Sign Out");
 }
-
