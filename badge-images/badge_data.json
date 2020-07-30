@@ -17,10 +17,31 @@
     },
     {
       "name": "Freshman",
-      "description" : "Find the schoolhouse in Macungie",
+      "description" : "Find all the schoolhouses in Macungie",
       "src": "badge-images/school.jpg",
       "id": 3,
       "requirement": [1,2,3,4]
+    },
+    {
+      "name": "Hotel Hunter",
+      "description" : "Find all the hotel caches",
+      "src": "badge-images/hotel.jpg",
+      "id": 4,
+      "requirement": [32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
+    },
+    {
+      "name": "Millions of Mills",
+      "description" : "Find all the mill caches",
+      "src": "badge-images/mill.jpg",
+      "id": 5,
+      "requirement": [22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+    },
+    {
+      "name": "Double Double",
+      "description" : "Find the caches at both pairs of mills and schools",
+      "src": "badge-images/double.jpg",
+      "id": 5,
+      "requirement": [9, 27, 5, 25]
     }
   ]
 }

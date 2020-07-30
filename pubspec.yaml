@@ -18,6 +18,9 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  url_launcher: ^5.5.0
+  mailer: ^3.0.4
+  flutter_email_sender: ^3.0.1
   flutter:
     sdk: flutter
   google_maps_flutter: ^0.5.11
@@ -56,8 +59,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - badge-images/googlelogo.jpg
-    - badge-images/school.jpg
-    - badge-images/church.jpg
-    - badge-images/barn.jpg
     - badge-images/badge_data.json
+    - badge-images/barn.jpg
+    - badge-images/church.jpg
+    - badge-images/double.jpg
+    - badge-images/googlelogo.jpg
+    - badge-images/hotel.jpg
+    - badge-images/mill.jpg
+    - badge-images/school.jpg

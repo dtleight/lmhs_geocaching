@@ -35,22 +35,41 @@ class Badge {
   }
 
   /// Takes a widget and applies a grayscale filter if needed
+
   Widget decideFilter(Widget widget) {
     if(isObtained) {
       return widget;
+    } else {
+      return ColorFiltered(
+        colorFilter: ColorFilter.matrix(<double>[
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0, 0, 0, 1, 0,
+        ]),
+        child: widget,
+      );
     }
-    return ColorFiltered(
-      colorFilter: ColorFilter.matrix(<double>[
-        0.2126,0.7152,0.0722,0,0,
-        0.2126,0.7152,0.0722,0,0,
-        0.2126,0.7152,0.0722,0,0,
-        0,0,0,1,0,
-      ]),
-      child: widget,
-    );
   }
 
-    /// Handles requirements - Account will be passed in at a later date
+
+  double getProgress() {
+    Set<int> cachesCompleted = Set<int>();
+    cachesCompleted.add(1);
+    if(requirement is int) {
+      return cachesCompleted.length / (requirement.toDouble());
+    } else {
+      double requiredCachesCompleted = 0;
+      for(int cache in cachesCompleted) {
+        if(requirement.indexOf(cache) >= 0) {
+          requiredCachesCompleted++;
+        }
+      }
+      return requiredCachesCompleted / requirement.length;
+    }
+  }
+
+    /// Handles requirements
     bool isCompleted(Set<int> cachesCompleted) {
       print(requirement.runtimeType);
 

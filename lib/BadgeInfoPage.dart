@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:lmhsgeocaching/BadgeInfoPage.dart';
 import 'Badge.dart';
-import 'BadgeLoader.dart';
 
 class BadgeInfoPage extends StatelessWidget {
 
@@ -25,8 +21,8 @@ class BadgeInfoPage extends StatelessWidget {
     _badgeID = B.badgeID;
     badgeImage = B.decideFilter(Image.asset(B.imageSRC));
     _unlockDate = B.unlockDate;
-    description = /*B.description*/ "This is where the descriptiion of what the user needs to do to earn this badge will be.";
-    progress = .6;
+    description = B.description;
+    progress = B.getProgress();
   }
 
   @override
