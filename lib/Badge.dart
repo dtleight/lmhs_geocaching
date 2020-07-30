@@ -50,8 +50,7 @@ class Badge {
     );
   }
 
-
-    /// Handles requirements
+    /// Handles requirements - Account will be passed in at a later date
     bool isCompleted(Set<int> cachesCompleted) {
       print(requirement.runtimeType);
 
@@ -60,6 +59,7 @@ class Badge {
       } else if(requirement is List<int>) {
         bool test = true;
         for(int i in requirement) {
+          //account.cachesCompleted
           test = test && cachesCompleted.contains(i);
         }
       return test;
