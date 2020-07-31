@@ -6,6 +6,7 @@ import 'package:qrscan/qrscan.dart' as scanner;
 
 
 import 'Cache.dart';
+import 'Account.dart';
 import 'CacheNotFoundPage.dart';
 
 class CompletionTestPage extends StatefulWidget
@@ -70,7 +71,7 @@ class _CompletionTestState extends State<CompletionTestPage> {
       String barcode = await scanner.scan();
       if(barcode == cache.completionCode)
         {
-          //onCacheCompletion();
+          new Account().onCacheCompletion(cache);
         }
       //String barcode = (await BarcodeScanner.scan()) as String;
       setState(() => this.barcode = barcode);
