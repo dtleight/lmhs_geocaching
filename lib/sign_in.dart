@@ -2,10 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lmhsgeocaching/Account.dart';
+import 'package:lmhsgeocaching/DatabaseRouting.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
-
+DatabaseRouting db = new DatabaseRouting();
 String name;
 String email;
 String imageUrl;
@@ -32,9 +33,7 @@ Future<String> signInWithGoogle() async
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
   //Create an account in database
-  //Run a check if they have an account
-  //else
-  Account a = Account.instantiate(name,email, imageUrl, Timestamp.now());
+  await new DatabaseRouting().generateUser(name, email, imageUrl);
 
   return 'signInWithGoogle succeeded: $user';
 }

@@ -36,25 +36,13 @@ class DatabaseRouting
     CollectionReference ref = Firestore.instance.collection(collection);
     return await ref.getDocuments();
   }
-
+/**
   List<Cache> getCaches()
   {
     return caches;
   }
-
-  //Writes to each element
-  /**
-   *
-  void createUser() async
-  {
-    QuerySnapshot querySnapshot = await loadDatabase('users');
-    querySnapshot.documents.forEach((element)
-    {
-      element.reference.updateData({'uuid': "Random UUID"});
-    }
-    );
-  }
 **/
+
   void createUser(Account account)
   {
     print("Database write started");
@@ -67,11 +55,20 @@ class DatabaseRouting
 
     );
   }
-  //Creates a new user
-  void createUser2() async
+
+  Future<void> generateUser(String name, String email, String imageSRC) async
   {
-    Firestore.instance.collection('users').add({'uuid':"Random", "caches_completed": 1});
+    DocumentSnapshot ds = await Firestore.instance.collection("users").document(email).get();
+    if(ds.data != null)
+      {
+        Account a = new Account.fromDatabase(name, email, imageSRC, ds.data['joinDate'], ds.data['cacheCompletions'], ds.data['badgeCompletions']);
+      }
+    else
+      {
+        createUser(Account.instantiate(name, email, imageSRC, Timestamp.now()));
+      }
   }
+
   //Updates a users data
   void updateUser() async
   {

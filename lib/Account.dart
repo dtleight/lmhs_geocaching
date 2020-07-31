@@ -28,7 +28,6 @@ class Account
     _account.joinDate = joinDate;
     _account.cacheCompletions = new List<int>();
     _account.badgeCompletions = new List<int>();
-    new DatabaseRouting().createUser(_account);
     return _account;
   }
 
@@ -44,10 +43,7 @@ class Account
   }
   Account._internal();
 
-  void init()
-  {
-
-  }
+  void init() {}
 
   onCacheCompletion(Cache c)
   {
@@ -66,7 +62,4 @@ class Account
     }
     );
   }
-
-
-
 }
