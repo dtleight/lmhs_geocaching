@@ -10,8 +10,8 @@ class Account
   String email;
   String imageSrc;
   Timestamp joinDate;
-  Set<int> cacheCompletions;
-  Set<int> badgeCompletions;
+  List<int> cacheCompletions;
+  List<int> badgeCompletions;
 
   static final Account _account = Account._internal();
 
@@ -26,9 +26,20 @@ class Account
     _account.email = email;
     _account.imageSrc = imageSRC;
     _account.joinDate = joinDate;
-    _account.cacheCompletions = new Set<int>();
-    _account.badgeCompletions = new Set<int>();
+    _account.cacheCompletions = new List<int>();
+    _account.badgeCompletions = new List<int>();
     new DatabaseRouting().createUser(_account);
+    return _account;
+  }
+
+  factory Account.fromDatabase(String name, String email, String imageSRC, Timestamp joinDate, List<int> cacheCompletions, List<int> badgeCompletions)
+  {
+    _account.name = name;
+    _account.email = email;
+    _account.imageSrc = imageSRC;
+    _account.joinDate = joinDate;
+    _account.cacheCompletions = cacheCompletions;
+    _account.badgeCompletions =badgeCompletions;
     return _account;
   }
   Account._internal();
@@ -37,31 +48,6 @@ class Account
   {
 
   }
-
-
-
-
-  /**
-   *
-  Account(String name, String UUID, Timestamp joinDate, Set<int> cacheCompletions, Set<int> badgeCompletions)
-  {
-    this.name = name;
-    this.UUID = UUID;
-    this.joinDate = joinDate;
-    this.cacheCompletions = cacheCompletions;
-    this.badgeCompletions = badgeCompletions;
-  }
-
-  Account.init(String name, String UUID, Timestamp joinDate)
-  {
-    this.name = name;
-    this.UUID = UUID;
-    this.joinDate = joinDate;
-    this.cacheCompletions = new Set<int>();
-    this.badgeCompletions = new Set<int>();
-    new DatabaseRouting().createUser(this);
-  }
-      **/
 
   onCacheCompletion(Cache c)
   {

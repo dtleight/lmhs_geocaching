@@ -53,8 +53,8 @@ class Badge {
   }
 
 
-  double getProgress() {
-    Set<int> cachesCompleted = Set<int>();
+    double getProgress() {
+    List<int> cachesCompleted = List<int>();
     cachesCompleted.add(1);
     if(requirement is int) {
       return cachesCompleted.length / (requirement.toDouble());
@@ -70,7 +70,7 @@ class Badge {
   }
 
     /// Handles requirements
-    bool isCompleted(Set<int> cachesCompleted) {
+    bool isCompleted(List<int> cachesCompleted) {
       print(requirement.runtimeType);
 
       if(requirement is int) {

@@ -57,13 +57,15 @@ class DatabaseRouting
 **/
   void createUser(Account account)
   {
-    Firestore.instance.collection('users').add(
+    print("Database write started");
+    Firestore.instance.collection("users").document(account.email).setData(
         {
           'joinDate': account.joinDate,
-          'cachesCompleted':account.cacheCompletions,
-          'badgesCompleted':account.badgeCompletions,
+          'cachesCompleted': account.cacheCompletions,
+          'badgesCompleted': account.badgeCompletions,
         }
-        );
+
+    );
   }
   //Creates a new user
   void createUser2() async
