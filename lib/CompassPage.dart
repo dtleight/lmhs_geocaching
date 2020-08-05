@@ -6,6 +6,7 @@ import 'package:geodesy/geodesy.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:flutter_compass/flutter_compass.dart';
+import 'package:lmhsgeocaching/DatabaseRouting.dart';
 
 import 'Cache.dart';
 class CompassPage extends StatelessWidget

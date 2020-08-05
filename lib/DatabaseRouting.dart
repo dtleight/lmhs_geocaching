@@ -6,10 +6,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'Cache.dart';
 import 'Badge.dart';
 import 'CacheInfoPage.dart';
+import 'Collection.dart';
 import 'Account.dart';
 import 'BadgeLoader.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+
+import 'Collections.dart';
 
 class DatabaseRouting
 {
@@ -18,6 +21,7 @@ class DatabaseRouting
   List<Cache> caches;
   Set<Marker> markers;
   List<Badge> badges;
+  List<Collection> collections;
   BuildContext context;
 
   factory DatabaseRouting()
@@ -72,7 +76,8 @@ class DatabaseRouting
   //Updates a users data
   void updateUser() async
   {
-    Firestore.instance.collection('users').document('customer1').updateData({'uuid':'RandomUUID'});
+    Firestore.instance.collection('users').document('customer1').updateData({'completionCode':'randomizedString'});
+
   }
 
   loadCaches() async
@@ -114,5 +119,24 @@ class DatabaseRouting
     final jsonResponse = json.decode(jsonString);
     BadgeLoader bl = new BadgeLoader.fromJson(jsonResponse);
     badges = bl.badges;
+  }
+
+  ///
+  /// Loads JSON file from assets
+  ///
+  Future<String> _loadCollections() async
+  {
+    return await rootBundle.loadString('badge-images/collection_data.json');
+  }
+
+  ///
+  /// Retrieves list data from JSON file
+  ///
+  loadCollections() async
+  {
+    String jsonString = await _loadCollections();
+    final jsonResponse = json.decode(jsonString);
+    Collections cl = new Collections.fromJson(jsonResponse);
+    collections = cl.collections;
   }
 }
