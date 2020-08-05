@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'LMHS Geocaching',
-        home: CompassPage(Cache("Bob", 0, GeoPoint(40, -75.55)))/*Scaffold(
+        home: CompassPage(Cache("Bob", 0, GeoPoint(40, -70)))/*Scaffold(40.553537, -75.570601
             appBar: AppBar(
               title: Text('LMHS Geocaching'),
               backgroundColor: Colors.blueGrey,

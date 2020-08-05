@@ -8,7 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 
 import 'Cache.dart';
-class CompassPage extends StatelessWidget
+class CompassPage extends StatelessWidget /// I don't know what to do with the immutable warning
 {
   LatLng _targetLoc;
 
@@ -20,8 +20,6 @@ class CompassPage extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
-
-
     //title: 'Flutter Compass Demo',//theme: ThemeData(brightness: Brightness.dark),//darkTheme: ThemeData.dark(),
     return new Scaffold(
         appBar: AppBar(title: Text('Cache Name')),
@@ -44,14 +42,17 @@ class Compass extends StatefulWidget
 class _CompassState extends State<Compass>
 {
   LatLng _targetLoc;
-  double _heading;
+  double _heading = 0;
+  double _angleAdjust;
+  bool _loading = false;
 
   _CompassState(LatLng t) {
     _targetLoc = t;
-    _heading = 0;
+    getAngle();
   }
 
-  String get _readout => _heading.toStringAsFixed(0) + '°';
+  String get _readout => (_heading % 360).toStringAsFixed(0) + '°';
+
   @override
   void initState()
   {
@@ -59,7 +60,38 @@ class _CompassState extends State<Compass>
     FlutterCompass.events.listen(_onData);
   }
 
-  void _onData(double x) => setState(() { _heading = x; });
+  void _onData(double x) => setState(() {
+    if(_angleAdjust != null) {
+      _heading = x - _angleAdjust;
+
+      if(!_loading) {
+        //print("loading: $_loading");
+        _loading = true;
+        //print('loading2: $_loading');
+        getAngle();
+      }
+    } else {
+      _heading = 0;
+    }
+  });
+
+  Future<void> getAngle() async {
+    print('Angle:: getAngle()');
+    //print('loading3: $_loading');
+    Geodesy geodesy = Geodesy();
+
+    Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((position) {
+      //print('Angle:: $position');
+      LatLng userLatLng = LatLng(position.latitude, position.longitude);
+
+      _angleAdjust = geodesy.bearingBetweenTwoGeoPoints(userLatLng, _targetLoc);
+      //print('Angle:: $_angleAdjust');
+      _loading = false;
+      //print('loading4: $_loading');
+    });
+  }
 
   final TextStyle _style = TextStyle(
     color: Colors.red[50].withOpacity(0.9),
@@ -71,20 +103,16 @@ class _CompassState extends State<Compass>
   Widget build(BuildContext context) {
 
     return CustomPaint(
-        foregroundPainter: CompassPainter(angle: _heading, targetLoc: _targetLoc),
+        foregroundPainter: CompassPainter(angle: _heading),
         child: Center(child: Text(_readout, style: _style))
     );
   }
 }
 
 class CompassPainter extends CustomPainter {
-  CompassPainter({ @required this.angle, this.targetLoc }) : super();
+  CompassPainter({ @required this.angle }) : super();
 
-  //TODO: Stop getAngle() from running on top of itself
-
-  LatLng targetLoc;
   double angle;
-  bool loading;
   //gets orientation of angle
   double get rotation => -2 * pi * (angle / 360);
 
@@ -107,14 +135,9 @@ class CompassPainter extends CustomPainter {
     Offset start = Offset.lerp(Offset(center.dx, radius), center, .4);
     Offset end = Offset.lerp(Offset(center.dx, radius), center, 0.1);
 
-    if(loading == null || !loading) {
-      //print("loading: $loading");
-      loading = true;
-      //print('loading2: $loading');
-      getAngle();
-    }
-    print('ang: $angle');
-    print('rot: $rotation; ' + (-2 * pi * (angle / 360)).toString());
+
+    //print('ang: $angle');
+    //print('rot: $rotation; ' + (-2 * pi * (angle / 360)).toString());
 
     canvas.translate(center.dx, center.dy);
     canvas.rotate(rotation);
@@ -128,21 +151,6 @@ class CompassPainter extends CustomPainter {
     return true;
   }
 
-  Future<void> getAngle() async {
-    print('Angle:: getAngle()');
-    //print('loading3: $loading');
-    Geodesy geodesy = Geodesy();
-
-
-    Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((position) {
-      print('Angle:: $position; $targetLoc');
-      LatLng userLatLng = LatLng(position.latitude, position.longitude);
-
-      angle = geodesy.bearingBetweenTwoGeoPoints(userLatLng, targetLoc);
-      print('Angle:: $angle');
-      loading = false;
-      //print('loading4: $loading');
-    });
     /*
     position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     print('Angle:: $position; $targetLoc');
@@ -154,7 +162,6 @@ class CompassPainter extends CustomPainter {
       loading = false;
     }
     */
-  }
 }
 
 /**
