@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lmhsgeocaching/Account.dart';
 
 class ProfilePage extends StatelessWidget
 {
@@ -8,7 +9,7 @@ class ProfilePage extends StatelessWidget
   {
     return new Scaffold (
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text(new Account().name),
       ),
       );
   }
