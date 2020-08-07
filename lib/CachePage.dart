@@ -14,28 +14,19 @@ class CachePage extends StatelessWidget
 
   Widget build(BuildContext context)
   {
+    ///Page Context
     return new Scaffold(
-      //This will turn into a ListView.builder for all collections. Plus nearby and all caches. 
+      //This will turn into a ListView.builder for all collections. Plus nearby and all caches.
+      ///List of lists
       body: ListView
         (
           children: <Widget>
           [
-            Container(
-                //margin: EdgeInsets.symmetric(vertical: 100.0),
-                height: 75.0,
-                child: buildScrollableList(db.caches)
-            ),
-            Container(
-                //margin: EdgeInsets.symmetric(vertical: 100.0),
-                height: 75.0,
-
-                child: buildScrollableList(db.caches)
-            ),
-
+            buildListThumbnail(),
+            buildListThumbnail(),
           ],
-      )
+      ),
     );
-
   }
   ListView buildScrollableList(List<Cache> caches)
   {
@@ -63,4 +54,20 @@ class CachePage extends StatelessWidget
         }
     );
   }
+  Column buildListThumbnail()
+  {
+    return Column
+      (
+      children: <Widget>
+      [
+        Align(child: Text("All Caches", textAlign: TextAlign.left), alignment: Alignment.centerLeft,),
+        Container(
+            //margin: EdgeInsets.symmetric(vertical: 100.0),
+            height: 75.0,
+            child: buildScrollableList(db.caches)
+        ),
+      ],
+    );
+  }
 }
+
