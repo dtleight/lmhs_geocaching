@@ -60,7 +60,7 @@ class CachePage extends StatelessWidget
       (
       children: <Widget>
       [
-        Align(child: Text("All Caches", textAlign: TextAlign.left), alignment: Alignment.centerLeft,),
+        Align(child: Text("All Caches", textAlign: TextAlign.left, style: TextStyle(fontSize: 20),), alignment: Alignment.centerLeft, ),
         Container(
             //margin: EdgeInsets.symmetric(vertical: 100.0),
             height: 75.0,
