@@ -80,7 +80,10 @@ class _MyHomePageState extends State<HomePage> {
                   image: DecorationImage(
                       fit: BoxFit.fill,
                       image: NetworkImage(
-                          "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"))),
+                          "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"
+                      )
+                  )
+              ),
             ),
             ListTile(
               leading: Icon(Icons.account_circle),
@@ -89,7 +92,9 @@ class _MyHomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (ctxt) => new ProfilePage()));
+                        builder: (ctxt) => new ProfilePage()
+                    )
+                );
               },
             ),
             ListTile(
@@ -99,7 +104,9 @@ class _MyHomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (ctxt) => new BadgeDisplayPage()));
+                        builder: (ctxt) => new BadgeDisplayPage()
+                    )
+                );
               },
             ),
             ListTile(
@@ -109,7 +116,9 @@ class _MyHomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (ctxt) => new SettingsPage()));
+                        builder: (ctxt) => new SettingsPage()
+                    )
+                );
               },
             ),
             ListTile(
