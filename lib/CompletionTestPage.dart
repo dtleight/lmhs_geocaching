@@ -71,6 +71,7 @@ class _CompletionTestState extends State<CompletionTestPage> {
       String barcode = await scanner.scan();
       if(barcode == cache.completionCode)
         {
+          print("Cache code found");
           new Account().onCacheCompletion(cache);
         }
       //String barcode = (await BarcodeScanner.scan()) as String;

@@ -10,8 +10,8 @@ class Account
   String email;
   String imageSrc;
   Timestamp joinDate;
-  List<int> cacheCompletions;
-  List<int> badgeCompletions;
+  List<dynamic> cacheCompletions;
+  List<dynamic> badgeCompletions;
 
   static final Account _account = Account._internal();
 
@@ -26,12 +26,12 @@ class Account
     _account.email = email;
     _account.imageSrc = imageSRC;
     _account.joinDate = joinDate;
-    _account.cacheCompletions = new List<int>();
-    _account.badgeCompletions = new List<int>();
+    _account.cacheCompletions = new List<dynamic>();
+    _account.badgeCompletions = new List<dynamic>();
     return _account;
   }
 
-  factory Account.fromDatabase(String name, String email, String imageSRC, Timestamp joinDate, List<int> cacheCompletions, List<int> badgeCompletions)
+  factory Account.fromDatabase(String name, String email, String imageSRC, Timestamp joinDate, List<dynamic> cacheCompletions, List<dynamic> badgeCompletions)
   {
     _account.name = name;
     _account.email = email;
@@ -47,8 +47,12 @@ class Account
 
   onCacheCompletion(Cache c)
   {
-    cacheCompletions.add(c.cacheID);
+    if(!cacheCompletions.contains(c.cacheID))
+    {
+      cacheCompletions.add(c.cacheID);
+    }
     updateBadges();
+    new DatabaseRouting().updateAccount(this);
   }
 
   updateBadges()
@@ -57,7 +61,10 @@ class Account
     {
       if(badge.isCompleted(cacheCompletions))
         {
-          badgeCompletions.add(badge.badgeID);
+          if(!badgeCompletions.contains(badge.badgeID))
+            {
+              badgeCompletions.add(badge.badgeID);
+            }
         }
     }
     );

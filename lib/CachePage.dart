@@ -23,7 +23,7 @@ class CachePage extends StatelessWidget
           children: <Widget>
           [
             buildListThumbnail(),
-            buildListThumbnail(),
+            //buildListThumbnail(),
           ],
       ),
     );
@@ -56,6 +56,8 @@ class CachePage extends StatelessWidget
   }
   Column buildListThumbnail()
   {
+
+    //db.writeCompletionCodes();
     return Column
       (
       children: <Widget>

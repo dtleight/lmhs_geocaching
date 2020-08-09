@@ -11,6 +11,9 @@ import 'Account.dart';
 import 'BadgeLoader.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'dart:math';
 
 import 'Collections.dart';
 
@@ -65,7 +68,11 @@ class DatabaseRouting
     DocumentSnapshot ds = await Firestore.instance.collection("users").document(email).get();
     if(ds.data != null)
       {
-        Account a = new Account.fromDatabase(name, email, imageSRC, ds.data['joinDate'], ds.data['cacheCompletions'], ds.data['badgeCompletions']);
+        List<dynamic> cCompletions = new List<dynamic>();
+        List<dynamic> bCompletions = new List<dynamic>();
+        cCompletions.addAll(ds.data['cachesCompleted']);
+        bCompletions.addAll(ds.data['badgesCompleted']);
+        Account a = new Account.fromDatabase(name, email, imageSRC, ds.data['joinDate'], cCompletions, bCompletions);
       }
     else
       {
@@ -88,7 +95,7 @@ class DatabaseRouting
     QuerySnapshot eventsQuery = await ref.getDocuments();
     eventsQuery.documents.forEach((document) {
       GeoPoint gp = document['location'];
-      Cache temp = new Cache.withMarker(document.documentID, document['cacheID'], document['location'], new LatLng(gp.latitude, gp.longitude), new MarkerId(document.documentID));
+      Cache temp = new Cache.withMarker(document.documentID, document['cacheID'], document['completionCode'], document['location'], new LatLng(gp.latitude, gp.longitude), new MarkerId(document.documentID));
       caches.add(temp);
       markers.add(temp.mapMarker);
       /**
@@ -139,4 +146,67 @@ class DatabaseRouting
     Collections cl = new Collections.fromJson(jsonResponse);
     collections = cl.collections;
   }
+  ///
+  /// Saves data to account
+  ///
+  updateAccount(Account a) async
+  {
+    await Firestore.instance.collection('users').document(a.email).updateData(
+        {
+          'cachesCompleted': a.cacheCompletions,
+          'badgesCompleted': a.badgeCompletions
+        }
+        );
+}
+
+  //Temporary Methods
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/qrcodes.txt');
+  }
+
+  Future<File> write(String qrcode) async
+  {
+    final file = await _localFile;
+    // Write the file.
+    return file.writeAsString(qrcode);
+  }
+
+  void writeCompletionCodes() async
+  {
+      for(Cache cache in this.caches)
+      {
+      String s = generateRandomQrCode();
+      print(s);
+      await Firestore.instance.collection('caches').document(cache.name).updateData({'completionCode': generateRandomQrCode()});
+      }
+  }
+  List<String> alreadyUsed = new List<String>();
+
+   String generateRandomQrCode()
+  {
+    String alphanum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    String randomString = '';
+    for(int i = 0; i < 4; i++)
+      {
+        int randNumber = new Random().nextInt(alphanum.length);
+        randomString += alphanum.substring(randNumber,randNumber+1);
+      }
+    if(!alreadyUsed.contains(randomString))
+      {
+        alreadyUsed.add(randomString);
+        return 'LMHSGEO-' + randomString;
+      }
+    else
+      {
+        return generateRandomQrCode();
+      }
+  }
+
 }
