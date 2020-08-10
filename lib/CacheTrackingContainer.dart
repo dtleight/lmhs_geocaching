@@ -25,7 +25,7 @@ class CacheContainerState extends State<CacheContainer>
     this.cache = cache;
   }
 
-  PageController _controller = PageController(initialPage: 1,);
+  PageController _controller = PageController(initialPage: 1);
 
   @override
   void dispose() {

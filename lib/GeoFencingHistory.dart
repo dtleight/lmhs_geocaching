@@ -1,16 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:lmhsgeocaching/Account.dart';
 import 'package:location/location.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'ProfilePage.dart';
-import 'BadgeDisplayPage.dart';
-import 'SettingsPage.dart';
-import 'AboutPage.dart';
-import 'Cache.dart';
-import 'CacheInfoPage.dart';
 import 'DatabaseRouting.dart';
 
 class HomePage extends StatefulWidget
