@@ -40,7 +40,7 @@
       "name": "Double Double",
       "description" : "Find the caches at both pairs of mills and schools",
       "src": "badge-images/double.jpg",
-      "id": 5,
+      "id": 6,
       "requirement": [9, 27, 5, 25]
     }
   ]

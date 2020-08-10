@@ -70,11 +70,11 @@ class Badge {
   }
 
     /// Handles requirements
-    bool isCompleted(List<int> cachesCompleted) {
+    bool isCompleted(List<dynamic> cachesCompleted) {
       print(requirement.runtimeType);
 
       if(requirement is int) {
-        return cachesCompleted.length > requirement;
+        return cachesCompleted.length >= requirement;
       } else if(requirement is List<int>) {
         bool test = true;
         for(int i in requirement) {

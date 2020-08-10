@@ -17,10 +17,11 @@ class Cache
     this.location = location;
     //this.completionCode = completionCode;
   }
-  Cache.withMarker(String name, int cacheID, GeoPoint location, LatLng position, MarkerId markerId)
+  Cache.withMarker(String name, int cacheID, String completionCode, GeoPoint location, LatLng position, MarkerId markerId)
   {
     this.name = name;
     this.cacheID = cacheID;
+    this.completionCode = completionCode;
     this.location = location;
     this.mapMarker = new Marker(position: position, markerId: markerId);
   }
