@@ -3,47 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
+import 'Cache.dart';
 import 'DatabaseRouting.dart';
 
-class HomePage extends StatefulWidget
+class CacheNearbyPage extends StatefulWidget
 {
-  HomePage({Key key, this.title}) : super(key: key);
+  CacheNearbyPage({Key key, this.cache}) : super(key: key);
 
-  final String title;
+  final Cache cache;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _NearbyMapState createState() => _NearbyMapState();
 }
 
-class _MyHomePageState extends State<HomePage> {
+class _NearbyMapState extends State<CacheNearbyPage> {
   GoogleMapController mapController;
-  LatLng _pos = const LatLng(40.523938, -75.547719);
+  LatLng _cacheLoc;
   LocationData currentLocation;
   Location location;
   Set<Marker> markers;
-
 
   void _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
   }
 
-  void _getLocation() async {
-    var location = new Location();
-    try {
-      currentLocation = await location.getLocation();
-      setState(() {});
-    } on Exception {
-      currentLocation = null;
-    }
-  }
-
   @override
   Widget build(BuildContext context)
   {
+    _cacheLoc = LatLng(widget.cache.location.latitude, widget.cache.location.longitude);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: FutureBuilder
         (
         future:  new DatabaseRouting().loadCaches(),
@@ -57,14 +45,27 @@ class _MyHomePageState extends State<HomePage> {
               return GoogleMap
                 (
                 onMapCreated: _onMapCreated,
-                mapType: MapType.terrain,
+                mapType: MapType.satellite,
                 initialCameraPosition: CameraPosition
                   (
-                  target: _pos,
-                  zoom: 15.0,
+                  target: _cacheLoc,
+                  zoom: 19.0,
                 ),
                 myLocationEnabled: true,
-                markers: new DatabaseRouting().markers,
+                scrollGesturesEnabled: false,
+                myLocationButtonEnabled: false,
+                zoomControlsEnabled: false,
+                zoomGesturesEnabled: false,
+                circles: Set.from([
+                  Circle(
+                    circleId: CircleId("Cache Circle"),
+                    center: _cacheLoc,
+                    radius: 30.48, /*100 ft in meters*/
+                    fillColor: Colors.green.withOpacity(.3),
+                    strokeWidth: 1,
+                    strokeColor: Colors.green
+                  )]
+                ),
               );
           }
         },

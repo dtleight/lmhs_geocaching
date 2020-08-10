@@ -56,7 +56,9 @@ class _CompassState extends State<Compass>
   String get _readout {
     if(_userLoc != null) {
       double dist = Geodesy().distanceBetweenTwoGeoPoints(_userLoc, _targetLoc) * 3.28084 /*Meters to feet*/;
-      if(dist < 5280) {
+      if(dist < 100) {
+        return "Nearby";
+      } else if(dist < 5280) {
         return dist.toStringAsFixed(0) + " ft";
       } else {
         return (dist / 5280 /*Feet to miles*/).toStringAsFixed(1) + " mi";
@@ -78,6 +80,10 @@ class _CompassState extends State<Compass>
       setState(() {
         if (_userLoc != null) {
           _angleAdjust = Geodesy().bearingBetweenTwoGeoPoints(_userLoc, _targetLoc);
+          // Overrides the green needle to point north if the user is less than 100 feet away
+          if(Geodesy().distanceBetweenTwoGeoPoints(_userLoc, _targetLoc) < 30.48 /*100 ft in meters*/) {
+            _angleAdjust = 0;
+          }
           _heading = x - _angleAdjust;
           _north = x;
 

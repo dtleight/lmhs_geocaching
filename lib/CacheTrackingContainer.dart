@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:lmhsgeocaching/CacheNearbyPage.dart';
 import 'package:lmhsgeocaching/CompassPage.dart';
 import 'Cache.dart';
 import 'CacheInfoPage.dart';
@@ -41,7 +42,8 @@ class CacheContainerState extends State<CacheContainer>
       [
         CacheInfoPage(cache),
         CompassPage(cache),
-        CompletionTestPage(cache)
+        CacheNearbyPage(cache: cache),
+        CompletionTestPage(cache),
       ],
     );
   }
