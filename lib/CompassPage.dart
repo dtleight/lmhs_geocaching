@@ -60,20 +60,24 @@ class _CompassState extends State<Compass>
     FlutterCompass.events.listen(_onData);
   }
 
-  void _onData(double x) => setState(() {
-    if(_angleAdjust != null) {
-      _heading = x - _angleAdjust;
+  void _onData(double x) {
+    if(mounted) {
+      setState(() {
+        if (_angleAdjust != null) {
+          _heading = x - _angleAdjust;
 
-      if(!_loading) {
-        //print("loading: $_loading");
-        _loading = true;
-        //print('loading2: $_loading');
-        getAngle();
-      }
-    } else {
-      _heading = 0;
+          if (!_loading) {
+            //print("loading: $_loading");
+            _loading = true;
+            //print('loading2: $_loading');
+            getAngle();
+          }
+        } else {
+          _heading = 0;
+        }
+      });
     }
-  });
+  }
 
   Future<void> getAngle() async {
     print('Angle:: getAngle()');
@@ -83,13 +87,13 @@ class _CompassState extends State<Compass>
     Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((position) {
-      //print('Angle:: $position');
-      LatLng userLatLng = LatLng(position.latitude, position.longitude);
+          //print('Angle:: $position');
+          LatLng userLatLng = LatLng(position.latitude, position.longitude);
 
-      _angleAdjust = geodesy.bearingBetweenTwoGeoPoints(userLatLng, _targetLoc);
-      //print('Angle:: $_angleAdjust');
-      _loading = false;
-      //print('loading4: $_loading');
+          _angleAdjust = geodesy.bearingBetweenTwoGeoPoints(userLatLng, _targetLoc);
+          //print('Angle:: $_angleAdjust');
+          _loading = false;
+          //print('loading4: $_loading');
     });
   }
 
@@ -150,72 +154,4 @@ class CompassPainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
   }
-
-    /*
-    position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    print('Angle:: $position; $targetLoc');
-    LatLng userLatLng = LatLng(position.latitude, position.longitude);
-
-    angle = geodesy.bearingBetweenTwoGeoPoints(userLatLng, targetLoc);
-    print('Angle:: $angle');
-    if(position.latitude > 0) {
-      loading = false;
-    }
-    */
 }
-
-/**
-class Compass extends StatefulWidget
-{
-  GeoPoint destination;
-  GeoPoint currLoc;
-  double distance;
-  double needleHeading;
-  Compass(GeoPoint destination, GeoPoint currLoc)
-  {
-    this.destination = destination;
-    this.currLoc = currLoc;
-    needleHeading = atan((destination.longitude-currLoc.longitude)/(destination.latitude-currLoc.latitude));
-  }
-}
-
-class CompassState extends State<Compass> {
-  double _direction;
-
-  @override
-  void initState() {
-    super.initState();
-    FlutterCompass.events.listen((double direction) {
-      setState(() {
-        _direction = direction;
-      });
-    });
-  }
-  ///trig
-  ///Device orientation = _direction
-  ///Angle from orientation to destination
-  ///arctan(x/y)
-
-  @override
-  Widget build(BuildContext context) {
-    //Needle
-    //atan()
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Flutter Compass'),
-        ),
-        body: new Container(
-          alignment: Alignment.center,
-          color: Colors.white,
-          //If no direction found, use 0, else use direction
-          child: new Transform.rotate(
-            angle: ((_direction ?? 0) * (pi / 180) * -1),
-            child: new Image.asset('assets/compass.jpg'),
-          ),
-        ),
-      ),
-    );
-  }
-}
-    **/
