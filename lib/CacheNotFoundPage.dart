@@ -3,68 +3,44 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:lmhsgeocaching/HomePage.dart';
 import 'Account.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'main.dart';
+
 String subject1;
 String body;
-
 final myController = TextEditingController();
 
 class CacheNotFoundPage extends StatefulWidget
 {
-
   @override
   _CacheNotFoundState createState() => new _CacheNotFoundState();
 }
 
 class _CacheNotFoundState extends State<CacheNotFoundPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Cache Not Found Form"),),
       body: ListView(
-        children: <Widget>[
-          SizedBox(
-          height: 25,
-          ),
-          Text("What seems to be the issue?",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-          ),
-          ),
-          SizedBox(
-            height: 25,
-          ),
-          OptionsNotFound(),
-          SizedBox(
-            height: 25,
-          ),
-        TextField(
-          controller: (myController),
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: "Please explain your issue in more detail.",
-          ),
-        ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 8.0),
-            child: RaisedButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              splashColor: Colors.blueGrey,
-              child: const Text('Send Message'),
-              onPressed: () {
-                subject1 = subject1.toString();
-                body = myController.text.toString();
-                Email();
-                FlutterEmailSender.send(mailer);
-              }
+          children: <Widget>[
+            SizedBox(
+              height: 25,
             ),
-          ),
+            Text("What seems to be the issue?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            OptionsNotFound(),
           ]),
     );
-  }
+    }
   }
 enum optionWrong { QrNotWork, NotFound, Other }
 
@@ -89,7 +65,7 @@ class _OptionsNotFoundState extends State<OptionsNotFound> {
             onChanged: (optionWrong value) {
               setState(() {
                 _option = value;
-                return subject1 = "QR Code Does Not Work";
+                subject1 = "QR Code Does Not Work";
               });
             },
           ),
@@ -102,7 +78,7 @@ class _OptionsNotFoundState extends State<OptionsNotFound> {
             onChanged: (optionWrong value) {
               setState(() {
                 _option = value;
-                return subject1 = "Cache not found";
+                subject1 = "Cache not found";
               });
             },
           ),
@@ -116,9 +92,51 @@ class _OptionsNotFoundState extends State<OptionsNotFound> {
             onChanged: (optionWrong value) {
               setState(() {
                 _option = value;
-                return subject1 = "Other";
+                subject1 = "Other";
               });
             },
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        TextField(
+          controller: (myController),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: "Please explain your issue in more detail.",
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 8.0),
+          child: RaisedButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              splashColor: Colors.blueGrey,
+              child: const Text('Send Message'),
+              onPressed: () {
+                subject1 = subject1.toString();
+                body = myController.text.toString();
+                Email();
+                FlutterEmailSender.send(mailer);
+                _option = null;
+                myController.clear();
+                Phoenix.rebirth(context);
+              }
+          ),
+        ),
+
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: RaisedButton(
+              color: Colors.red,
+              textColor: Colors.white,
+              splashColor: Colors.blueGrey,
+              child: const Text('Clear'),
+              onPressed: () {setState(() {
+                _option = null;
+                myController.clear();
+              });}
           ),
         ),
       ],

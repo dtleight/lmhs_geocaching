@@ -18,6 +18,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  flutter_phoenix: ^0.1.0
   url_launcher: ^5.5.0
   mailer: ^3.0.4
   flutter_email_sender: ^3.0.1

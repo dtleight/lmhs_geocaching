@@ -68,21 +68,13 @@ class _MyHomePageState extends State<HomePage> {
                   backgroundImage: NetworkImage(new Account().imageSrc),
                 ),
               ),
-              otherAccountsPictures: <Widget>[
-                GestureDetector(
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        "https://vignette.wikia.nocookie.net/nintendo/images/d/d8/New_Super_Mario_Bros._U_Deluxe_-_Mario_01.png/revision/latest?cb=20181226204245&path-prefix=en"),
-                  ),
-                ),
-              ],
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.fill,
                       image: NetworkImage(
                           "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"
-                      )
-                  )
+                      ),
+                  ),
               ),
             ),
             ListTile(
