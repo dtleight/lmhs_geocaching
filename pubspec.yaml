@@ -55,7 +55,11 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Black.ttf
+        - asset: fonts/Roboto-Light.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
