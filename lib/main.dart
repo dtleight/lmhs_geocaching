@@ -1,22 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lmhsgeocaching/PageContainer.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import 'LoginPage.dart';
 
-class MyApp extends StatelessWidget
-{
-  // This widget is the root of your application.
+void main() => runApp(Phoenix(child: MyApp()));
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
     return MaterialApp(
-        title: 'LMHS Geocaching',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: PageContainer());
+      title: 'Flutter Login',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginPage(),
+      //PageContainer()
+    );
   }
 }

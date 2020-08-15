@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-class CompletionTest extends StatelessWidget
+
+class SettingsPage extends StatelessWidget
 {
   @override
   Widget build(BuildContext context)
   {
-    return new Scaffold
-      (
-
-      );
+    return new Scaffold (
+      appBar: AppBar(
+        title: Text("Settings"),
+      ),
+    );
   }
 }
