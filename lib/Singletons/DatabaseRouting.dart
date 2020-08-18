@@ -2,21 +2,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'Cache.dart';
-import 'Badge.dart';
-import 'CacheInfoPage.dart';
-import 'Collection.dart';
+import '../Objects/Cache.dart';
+import '../Objects/Badge.dart';
+import '../Pages/CacheInfoPage.dart';
+import '../Objects/Collection.dart';
 import 'Account.dart';
-import 'BadgeLoader.dart';
+import '../Utilities/BadgeLoader.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'dart:math';
-
-import 'Collections.dart';
+import '../Utilities/Collections.dart';
 
 class DatabaseRouting
 {

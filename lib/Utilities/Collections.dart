@@ -1,4 +1,4 @@
-import 'package:lmhsgeocaching/Collection.dart';
+import '../Objects/Collection.dart';
 
 class Collections
 {

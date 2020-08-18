@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'sign_in.dart';
-import 'PageContainer.dart';
+import '../Utilities/sign_in.dart';
+import '../Containers/PageContainer.dart';
 
 class LoginPage extends StatefulWidget {
   @override

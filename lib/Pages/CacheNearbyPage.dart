@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
-import 'Cache.dart';
-import 'DatabaseRouting.dart';
+import '../Objects/Cache.dart';
+import '../Singletons/DatabaseRouting.dart';
 
 class CacheNearbyPage extends StatefulWidget
 {

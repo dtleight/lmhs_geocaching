@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lmhsgeocaching/Account.dart';
+import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Singletons/Account.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 String dateLong = new Account().joinDate.toDate().toString();

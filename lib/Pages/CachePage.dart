@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lmhsgeocaching/DatabaseRouting.dart';
+import '../Singletons/DatabaseRouting.dart';
 import 'CacheInfoPage.dart';
-import 'Cache.dart';
+import '../Objects/Cache.dart';
 
 class CachePage extends StatelessWidget
 {

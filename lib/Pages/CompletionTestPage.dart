@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
 
-import 'Cache.dart';
-import 'Account.dart';
+import '../Objects/Cache.dart';
+import '../Singletons/Account.dart';
 import 'CacheNotFoundPage.dart';
 
 class CompletionTestPage extends StatefulWidget

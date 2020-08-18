@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lmhsgeocaching/DatabaseRouting.dart';
-import 'Cache.dart';
-import 'Badge.dart';
+import '../Singletons/DatabaseRouting.dart';
+import '../Objects/Cache.dart';
+import '../Objects/Badge.dart';
 
 class Account
 {

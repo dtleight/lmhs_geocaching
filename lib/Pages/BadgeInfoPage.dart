@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Badge.dart';
+import '../Objects/Badge.dart';
 
 class BadgeInfoPage extends StatelessWidget {
 

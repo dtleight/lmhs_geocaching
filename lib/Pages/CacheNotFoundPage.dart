@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:lmhsgeocaching/HomePage.dart';
-import 'Account.dart';
+import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Pages/HomePage.dart';
+import '../Singletons/Account.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'main.dart';
+import '../Utilities/main.dart';
 
 String subject1;
 String body;

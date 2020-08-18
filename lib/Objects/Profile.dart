@@ -1,5 +1,5 @@
 import 'Badge.dart';
-import 'Account.dart';
+import '../Singletons/Account.dart';
 class Profile {
 
   Account account;

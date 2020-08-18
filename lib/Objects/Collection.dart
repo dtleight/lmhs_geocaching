@@ -1,5 +1,5 @@
-import 'package:lmhsgeocaching/Cache.dart';
-import 'package:lmhsgeocaching/DatabaseRouting.dart';
+import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Objects/Cache.dart';
+import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Singletons/DatabaseRouting.dart';
 
 class Collection
 {

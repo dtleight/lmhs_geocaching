@@ -7,7 +7,7 @@ import 'package:geolocator/geolocator.dart';
 
 import 'package:flutter_compass/flutter_compass.dart';
 
-import 'Cache.dart';
+import '../Objects/Cache.dart';
 class CompassPage extends StatelessWidget /// I don't know what to do with the immutable warning
 {
   LatLng _targetLoc;

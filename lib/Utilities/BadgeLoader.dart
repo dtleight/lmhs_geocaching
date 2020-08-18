@@ -1,4 +1,4 @@
-import 'package:lmhsgeocaching/Badge.dart';
+import '../Objects/Badge.dart';
 
 class BadgeLoader
 {

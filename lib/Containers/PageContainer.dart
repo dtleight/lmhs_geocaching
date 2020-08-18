@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'CachePage.dart';
-import 'HomePage.dart';
+import '../Pages/CachePage.dart';
+import '../Pages/HomePage.dart';
 import 'UtilitySelector.dart';
 
 class PageContainer extends StatefulWidget {

@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:lmhsgeocaching/CacheNearbyPage.dart';
-import 'package:lmhsgeocaching/CompassPage.dart';
-import 'Cache.dart';
-import 'CacheInfoPage.dart';
-import 'CompassPage.dart';
-import 'CompletionTestPage.dart';
+import '../Pages/CompassPage.dart';
+import '../Pages/CacheInfoPage.dart';
+import '../Pages/CacheNearbyPage.dart';
+import '../Pages/CompletionTestPage.dart';
+import '../Objects/Cache.dart';
 
 class CacheContainer extends StatefulWidget
 {
