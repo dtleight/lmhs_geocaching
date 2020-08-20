@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../Singletons/Account.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-String dateLong = "date";//new Account().joinDate.toDate().toString();
-String dateShort = "shortDate";//dateLong.substring(0,10);
+String dateLong = new Account().joinDate.toDate().toString();
+String dateShort = dateLong.substring(0,10);
 List cacheComp = new Account().cacheCompletions;
 List badgeComp = new Account().badgeCompletions;
 

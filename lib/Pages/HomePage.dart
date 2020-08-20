@@ -61,11 +61,11 @@ class _MyHomePageState extends State<HomePage> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("name"/*new Account().name*/),
-              accountEmail: Text("email"/*new Account().email*/),
+              accountName: Text(new Account().name),
+              accountEmail: Text(new Account().email),
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
-                  //backgroundImage: NetworkImage(new Account().imageSrc),
+                  backgroundImage: NetworkImage(new Account().imageSrc),
                 ),
               ),
               decoration: BoxDecoration(
