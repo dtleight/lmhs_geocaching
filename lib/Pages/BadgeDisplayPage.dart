@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lmhsgeocaching/Pages/BadgeInfoPage.dart';
+import '../Pages/BadgeInfoPage.dart';
 import '../Singletons/DatabaseRouting.dart';
 import '../Objects/Badge.dart';
 
