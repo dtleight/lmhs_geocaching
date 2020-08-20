@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Singletons/Account.dart';
+import '../Singletons/Account.dart';
 import 'package:location/location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -61,11 +61,11 @@ class _MyHomePageState extends State<HomePage> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text(new Account().name),
-              accountEmail: Text(new Account().email),
+              accountName: Text("name"/*new Account().name*/),
+              accountEmail: Text("email"/*new Account().email*/),
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(new Account().imageSrc),
+                  //backgroundImage: NetworkImage(new Account().imageSrc),
                 ),
               ),
               decoration: BoxDecoration(
