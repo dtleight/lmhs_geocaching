@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Pages/HomePage.dart';
+import '../Pages/HomePage.dart';
 import '../Singletons/Account.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../Utilities/main.dart';
