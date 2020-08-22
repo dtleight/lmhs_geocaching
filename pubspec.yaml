@@ -66,6 +66,7 @@ flutter:
   uses-material-design: true
   assets:
     - badge-images/badge_data.json
+    - badge-images/collection_data.json
     - badge-images/barn.jpg
     - badge-images/church.jpg
     - badge-images/double.jpg

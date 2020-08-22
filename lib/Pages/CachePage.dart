@@ -16,16 +16,15 @@ class CachePage extends StatelessWidget
   {
     ///Page Context
     return new Scaffold(
-      //This will turn into a ListView.builder for all collections. Plus nearby and all caches.
-      ///List of lists
-      body: ListView
+        body: ListView.builder
         (
-          children: <Widget>
-          [
-            buildListThumbnail(),
-            //buildListThumbnail(),
-          ],
-      ),
+          itemCount: db.collections.length,
+          itemBuilder: (BuildContext context,int index)
+          {
+            print(db.collections[index].caches.length);
+            return buildListThumbnail(db.collections[index].name, db.collections[index].caches);
+          }
+      )
     );
   }
   ListView buildScrollableList(List<Cache> caches)
@@ -54,7 +53,7 @@ class CachePage extends StatelessWidget
         }
     );
   }
-  Column buildListThumbnail()
+  Column buildListThumbnail(String title, List<Cache> cacheList)
   {
 
     //db.writeCompletionCodes();
@@ -62,11 +61,11 @@ class CachePage extends StatelessWidget
       (
       children: <Widget>
       [
-        Align(child: Text("All Caches", textAlign: TextAlign.left, style: TextStyle(fontSize: 20),), alignment: Alignment.centerLeft, ),
+        Align(child: Text(title, textAlign: TextAlign.left, style: TextStyle(fontSize: 20),), alignment: Alignment.centerLeft, ),
         Container(
             //margin: EdgeInsets.symmetric(vertical: 100.0),
             height: 75.0,
-            child: buildScrollableList(db.caches)
+            child: buildScrollableList(cacheList)
         ),
       ],
     );

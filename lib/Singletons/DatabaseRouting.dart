@@ -32,10 +32,11 @@ class DatabaseRouting
   }
 
   DatabaseRouting._internal();
-  void init()
+  void init() async
   {
-    loadCaches();
+    await loadCaches();
     loadBadges();
+    loadCollections();
   }
   Future<QuerySnapshot> loadDatabase(String collection) async
   {
@@ -132,6 +133,7 @@ class DatabaseRouting
   ///
   Future<String> _loadCollections() async
   {
+    print("testing collection loading");
     return await rootBundle.loadString('badge-images/collection_data.json');
   }
 

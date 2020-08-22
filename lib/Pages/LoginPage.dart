@@ -32,8 +32,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
-      onPressed: () {
-        signInWithGoogle().whenComplete(() {
+      onPressed: () async {
+        await signInWithGoogle().whenComplete(() {
           Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new PageContainer()));
         });
       },

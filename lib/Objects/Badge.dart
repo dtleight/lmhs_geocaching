@@ -29,7 +29,6 @@ class Badge {
   ///JSON Constructor
   factory Badge.fromJson(Map<String, dynamic> json)
   {
-    print("json");
     return Badge(json['name'], json['description'], json['src'], json['id'],
         json['requirement']);
   }
