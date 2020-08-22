@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Singletons/Account.dart';
+import '../Singletons/Account.dart';
 import 'package:location/location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

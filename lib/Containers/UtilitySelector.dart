@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Pages/AboutPage.dart';
-import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Pages/ProfilePage.dart';
-import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Pages/BadgeDisplayPage.dart';
+import '../Pages/AboutPage.dart';
+import '../Pages/ProfilePage.dart';
+import '../Pages/BadgeDisplayPage.dart';
 import 'package:lmhsgeocaching/Pages/SettingsPage.dart';
 
 class UtilitySelector extends StatelessWidget {

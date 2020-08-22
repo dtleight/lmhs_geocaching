@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Singletons/Account.dart';
-import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Singletons/DatabaseRouting.dart';
+import '../Singletons/Account.dart';
+import '../Singletons/DatabaseRouting.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();

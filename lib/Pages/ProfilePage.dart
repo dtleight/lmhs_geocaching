@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/dtlei/AndroidStudioProjects/lmhs_geocaching/lib/Singletons/Account.dart';
+import '../Singletons/Account.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 String dateLong = new Account().joinDate.toDate().toString();
@@ -21,10 +21,10 @@ class ProfilePage extends StatelessWidget
       ),
       body: ListView(
         children: <Widget>[
-      UserAccountsDrawerHeader(
-          currentAccountPicture: GestureDetector(
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(new Account().imageSrc),
+          UserAccountsDrawerHeader(
+            currentAccountPicture: GestureDetector(
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(new Account().imageSrc),
             ),
           ),
         decoration: BoxDecoration(
@@ -36,43 +36,43 @@ class ProfilePage extends StatelessWidget
           ),
         ),
       ),
-          Text("Your Stats",
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                decoration: TextDecoration.underline,
-                color: Colors.grey[800],
-                fontWeight: FontWeight.w900,
-                fontStyle: FontStyle.italic,
-                fontFamily: 'Open Sans',
-                fontSize: 30),
+          Center(
+            child: Text("Your Stats",
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: Colors.grey[1000],
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'Open Sans',
+                  fontSize: 30),
+            ),
           ),
           SizedBox(
             height: 25,
           ),
-          Text("Join Date: " + dateShort,
+          Text("  Join Date: " + dateShort,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
                 color: Colors.grey[800],
-                fontWeight: FontWeight.w900,
-                fontStyle: FontStyle.italic,
                 fontFamily: 'Open Sans',
                 fontSize: 15),
           ),
-          Text("Caches Completed:" + cacheComp.toString(),
+          SizedBox(
+            height: 10,
+          ),
+          Text("  Caches Completed:" + cacheComp.toString(),
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: Colors.grey[800],
-              fontWeight: FontWeight.w900,
-              fontStyle: FontStyle.italic,
               fontFamily: 'Open Sans',
               fontSize: 15),
           ),
-          Text("Badges Earned:" + badgeComp.toString(),
+          SizedBox(
+            height: 10,
+          ),
+          Text("  Badges Earned:" + badgeComp.toString(),
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
                 color: Colors.grey[800],
-                fontWeight: FontWeight.w900,
-                fontStyle: FontStyle.italic,
                 fontFamily: 'Open Sans',
                 fontSize: 15),
           )
