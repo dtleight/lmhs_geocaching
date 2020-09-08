@@ -14,6 +14,7 @@ class CachePage extends StatelessWidget
 
   Widget build(BuildContext context)
   {
+    print(db.iCaches[1].name);
     ///Page Context
     return new Scaffold(
         body: ListView.builder

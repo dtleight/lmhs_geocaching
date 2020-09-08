@@ -19,7 +19,7 @@ import '../Utilities/Collections.dart';
 class DatabaseRouting
 {
   static final DatabaseRouting _db = DatabaseRouting._internal();
-
+  Map<int,Cache> iCaches;
   List<Cache> caches;
   Set<Marker> markers;
   List<Badge> badges;
@@ -91,12 +91,14 @@ class DatabaseRouting
   {
     markers = Set();
     caches = new List();
+    iCaches = new Map();
     CollectionReference ref = Firestore.instance.collection('caches');
     QuerySnapshot eventsQuery = await ref.getDocuments();
     eventsQuery.documents.forEach((document) {
       GeoPoint gp = document['location'];
       Cache temp = new Cache.withMarker(document.documentID, document['cacheID'], document['completionCode'], document['location'], new LatLng(gp.latitude, gp.longitude), new MarkerId(document.documentID));
       caches.add(temp);
+      iCaches[document['cacheID']] = temp;
       markers.add(temp.mapMarker);
       /**
       markers.add(new Marker(
@@ -133,7 +135,6 @@ class DatabaseRouting
   ///
   Future<String> _loadCollections() async
   {
-    print("testing collection loading");
     return await rootBundle.loadString('badge-images/collection_data.json');
   }
 
