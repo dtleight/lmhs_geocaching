@@ -13,8 +13,7 @@ import '../Objects/Cache.dart';
 import 'CacheInfoPage.dart';
 import '../Singletons/DatabaseRouting.dart';
 
-class HomePage extends StatefulWidget
-{
+class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
 
   final String title;
@@ -51,8 +50,7 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -69,12 +67,11 @@ class _MyHomePageState extends State<HomePage> {
                 ),
               ),
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"
-                      ),
-                  ),
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                      "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"),
+                ),
               ),
             ),
             ListTile(
@@ -84,9 +81,7 @@ class _MyHomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (ctxt) => new ProfilePage()
-                    )
-                );
+                        builder: (ctxt) => new ProfilePage()));
               },
             ),
             ListTile(
@@ -96,9 +91,7 @@ class _MyHomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (ctxt) => new BadgeDisplayPage()
-                    )
-                );
+                        builder: (ctxt) => new BadgeDisplayPage()));
               },
             ),
             ListTile(
@@ -108,9 +101,7 @@ class _MyHomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (ctxt) => new SettingsPage()
-                    )
-                );
+                        builder: (ctxt) => new SettingsPage()));
               },
             ),
             ListTile(
@@ -124,21 +115,17 @@ class _MyHomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: FutureBuilder
-        (
-       future:  new DatabaseRouting().loadCaches(),
-        builder: (context,snapshot)
-        {
+      body: FutureBuilder(
+        future: new DatabaseRouting().loadCaches(),
+        builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
               return new Text('Loading...');
             default:
-              return GoogleMap
-                (
+              return GoogleMap(
                 onMapCreated: _onMapCreated,
                 mapType: MapType.terrain,
-                initialCameraPosition: CameraPosition
-                  (
+                initialCameraPosition: CameraPosition(
                   target: _pos,
                   zoom: 15.0,
                 ),

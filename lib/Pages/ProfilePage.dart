@@ -4,16 +4,14 @@ import '../Singletons/Account.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 String dateLong = new Account().joinDate.toDate().toString();
-String dateShort = dateLong.substring(0,10);
+String dateShort = dateLong.substring(0, 10);
 List cacheComp = new Account().cacheCompletions;
 List badgeComp = new Account().badgeCompletions;
 
-class ProfilePage extends StatelessWidget
-{
+class ProfilePage extends StatelessWidget {
   @override
-  Widget build(BuildContext context)
-  {
-    return new Scaffold (
+  Widget build(BuildContext context) {
+    return new Scaffold(
       appBar: AppBar(
         title: Text("Profile: " + new Account().name,
         textAlign: TextAlign.center
@@ -27,56 +25,53 @@ class ProfilePage extends StatelessWidget
                 backgroundImage: NetworkImage(new Account().imageSrc),
             ),
           ),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: NetworkImage(
-                "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: NetworkImage(
+                  "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"),
             ),
           ),
         ),
-      ),
-          Center(
-            child: Text("Your Stats",
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: Colors.grey[1000],
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'Open Sans',
-                  fontSize: 30),
-            ),
-          ),
-          SizedBox(
-            height: 25,
-          ),
-          Text("  Join Date: " + dateShort,
+        Center(
+          child: Text(
+            "Your Stats",
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                color: Colors.grey[800],
+                color: Colors.grey[1000],
+                fontWeight: FontWeight.w900,
                 fontFamily: 'Open Sans',
-                fontSize: 15),
+                fontSize: 30),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Text("  Caches Completed:" + cacheComp.toString(),
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: Colors.grey[800],
-              fontFamily: 'Open Sans',
-              fontSize: 15),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text("  Badges Earned:" + badgeComp.toString(),
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                color: Colors.grey[800],
-                fontFamily: 'Open Sans',
-                fontSize: 15),
-          )
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        Text(
+          "  Join Date: " + dateShort,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+              color: Colors.grey[800], fontFamily: 'Open Sans', fontSize: 15),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          "  Caches Completed:" + cacheComp.toString(),
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+              color: Colors.grey[800], fontFamily: 'Open Sans', fontSize: 15),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          "  Badges Earned:" + badgeComp.toString(),
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+              color: Colors.grey[800], fontFamily: 'Open Sans', fontSize: 15),
+        )
       ]),
-      );
+    );
   }
 }

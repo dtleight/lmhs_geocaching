@@ -1,34 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Cache
-{
+class Cache {
   String name;
   String completionCode;
   int cacheID;
   GeoPoint location;
   DateTime foundDate;
   Marker mapMarker;
+  String imgSRC;
 
-  Cache(String name, int cacheID, GeoPoint location)
-  {
+  Cache(String name, int cacheID, GeoPoint location) {
     this.name = name;
     this.cacheID = cacheID;
     this.location = location;
     //this.completionCode = completionCode;
   }
-  Cache.withMarker(String name, int cacheID, String completionCode, GeoPoint location, LatLng position, MarkerId markerId)
-  {
+
+  Cache.withMarker(String name, int cacheID, String completionCode,
+      GeoPoint location, LatLng position, MarkerId markerId) {
     this.name = name;
     this.cacheID = cacheID;
     this.completionCode = completionCode;
     this.location = location;
     this.mapMarker = new Marker(position: position, markerId: markerId);
   }
+
   ///Allows for forward referencing of marker
-  void setMarker(Marker marker)
-  {
-   this.mapMarker = mapMarker;
+  void setMarker(Marker marker) {
+    this.mapMarker = mapMarker;
   }
 
   //TODO: Instantiate _badgeCompletionList based on Badge's in Profile.dart
@@ -37,4 +37,11 @@ class Cache
     //updateBadges();
   }
 
+  String getImgSRC() {
+    if(imgSRC != null) {
+      return imgSRC;
+    } else {
+      return "badge-images/barn.jpg";
+    }
+  }
 }
