@@ -14,13 +14,7 @@ class Collection
     this.collectionID = collectionID;
     for(int id in cacheIds)
     {
-      for (Cache c in new DatabaseRouting().caches)
-        {
-          if(c.cacheID == id)
-            {
-              caches.add(c);
-            }
-        }
+      caches.add( new DatabaseRouting().iCaches[id]);
     }
   }
   factory Collection.fromJson(Map<String, dynamic> json)
