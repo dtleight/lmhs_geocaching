@@ -51,8 +51,8 @@ class CachePage extends StatelessWidget {
                   ),
 
                   ///Category Caches
-                  Container(
-                      height: 75.0,
+                  AspectRatio(
+                      aspectRatio: 5 / 2,
 
                       ///Horizontal List of Caches
                       child: ListView.builder(
@@ -60,6 +60,7 @@ class CachePage extends StatelessWidget {
                           itemCount: caches.length,
                           itemBuilder: (BuildContext context, int j) {
                             Cache thisCache = caches[j];
+
                             return new Container(
                               height: 400,
                               width: 150,
@@ -67,27 +68,34 @@ class CachePage extends StatelessWidget {
                                 child: InkWell(
                                     child: Column(
                                       children: <Widget>[
-                                        Image.asset(
-                                          thisCache.getImgSRC(),
-                                          height: 40,
-                                          width: 40,
+                                        Flexible(
+                                          flex: 5,
+                                          child: Image.asset(
+                                            thisCache.getImgSRC(),
+                                          ),
                                         ),
-                                        Center(
-                                            child: Text(
-                                          thisCache.name,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 15),
-                                        )),
-                                        Center(
-                                            child: Text(
-                                          thisCache.location.latitude
-                                                  .toString() +
-                                              ", " +
-                                              thisCache.location.longitude
-                                                  .toString(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 10),
-                                        )),
+                                        Flexible(
+                                          flex: 2,
+                                          child: Center(
+                                              child: Text(
+                                            thisCache.name,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 15),
+                                          )),
+                                        ),
+                                        Flexible(
+                                          flex: 1,
+                                          child: Center(
+                                              child: Text(
+                                            thisCache.location.latitude
+                                                    .toString() +
+                                                ", " +
+                                                thisCache.location.longitude
+                                                    .toString(),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 10),
+                                          )),
+                                        )
                                       ],
                                     ),
                                     onTap: () {
