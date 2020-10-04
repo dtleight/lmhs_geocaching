@@ -126,6 +126,7 @@ class DatabaseRouting
    {
     String jsonString = await _loadBadgeList();
     final jsonResponse = json.decode(jsonString);
+    //Parses a JSON-formatted String and returns a wrapper class for a list of Badge objects
     BadgeLoader bl = new BadgeLoader.fromJson(jsonResponse);
     badges = bl.badges;
   }
