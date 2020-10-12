@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Singletons/Account.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 String dateLong = new Account().joinDate.toDate().toString();
 String dateShort = dateLong.substring(0, 10);
@@ -13,64 +12,108 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Profile: " + new Account().name,
-        textAlign: TextAlign.center
-        ),
+        title: Text("Profile", textAlign: TextAlign.center),
       ),
-      body: ListView(
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            currentAccountPicture: GestureDetector(
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(new Account().imageSrc),
-            ),
+      body: ListView(children: <Widget>[
+        SizedBox(
+          height: 20,
+        ),
+        Center(
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(new Account().imageSrc),
+            radius: 45,
           ),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: NetworkImage(
-                  "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"),
-            ),
-          ),
+        ),
+        SizedBox(
+          height: 15,
         ),
         Center(
           child: Text(
-            "Your Stats",
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                color: Colors.grey[1000],
-                fontWeight: FontWeight.w900,
-                fontFamily: 'Open Sans',
-                fontSize: 30),
+            new Account().name,
+            style: TextStyle(fontSize: 30),
           ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        Row(
+          children: [
+            Flexible(
+              flex: 1,
+              child: Container(),
+            ),
+            Flexible(
+              flex: 3,
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.map,
+                    size: 100,
+                    color: Colors.green,
+                  ),
+                  Center(
+                    child: Text(
+                      "Caches Completed:",
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      cacheComp.length.toString(),
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: Container(),
+            ),
+            Flexible(
+              flex: 3,
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.star,
+                    size: 100,
+                    color: Colors.deepOrange,
+                  ),
+                  Center(
+                    child: Text(
+                      "Badges Earned:",
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      badgeComp.length.toString(),
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: Container(),
+            ),
+          ],
         ),
         SizedBox(
           height: 25,
         ),
         Text(
           "  Join Date: " + dateShort,
-          overflow: TextOverflow.ellipsis,
           style: TextStyle(
-              color: Colors.grey[800], fontFamily: 'Open Sans', fontSize: 15),
+            fontFamily: 'Open Sans',
+            fontSize: 20,
+          ),
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          "  Caches Completed:" + cacheComp.toString(),
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-              color: Colors.grey[800], fontFamily: 'Open Sans', fontSize: 15),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          "  Badges Earned:" + badgeComp.toString(),
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-              color: Colors.grey[800], fontFamily: 'Open Sans', fontSize: 15),
-        )
       ]),
     );
   }
