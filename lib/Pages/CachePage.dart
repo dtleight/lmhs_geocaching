@@ -20,8 +20,6 @@ class CachePage extends StatelessWidget {
     Color backgroundColor = Colors.blue;
     Color textColor = Colors.white;
 
-    print(db.iCaches[1].name);
-
     ///Page Context
     return new Scaffold(
         backgroundColor: backgroundColor,
