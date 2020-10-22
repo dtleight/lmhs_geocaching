@@ -65,7 +65,7 @@ class CacheInfoPage extends StatelessWidget
                 fontSize: 20,
               ),
             ),
-            Text("This is an explanation of the historical significance of the location of Cache #1."),
+            Text(c.description),
             // Instructions
             Text(
               "Instructions",

@@ -59,6 +59,7 @@ class _MyHomePageState extends State<HomePage> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
+
               accountName: Text(new Account().name),
               accountEmail: Text(new Account().email),
               currentAccountPicture: GestureDetector(

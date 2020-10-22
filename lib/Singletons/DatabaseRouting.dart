@@ -35,8 +35,8 @@ class DatabaseRouting
   void init() async
   {
     await loadCaches();
-    loadBadges();
-    loadCollections();
+    await loadBadges();
+    await loadCollections();
   }
   Future<QuerySnapshot> loadDatabase(String collection) async
   {
@@ -96,7 +96,7 @@ class DatabaseRouting
     QuerySnapshot eventsQuery = await ref.getDocuments();
     eventsQuery.documents.forEach((document) {
       GeoPoint gp = document['location'];
-      Cache temp = new Cache.withMarker(document.documentID, document['cacheID'], document['completionCode'], document['location'], new LatLng(gp.latitude, gp.longitude), new MarkerId(document.documentID));
+      Cache temp = new Cache.withMarker(document.documentID, document['cacheID'], document['completionCode'], document['description'],document['location'], new LatLng(gp.latitude, gp.longitude), new MarkerId(document.documentID));
       caches.add(temp);
       iCaches[document['cacheID']] = temp;
       markers.add(temp.mapMarker);
@@ -179,6 +179,15 @@ class DatabaseRouting
     final file = await _localFile;
     // Write the file.
     return file.writeAsString(qrcode);
+  }
+
+  void writeToCaches() async
+  {
+    for(Cache cache in this.caches)
+    {
+
+      await Firestore.instance.collection('caches').document(cache.name).updateData({'description': ""});
+    }
   }
 
   void writeCompletionCodes() async

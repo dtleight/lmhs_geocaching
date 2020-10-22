@@ -9,6 +9,7 @@ class Cache {
   DateTime foundDate;
   Marker mapMarker;
   String imgSRC;
+  String description;
 
   Cache(String name, int cacheID, GeoPoint location) {
     this.name = name;
@@ -17,12 +18,14 @@ class Cache {
     //this.completionCode = completionCode;
   }
 
-  Cache.withMarker(String name, int cacheID, String completionCode,
+  Cache.withMarker(String name, int cacheID, String completionCode,String description,
       GeoPoint location, LatLng position, MarkerId markerId) {
+    print(description);
     this.name = name;
     this.cacheID = cacheID;
     this.completionCode = completionCode;
     this.location = location;
+    this.description = description;
     this.mapMarker = new Marker(position: position, markerId: markerId);
   }
 

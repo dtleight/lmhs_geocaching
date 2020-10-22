@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lmhsgeocaching/Singletons/Account.dart';
 import '../Pages/BadgeInfoPage.dart';
 import '../Singletons/DatabaseRouting.dart';
 import '../Objects/Badge.dart';
@@ -9,13 +10,13 @@ class BadgeDisplayPage extends StatelessWidget
   static DatabaseRouting db;
   BadgeDisplayPage()
   {
+    print(new Account().badgeCompletions.toString());
     db = new DatabaseRouting();
     db.loadBadges();
   }
 
   Widget build(BuildContext context)
   {
-
     return new Scaffold (
       appBar: AppBar(
         title: Text("Badges"),
