@@ -52,14 +52,12 @@ class CacheInfoPage extends StatelessWidget {
               child:
               Text(
                 "Location: " +
-                    _cacheName +
-                    "\nLat: " +
-                    _cacheLat +
-                    " Long: " +
-                    _cacheLng,
+                    _cacheName,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
+                  fontWeight:
+                  FontWeight.bold,
                 ),
               ),
             ),
@@ -106,7 +104,7 @@ class CacheInfoPage extends StatelessWidget {
                   //todo the text description for how to find the cash should also be a variable
                   Text("These are the instructions to find Cache #1."),
             ),
-            Padding(
+            /*Padding(
                 padding: EdgeInsets.all(5),
                 child: Text(
                   "Comments",
@@ -135,8 +133,8 @@ class CacheInfoPage extends StatelessWidget {
                 Icon(Icons.person),
                 Text("so this can scroll."),
               ]),
-            ),
+            ),*/
           ],
-        ));
+        ) );
   }
 } // CacheInfoPage Class
