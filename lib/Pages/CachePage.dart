@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -70,9 +72,19 @@ class CachePage extends StatelessWidget {
                                       children: <Widget>[
                                         Flexible(
                                           flex: 5,
-                                          child: Image.asset(
-                                            thisCache.getImgSRC(),
+                                          //child: Image.asset(
+                                           // thisCache.getImgSRC(),
+                                          //),
+                                          child: FutureBuilder(future:getImage("mill"), builder: (BuildContext context, AsyncSnapshot snapshot)
+                                          {
+                                            if (snapshot.hasData())
+                                            {
+
+                                            }
+                                            return await getImage("mill")
+                                          },
                                           ),
+                                          //child:await getImage("mill"),
                                         ),
                                         Flexible(
                                           flex: 2,
@@ -112,5 +124,11 @@ class CachePage extends StatelessWidget {
                 ],
               );
             }));
+  }
+
+
+  Future<Widget> getImage(String image) async {
+    var url = await FirebaseStorage.instance.ref().child(image).getDownloadURL();
+    return Image.network(url);
   }
 }
