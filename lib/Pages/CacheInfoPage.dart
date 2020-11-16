@@ -70,6 +70,7 @@ class CacheInfoPage extends StatelessWidget {
                   target: _cacheLatLng,
                   zoom: 15.0,
                 ),
+                markers: {this.c.mapMarker},
               ),
             ),
             // History

@@ -53,7 +53,7 @@ class _MyHomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double infoBoxPos = -100;
     return Scaffold(
-      appBar: AppBar(title: Text("LMTHS Geocaching"), actions: <Widget>[
+      appBar: AppBar(title: Text("LMHS Geocaching"), actions: <Widget>[
         Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: GestureDetector(

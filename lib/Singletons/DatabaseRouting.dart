@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../Objects/Cache.dart';
 import '../Objects/Badge.dart';
-import '../Pages/CacheInfoPage.dart';
 import '../Objects/Collection.dart';
 import 'Account.dart';
 import '../Utilities/BadgeLoader.dart';
