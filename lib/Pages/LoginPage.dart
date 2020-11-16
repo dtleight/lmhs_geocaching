@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Utilities/sign_in.dart';
-import '../Containers/PageContainer.dart';
+import '../Pages/HomePage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () async {
         await signInWithGoogle().whenComplete(() {
-          Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new PageContainer()));
+          Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new HomePage()));
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

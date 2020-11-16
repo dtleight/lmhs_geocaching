@@ -10,7 +10,7 @@ import 'BadgeDisplayPage.dart';
 import 'SettingsPage.dart';
 import 'AboutPage.dart';
 import '../Objects/Cache.dart';
-import 'CacheInfoPage.dart';
+import '../Pages/CachePage.dart';
 import '../Singletons/DatabaseRouting.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,15 +51,26 @@ class _MyHomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double infoBoxPos = -100;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text("LMTHS Geocaching"), actions: <Widget>[
+        Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (ctxt) => new CachePage()));
+              },
+              child: Icon(
+                Icons.grid_on,
+                size: 26.0,
+              ),
+            )),
+      ]),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-
               accountName: Text(new Account().name),
               accountEmail: Text(new Account().email),
               currentAccountPicture: GestureDetector(
@@ -116,25 +127,56 @@ class _MyHomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: FutureBuilder(
-        future: new DatabaseRouting().loadCaches(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return new Text('Loading...');
-            default:
-              return GoogleMap(
-                onMapCreated: _onMapCreated,
-                mapType: MapType.terrain,
-                initialCameraPosition: CameraPosition(
-                  target: _pos,
-                  zoom: 15.0,
+      body: Stack(
+        children: <Widget>[
+          FutureBuilder(
+            future: new DatabaseRouting().loadCaches(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return new Text('Loading...');
+                default:
+                  return GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    mapType: MapType.terrain,
+                    initialCameraPosition: CameraPosition(
+                      target: _pos,
+                      zoom: 15.0,
+                    ),
+                    myLocationEnabled: true,
+                    markers: new DatabaseRouting().markers,
+                  );
+              }
+            },
+          ),
+          /*** This is the beginning of a concept Matt had where an info popup would come up when you tapped on a marker on the map
+           * Based on: https://medium.com/flutter-community/add-a-custom-info-window-to-your-google-map-pins-in-flutter-2e96fdca211a
+           * Would allow the user to go to the CacheInfoPage from this page
+          AnimatedPositioned(
+            bottom: infoBoxPos,
+            right: 0,
+            left: 0,
+            duration: Duration(milliseconds: 200),
+            child: Align(
+                alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.all(20),
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      blurRadius: 29,
+                      offset: Offset.zero,
+                      color: Colors.grey.withOpacity(.5)
+                    ),
+                  ],
                 ),
-                myLocationEnabled: true,
-                markers: new DatabaseRouting().markers,
-              );
-          }
-        },
+              ),
+            ),
+          ),***/
+        ],
       ),
     );
   }
