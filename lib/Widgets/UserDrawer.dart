@@ -15,11 +15,11 @@ class UserDrawer extends Drawer
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(new Account().name),
-            accountEmail: Text(new Account().email),
+            accountName: Text(new Account().name??"Temp"),
+            accountEmail: Text(new Account().email??"Temp"),
             currentAccountPicture: GestureDetector(
               child: CircleAvatar(
-                backgroundImage: NetworkImage(new Account().imageSrc),
+                backgroundImage: NetworkImage(new Account().imageSrc??""),
               ),
             ),
             decoration: BoxDecoration(
