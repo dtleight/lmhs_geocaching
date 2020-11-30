@@ -1,23 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lmhsgeocaching/Singletons/Account.dart';
+import 'package:lmhsgeocaching/Widgets/UserDrawer.dart';
 import '../Singletons/DatabaseRouting.dart';
-import 'AboutPage.dart';
-import 'BadgeDisplayPage.dart';
 import 'CacheInfoPage.dart';
 import '../Objects/Cache.dart';
 import '../Pages/HomePage.dart';
-import 'ProfilePage.dart';
-import 'SettingsPage.dart';
 
 class CachePage extends StatelessWidget {
   static DatabaseRouting db;
 
   CachePage() {
     db = new DatabaseRouting();
+    db.loadPicture();
   }
 
   Widget build(BuildContext context) {
@@ -44,68 +40,7 @@ class CachePage extends StatelessWidget {
                 ),
               )),
         ]),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: Text(new Account().name),
-                accountEmail: Text(new Account().email),
-                currentAccountPicture: GestureDetector(
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(new Account().imageSrc),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(
-                        "https://i.pinimg.com/originals/dc/8d/ef/dc8def609c27f9123c4f61a83a3b93bd.jpg"),
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.account_circle),
-                title: Text('Profile'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (ctxt) => new ProfilePage()));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.star_border),
-                title: Text('Badges'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (ctxt) => new BadgeDisplayPage()));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (ctxt) => new SettingsPage()));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.announcement),
-                title: Text('About'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (ctxt) => new AboutPage()));
-                },
-              )
-            ],
-          ),
-        ),
+        drawer: UserDrawer(),
         backgroundColor: backgroundColor,
 
         ///Vertical List of Categories
@@ -154,9 +89,22 @@ class CachePage extends StatelessWidget {
                                 children: <Widget>[
                                   Flexible(
                                     flex: 5,
-                                    child: Image.asset(
-                                      thisCache.getImgSRC(),
-                                    ),
+                                    child: FutureBuilder
+                                      (
+                                      future: db.loadPicture(),
+                                      builder: (context,snapshot)
+                                      {
+                                        if (snapshot.hasData)
+                                        {
+                                          return Image.network(snapshot.data);
+                                        }
+                                        else
+                                          {
+                                            return CircularProgressIndicator();
+                                          }
+                                      }
+                                      ,),
+                                    //child: Image.network(db.loadPicture()),
                                   ),
                                   Flexible(
                                     flex: 2,

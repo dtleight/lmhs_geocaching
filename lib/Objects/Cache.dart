@@ -26,7 +26,7 @@ class Cache {
     this.completionCode = completionCode;
     this.location = location;
     this.description = description;
-    this.mapMarker = new Marker(position: position, markerId: markerId);
+    this.mapMarker = new Marker(position: position, markerId: markerId,infoWindow: InfoWindow(title: this.name,snippet: position.longitude.toString() + ","+position.latitude.toString(), onTap: (){print("Go to cache page");}));
   }
 
   ///Allows for forward referencing of marker

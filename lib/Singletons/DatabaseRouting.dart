@@ -1,5 +1,8 @@
 
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -92,6 +95,7 @@ class DatabaseRouting
     caches = new List();
     iCaches = new Map();
     CollectionReference ref = Firestore.instance.collection('caches');
+    StorageReference sref = FirebaseStorage.instance.ref();
     QuerySnapshot eventsQuery = await ref.getDocuments();
     eventsQuery.documents.forEach((document) {
       GeoPoint gp = document['location'];
@@ -99,14 +103,6 @@ class DatabaseRouting
       caches.add(temp);
       iCaches[document['cacheID']] = temp;
       markers.add(temp.mapMarker);
-      /**
-      markers.add(new Marker(
-          position: new LatLng(gp.latitude, gp.longitude),
-          markerId: new MarkerId(document.documentID),
-          onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage(new Cache(document.documentID,document['cacheID'],gp))));}
-      )
-      );
-          **/
     });
   }
 
@@ -147,6 +143,12 @@ class DatabaseRouting
     final jsonResponse = json.decode(jsonString);
     Collections cl = new Collections.fromJson(jsonResponse);
     collections = cl.collections;
+  }
+
+  Future<String> loadPicture() async
+  {
+   String image = await FirebaseStorage.instance.ref().child('mill.jpg').getDownloadURL();
+   return image;
   }
   ///
   /// Saves data to account

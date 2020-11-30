@@ -28,22 +28,6 @@ class BadgeInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
-    Text earnDateText;
-    if(_obtained) {
-      earnDateText = Text(
-        "You earned this badge on: " + _unlockDate.toString(),
-        style: TextStyle(
-          fontSize: 18,
-        ),
-      );
-    } else {
-      earnDateText = Text(
-        "You have not earned this badge.",
-        style: TextStyle(
-          fontSize: 18,
-        ),
-      );
-    }
     return new Scaffold(
         appBar: AppBar (
             title: Text(_badgeName),
@@ -68,7 +52,7 @@ class BadgeInfoPage extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            earnDateText,
+            Text(_obtained? "You earned this badge on: " + _unlockDate.toString():"You have not earned this badge.",style: TextStyle(fontSize: 18),),
             SizedBox(
               height: 20,
             ),

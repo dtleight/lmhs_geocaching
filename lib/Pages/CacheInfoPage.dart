@@ -87,7 +87,7 @@ class CacheInfoPage extends StatelessWidget {
               padding: EdgeInsets.all(5),
               //todo: I commented out this variable to replace it with text for showcase purposes. Swap back later
               child: //Text(c.description),
-              Text('Here is the history of the place.'),
+              Text(c.description !=''?c.description:'Here is the history of the place.'),
               // Instructions
             ),
             Padding(
