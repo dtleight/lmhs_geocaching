@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:lmhsgeocaching/Widgets/UserDrawer.dart';
 import '../Singletons/DatabaseRouting.dart';
 import 'CacheInfoPage.dart';
@@ -87,7 +88,7 @@ class CachePage extends StatelessWidget {
                             child: InkWell(
                               child: Column(
                                 children: <Widget>[
-                                  Flexible(
+                                  Expanded(
                                     flex: 5,
                                     child: FutureBuilder
                                       (
@@ -96,7 +97,22 @@ class CachePage extends StatelessWidget {
                                       {
                                         if (snapshot.hasData)
                                         {
-                                          return Image.network(snapshot.data);
+                                          return Image.network
+                                            (
+
+                                            snapshot.data,
+                                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProcess)
+                                            {
+                                             if(loadingProcess == null)
+                                               {
+                                                 return child;
+                                               }
+                                             else
+                                               {
+                                                 return Center(child: CircularProgressIndicator(value: loadingProcess.expectedTotalBytes != null ? loadingProcess.cumulativeBytesLoaded / loadingProcess.expectedTotalBytes : null,));
+                                               }
+                                            },
+                                          );
                                         }
                                         else
                                           {

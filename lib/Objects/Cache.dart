@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lmhsgeocaching/Pages/CacheInfoPage.dart';
 
 class Cache {
   String name;
@@ -26,7 +29,7 @@ class Cache {
     this.completionCode = completionCode;
     this.location = location;
     this.description = description;
-    this.mapMarker = new Marker(position: position, markerId: markerId,infoWindow: InfoWindow(title: this.name,snippet: position.longitude.toString() + ","+position.latitude.toString(), onTap: (){print("Go to cache page");}));
+    this.mapMarker = new Marker(position: position, markerId: markerId,infoWindow: InfoWindow(title: this.name,snippet: position.longitude.toString() + ","+position.latitude.toString(), onTap: (){ Get.to(CacheInfoPage(this));}));
   }
 
   ///Allows for forward referencing of marker
