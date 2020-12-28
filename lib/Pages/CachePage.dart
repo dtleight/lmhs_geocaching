@@ -21,9 +21,10 @@ class CachePage extends StatelessWidget {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-
-    Color backgroundColor = Colors.lightBlue[300];
-    Color textColor = Colors.white;
+    //Color backgroundColor = Colors.white;
+    //Color backgroundColor = Colors.amber[600];
+    Color backgroundColor = Colors.amberAccent[400];
+    Color textColor = Colors.black;
 
     ///Page Context
     return new Scaffold(
@@ -85,6 +86,7 @@ class CachePage extends StatelessWidget {
                           height: 400,
                           width: 150,
                           child: Card(
+                            color: Colors.grey[200],
                             child: InkWell(
                               child: Column(
                                 children: <Widget>[

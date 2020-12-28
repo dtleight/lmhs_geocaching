@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lmhsgeocaching/Pages/CacheTrackerPage.dart';
 import '../Containers/CacheTrackingContainer.dart';
 import '../Objects/Cache.dart';
+import 'CompassPage.dart';
 
 class CacheInfoPage extends StatelessWidget {
   GoogleMapController mapController;
@@ -37,10 +39,8 @@ class CacheInfoPage extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.my_location),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (ctxt) => new CacheContainer(c)));
+                Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheTrackerPage(c)));
+                //Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheContainer(c)));
               },
             ),
           ],
