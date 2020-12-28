@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geodesy/geodesy.dart';
 import 'package:lmhsgeocaching/Objects/Cache.dart';
 import 'package:lmhsgeocaching/Pages/CacheNotFoundPage.dart';
+import 'package:lmhsgeocaching/Widgets/QRCodeReader.dart';
 import '../Widgets/Compass.dart';
 class CacheTrackerPage extends StatefulWidget
 {
@@ -31,8 +32,9 @@ class CacheTrackerPageState extends State<CacheTrackerPage>
     this.selectedIndex = 0;
     widgets = [
       Compass(targetLoc: LatLng((cache.location as GeoPoint).latitude,(cache.location as GeoPoint).longitude)),
-      Text("Tomato"),
-      Text("Mashed Tomato")];
+      Text("Mashed Tomato"),
+      QRCodeReader(cache),
+    ];
   }
   @override
   Widget build(BuildContext context)

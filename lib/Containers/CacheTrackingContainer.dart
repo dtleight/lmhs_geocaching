@@ -42,7 +42,7 @@ class CacheContainerState extends State<CacheContainer>
         CacheInfoPage(cache),
         CompassPage(cache),
         CacheNearbyPage(cache: cache),
-        CompletionTestPage(cache),
+        //CompletionTestPage(cache),
       ],
     );
   }
