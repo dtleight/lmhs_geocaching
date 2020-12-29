@@ -6,6 +6,7 @@ import 'package:lmhsgeocaching/Objects/Cache.dart';
 import 'package:lmhsgeocaching/Pages/CacheNotFoundPage.dart';
 import 'package:lmhsgeocaching/Widgets/QRCodeReader.dart';
 import '../Widgets/Compass.dart';
+import '../Widgets/CacheMap.dart';
 class CacheTrackerPage extends StatefulWidget
 {
   Cache cache;
@@ -34,20 +35,24 @@ class CacheTrackerPageState extends State<CacheTrackerPage>
       Compass(targetLoc: LatLng((cache.location as GeoPoint).latitude,(cache.location as GeoPoint).longitude)),
       Text("Mashed Tomato"),
       QRCodeReader(cache),
+      CacheMap(cache),
     ];
   }
   @override
   Widget build(BuildContext context)
   {
    return Scaffold(
+     backgroundColor: Colors.black,
      appBar: AppBar(title: Text("Cache Tracker"),leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){Navigator.pop(context);},),),
      bottomNavigationBar: BottomNavigationBar
        (
+       type: BottomNavigationBarType.fixed,
        items:
        [
           BottomNavigationBarItem( icon: Icon(Icons.adjust_sharp), label: "Compass"),
-         BottomNavigationBarItem( icon: Icon(Icons.book), label: "Log Book"),
-         BottomNavigationBarItem( icon: Icon(Icons.qr_code), label: "QR Code"),
+          BottomNavigationBarItem( icon: Icon(Icons.book), label: "Log Book"),
+          BottomNavigationBarItem( icon: Icon(Icons.qr_code), label: "QR Code"),
+          BottomNavigationBarItem( icon: Icon(Icons.map), label: "Map"),
        ],
        onTap: (int index){ setState(() {selectedIndex = index;});},
      ),

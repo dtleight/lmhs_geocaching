@@ -119,12 +119,12 @@ class CompassPainter extends CustomPainter {
   Paint get _brush =>
       new Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.0;
+        ..strokeWidth = 4.0;
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint circle = _brush
-      ..color = Colors.indigo[400].withOpacity(0.6);
+      ..color = Colors.red.withOpacity(0.6);
 
     Paint needle = _brush
       ..color = needleColor;

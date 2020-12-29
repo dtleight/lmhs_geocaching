@@ -23,8 +23,8 @@ class CachePage extends StatelessWidget {
     ]);
     //Color backgroundColor = Colors.white;
     //Color backgroundColor = Colors.amber[600];
-    Color backgroundColor = Colors.amberAccent[400];
-    Color textColor = Colors.black;
+    Color backgroundColor = Colors.black;
+    Color textColor = Colors.white;
 
     ///Page Context
     return new Scaffold(
