@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lmhsgeocaching/Pages/CacheTrackerPage.dart';
+import 'package:lmhsgeocaching/Widgets/InfoSelector.dart';
 import 'package:lmhsgeocaching/Widgets/QRCodeReader.dart';
 import '../Containers/CacheTrackingContainer.dart';
 import '../Objects/Cache.dart';
@@ -27,6 +28,9 @@ class CacheInfoPage extends StatelessWidget {
     _cacheID = c.cacheID;
   } // CacheInfoPage Constructor
 
+  Color backgroundColor = Colors.red[300];
+  Color textColor = Colors.grey[200];
+
   @override
   Widget build(BuildContext context) {
     String _cacheLat = _cacheLoc.latitude.toString();
@@ -35,10 +39,10 @@ class CacheInfoPage extends StatelessWidget {
 
     return new Scaffold(
         appBar: AppBar(
-          title: Text(_cacheName + " Information"),
+          title: Text("Cache Information"),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.my_location),
+              icon: Icon(Icons.navigation_sharp),
               onPressed: () {
                 Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheTrackerPage(c)));
                 //Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheContainer(c)));
@@ -46,23 +50,9 @@ class CacheInfoPage extends StatelessWidget {
             ),
           ],
         ),
-        body: ListView(
+        backgroundColor: backgroundColor,
+        body: Column(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(5),
-              child:
-              Text(
-                "Location: " +
-                    _cacheName,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight:
-                  FontWeight.bold,
-                ),
-              ),
-            ),
-
             SizedBox(
               height: 300,
               child: GoogleMap(
@@ -74,68 +64,21 @@ class CacheInfoPage extends StatelessWidget {
                 markers: {this.c.mapMarker},
               ),
             ),
-            // History
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: Text(
-                "History",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              //todo: I commented out this variable to replace it with text for showcase purposes. Swap back later
-              child: //Text(c.description),
-              Text(c.description !=''?c.description:'Here is the history of the place.'),
-              // Instructions
-            ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: Text(
-                "Instructions",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
             Padding(
               padding: EdgeInsets.all(5),
               child:
-                  //todo the text description for how to find the cash should also be a variable
-                  Text("These are the instructions to find Cache #1."),
-            ),
-            /*Padding(
-                padding: EdgeInsets.all(5),
-                child: Text(
-                  "Comments",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                )
-
-                // Comments
-
+              Text(_cacheName,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
                 ),
-            Card(
-              child: Row(children: <Widget>[
-                Icon(Icons.person),
-                Text("This is one possible format for comments."),
-              ]),
+              ),
             ),
-            Card(
-              child: Row(children: <Widget>[
-                Icon(Icons.person),
-                Text("Here are two more,"),
-              ]),
-            ),
-            Card(
-              child: Row(children: <Widget>[
-                Icon(Icons.person),
-                Text("so this can scroll."),
-              ]),
-            ),*/
+            Expanded(
+              child: InfoSelector(backgroundColor, textColor, c),
+            )
           ],
         ) );
   }

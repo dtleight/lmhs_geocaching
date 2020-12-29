@@ -23,8 +23,8 @@ class CachePage extends StatelessWidget {
     ]);
     //Color backgroundColor = Colors.white;
     //Color backgroundColor = Colors.amber[600];
-    Color backgroundColor = Colors.black;
-    Color textColor = Colors.white;
+    Color backgroundColor = Colors.red[300];
+    Color textColor = Colors.grey[200];
 
     ///Page Context
     return new Scaffold(
@@ -62,7 +62,7 @@ class CachePage extends StatelessWidget {
                         db.collections[index].name,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 25,
                           color: textColor,
                           fontWeight: FontWeight.bold,
                         ),

@@ -31,6 +31,7 @@ dependencies:
   path_provider: 1.6.11
   firebase_storage: ^3.0.8
   get: ^3.21.3
+  text_item_selector: any
 
 
 dev_dependencies:
