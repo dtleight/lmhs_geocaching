@@ -1,20 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lmhsgeocaching/Objects/Cache.dart';
+import 'package:lmhsgeocaching/Utilities/ColorTheme.dart';
 import 'package:text_item_selector/text_item_selector.dart';
 
 class InfoSelector extends StatefulWidget {
-  Color backgroundColor;
-  Color textColor;
   Cache c;
 
   @override
   _InfoSelectorState createState() =>
-      _InfoSelectorState(backgroundColor, textColor, c);
+      _InfoSelectorState(c);
 
-  InfoSelector(Color background, Color text, Cache cache) {
-    backgroundColor = background;
-    textColor = text;
+  InfoSelector(Cache cache) {
     c = cache;
   }
 }
@@ -23,15 +20,11 @@ class _InfoSelectorState extends State<InfoSelector> {
   int _activeItem;
   PageController _pageController;
 
-  Color backgroundColor;
-  Color textColor;
   Cache c;
   List textOptions;
   String activeText;
 
-  _InfoSelectorState(Color background, Color text, Cache cache) {
-    backgroundColor = background;
-    textColor = text;
+  _InfoSelectorState(Cache cache) {
     c = cache;
   }
 
@@ -54,7 +47,7 @@ class _InfoSelectorState extends State<InfoSelector> {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       ItemSelectorBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: ColorTheme.backgroundColor,
         activeIndex: _activeItem,
         items: <String>[
           'History',
@@ -68,12 +61,12 @@ class _InfoSelectorState extends State<InfoSelector> {
           _pageController.animateToPage(value,
               duration: Duration(milliseconds: 300), curve: Curves.ease);
         },
-        indicatorColor: textColor,
+        indicatorColor: ColorTheme.textColor,
         itemTextStyle: ItemTextStyle(
           initialStyle: TextStyle(
-              color: textColor, fontSize: 25, fontWeight: FontWeight.normal),
+              color: ColorTheme.textColor, fontSize: 25, fontWeight: FontWeight.normal),
           selectedStyle: TextStyle(
-              color: textColor, fontSize: 25, fontWeight: FontWeight.bold),
+              color: ColorTheme.textColor, fontSize: 25, fontWeight: FontWeight.bold),
         ),
       ),
       Expanded(
@@ -87,7 +80,7 @@ class _InfoSelectorState extends State<InfoSelector> {
                 '$activeText',
                 style: new TextStyle(
                   fontSize: 16.0,
-                  color: textColor,
+                  color: ColorTheme.textColor,
                 ),
                 textAlign: TextAlign.left,
               ),

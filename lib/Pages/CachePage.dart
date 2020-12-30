@@ -8,6 +8,7 @@ import '../Singletons/DatabaseRouting.dart';
 import 'CacheInfoPage.dart';
 import '../Objects/Cache.dart';
 import '../Pages/HomePage.dart';
+import '../Utilities/ColorTheme.dart';
 
 class CachePage extends StatelessWidget {
   static DatabaseRouting db;
@@ -21,14 +22,6 @@ class CachePage extends StatelessWidget {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    //Color backgroundColor = Colors.white;
-    //Color backgroundColor = Colors.amber[600];
-    /// Dalton Colors
-    Color backgroundColor = Colors.black;
-    Color textColor = Colors.white;
-    /// Matt Colors
-    backgroundColor = Colors.red[300];
-    textColor = Colors.grey[200];
 
     ///Page Context
     return new Scaffold(
@@ -47,7 +40,7 @@ class CachePage extends StatelessWidget {
               )),
         ]),
         drawer: UserDrawer(),
-        backgroundColor: backgroundColor,
+        backgroundColor: ColorTheme.backgroundColor,
 
         ///Vertical List of Categories
         body: ListView.builder(
@@ -67,7 +60,7 @@ class CachePage extends StatelessWidget {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 25,
-                          color: textColor,
+                          color: ColorTheme.textColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

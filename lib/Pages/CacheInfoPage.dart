@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lmhsgeocaching/Pages/CacheTrackerPage.dart';
+import 'package:lmhsgeocaching/Utilities/ColorTheme.dart';
 import 'package:lmhsgeocaching/Widgets/InfoSelector.dart';
 import 'package:lmhsgeocaching/Widgets/QRCodeReader.dart';
 import '../Containers/CacheTrackingContainer.dart';
@@ -28,9 +29,6 @@ class CacheInfoPage extends StatelessWidget {
     _cacheID = c.cacheID;
   } // CacheInfoPage Constructor
 
-  Color backgroundColor = Colors.red[300];
-  Color textColor = Colors.grey[200];
-
   @override
   Widget build(BuildContext context) {
     String _cacheLat = _cacheLoc.latitude.toString();
@@ -50,7 +48,7 @@ class CacheInfoPage extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: backgroundColor,
+        backgroundColor: ColorTheme.backgroundColor,
         body: Column(
           children: <Widget>[
             SizedBox(
@@ -70,14 +68,14 @@ class CacheInfoPage extends StatelessWidget {
               Text(_cacheName,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: textColor,
+                  color: ColorTheme.textColor,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             Expanded(
-              child: InfoSelector(backgroundColor, textColor, c),
+              child: InfoSelector(c),
             )
           ],
         ) );

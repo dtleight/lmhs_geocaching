@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lmhsgeocaching/Utilities/ColorTheme.dart';
 import '../Singletons/Account.dart';
 
 String dateLong = new Account().joinDate.toDate().toString();
@@ -14,6 +15,7 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Profile", textAlign: TextAlign.center),
       ),
+      backgroundColor: ColorTheme.backgroundColor,
       body: ListView(children: <Widget>[
         SizedBox(
           height: 20,
@@ -30,7 +32,10 @@ class ProfilePage extends StatelessWidget {
         Center(
           child: Text(
             new Account().name,
-            style: TextStyle(fontSize: 30),
+            style: TextStyle(
+              fontSize: 30,
+              color: ColorTheme.textColor,
+            ),
           ),
         ),
         SizedBox(
@@ -49,19 +54,25 @@ class ProfilePage extends StatelessWidget {
                   Icon(
                     Icons.map,
                     size: 100,
-                    color: Colors.green,
+                    color: Colors.green[500],
                   ),
                   Center(
                     child: Text(
                       "Caches Completed:",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: ColorTheme.textColor,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Center(
                     child: Text(
                       cacheComp.length.toString(),
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: ColorTheme.textColor,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -79,19 +90,25 @@ class ProfilePage extends StatelessWidget {
                   Icon(
                     Icons.star,
                     size: 100,
-                    color: Colors.deepOrange,
+                    color: Colors.amber[600],
                   ),
                   Center(
                     child: Text(
                       "Badges Earned:",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: ColorTheme.textColor,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Center(
                     child: Text(
                       badgeComp.length.toString(),
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: ColorTheme.textColor,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -112,6 +129,7 @@ class ProfilePage extends StatelessWidget {
           style: TextStyle(
             fontFamily: 'Open Sans',
             fontSize: 20,
+            color: ColorTheme.textColor,
           ),
         ),
       ]),
