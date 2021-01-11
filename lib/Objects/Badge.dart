@@ -4,12 +4,12 @@ import 'package:image/image.dart' as dart;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lmhsgeocaching/Singletons/Account.dart';
 
 class Badge {
   String name;
   int badgeID;
   String imageSRC;
-  bool isObtained;
   String description;
   DateTime unlockDate;
   dynamic requirement;
@@ -22,8 +22,6 @@ class Badge {
     this.imageSRC = src;
     this.badgeID = ID;
     this.requirement = requirement;
-
-    isObtained = false;
   }
 
   ///JSON Constructor
@@ -36,7 +34,7 @@ class Badge {
   /// Takes a widget and applies a grayscale filter if needed
 
   Widget decideFilter(Widget widget) {
-    if(isObtained) {
+    if(new Account().badgeCompletions.contains(badgeID)) {
       return widget;
     } else {
       return ColorFiltered(

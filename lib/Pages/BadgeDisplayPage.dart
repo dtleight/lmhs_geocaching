@@ -10,7 +10,7 @@ class BadgeDisplayPage extends StatelessWidget {
   static DatabaseRouting db;
 
   BadgeDisplayPage() {
-    print(new Account().badgeCompletions.toString());
+    print("badgeCompletions: " + new Account().badgeCompletions.toString());
     db = new DatabaseRouting();
     db.loadBadges();
   }

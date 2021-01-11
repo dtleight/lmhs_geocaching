@@ -38,7 +38,7 @@ class Account
     _account.imageSrc = imageSRC;
     _account.joinDate = joinDate;
     _account.cacheCompletions = cacheCompletions;
-    _account.badgeCompletions =badgeCompletions;
+    _account.badgeCompletions = badgeCompletions;
     return _account;
   }
   Account._internal();

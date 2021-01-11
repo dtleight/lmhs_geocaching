@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lmhsgeocaching/Singletons/Account.dart';
 import '../Objects/Badge.dart';
 import '../Utilities/ColorTheme.dart';
 
@@ -15,7 +16,7 @@ class BadgeInfoPage extends StatelessWidget {
 
   //Constructor
   BadgeInfoPage(Badge B) {
-    _obtained = B.isObtained;
+    _obtained = new Account().badgeCompletions.contains(B.badgeID);
     _badgeName = B.name;
     _badgeID = B.badgeID;
     badgeImage = B.decideFilter(Image.asset(B.imageSRC));
