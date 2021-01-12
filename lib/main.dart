@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-import '../Pages/LoginPage.dart';
+import 'Pages/LoginPage.dart';
 
 void main() => runApp(Phoenix(child: MyApp()));
 
