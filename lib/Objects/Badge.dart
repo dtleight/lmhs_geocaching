@@ -34,7 +34,17 @@ class Badge {
   /// Takes a widget and applies a grayscale filter if needed
 
   Widget decideFilter(Widget widget) {
-    if(new Account().badgeCompletions.contains(badgeID)) {
+    /// Check whether or not this badge has been obtained
+    bool obtained = false;
+    for(Map badge in new Account().badgeCompletions) {
+      if(badge["badgeID"] == badgeID) {
+        obtained = true;
+        break;
+      }
+    }
+
+
+    if(obtained) {
       return widget;
     } else {
       return ColorFiltered(
@@ -42,7 +52,7 @@ class Badge {
           0.2126, 0.7152, 0.0722, 0, 0,
           0.2126, 0.7152, 0.0722, 0, 0,
           0.2126, 0.7152, 0.0722, 0, 0,
-          0, 0, 0, 1, 0,
+               0,      0,      0, 1, 0,
         ]),
         child: widget,
       );

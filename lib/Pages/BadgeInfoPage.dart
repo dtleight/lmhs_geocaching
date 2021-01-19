@@ -9,24 +9,31 @@ class BadgeInfoPage extends StatelessWidget {
   static String _badgeName;
   static int _badgeID;
   static Widget badgeImage;
-  static DateTime _unlockDate;
+  static String _unlockDate;
   static String dateGot;
   static String description;
   static double progress;
 
   //Constructor
   BadgeInfoPage(Badge B) {
-    _obtained = new Account().badgeCompletions.contains(B.badgeID);
     _badgeName = B.name;
     _badgeID = B.badgeID;
     badgeImage = B.decideFilter(Image.asset(B.imageSRC));
-    _unlockDate = B.unlockDate;
     description = B.description;
     progress = B.getProgress();
   }
 
   @override
   Widget build(BuildContext context) {
+    bool _obtained = false;
+    for(Map badge in new Account().badgeCompletions) {
+      if(badge["badgeID"] == _badgeID) {
+        _obtained = true;
+        _unlockDate = badge["completionDate"].toDate().toString().substring(0, 10);
+        break;
+      }
+    }
+
     return new Scaffold(
       appBar: AppBar(
         title: Text("Badge Info"),

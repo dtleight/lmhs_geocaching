@@ -4,8 +4,7 @@ import '../Singletons/DatabaseRouting.dart';
 import '../Objects/Cache.dart';
 import '../Objects/Badge.dart';
 
-class Account
-{
+class Account {
   String name;
   String email;
   String imageSrc;
@@ -15,13 +14,12 @@ class Account
 
   static final Account _account = Account._internal();
 
-  factory Account()
-  {
+  factory Account() {
     return _account;
   }
 
-  factory Account.instantiate(String name, String email, String imageSRC, Timestamp joinDate)
-  {
+  factory Account.instantiate(
+      String name, String email, String imageSRC, Timestamp joinDate) {
     _account.name = name;
     _account.email = email;
     _account.imageSrc = imageSRC;
@@ -31,8 +29,13 @@ class Account
     return _account;
   }
 
-  factory Account.fromDatabase(String name, String email, String imageSRC, Timestamp joinDate, List<dynamic> cacheCompletions, List<dynamic> badgeCompletions)
-  {
+  factory Account.fromDatabase(
+      String name,
+      String email,
+      String imageSRC,
+      Timestamp joinDate,
+      List<dynamic> cacheCompletions,
+      List<dynamic> badgeCompletions) {
     _account.name = name;
     _account.email = email;
     _account.imageSrc = imageSRC;
@@ -41,32 +44,29 @@ class Account
     _account.badgeCompletions = badgeCompletions;
     return _account;
   }
+
   Account._internal();
 
   void init() {}
 
-  onCacheCompletion(Cache c)
-  {
-    if(!cacheCompletions.contains(c.cacheID))
-    {
+  onCacheCompletion(Cache c) {
+    if (!cacheCompletions.contains(c.cacheID)) {
       cacheCompletions.add(c.cacheID);
     }
     updateBadges();
     new DatabaseRouting().updateAccount(this);
   }
 
-  updateBadges()
-  {
-    new DatabaseRouting().badges.forEach( (badge)
-    {
-      if(badge.isCompleted(cacheCompletions))
-        {
-          if(!badgeCompletions.contains(badge.badgeID))
-            {
-              badgeCompletions.add(badge.badgeID);
-            }
+  updateBadges() {
+    new DatabaseRouting().badges.forEach((badge) {
+      if (badge.isCompleted(cacheCompletions)) {
+        if (!badgeCompletions.contains(badge.badgeID)) {
+          badgeCompletions.add({
+            "badgeID": badge.badgeID,
+            "completionDate": Timestamp.now()
+          });
         }
-    }
-    );
+      }
+    });
   }
 }

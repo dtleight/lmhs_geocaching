@@ -73,7 +73,7 @@ class DatabaseRouting
         List<dynamic> cCompletions = new List<dynamic>();
         List<dynamic> bCompletions = new List<dynamic>();
         cCompletions.addAll(ds.data['cachesCompleted']);
-        bCompletions.addAll(ds.data['badgesCompleted']);
+        bCompletions.addAll(ds.data['badgeCompletions']);
         Account a = new Account.fromDatabase(name, email, imageSRC, ds.data['joinDate'], cCompletions, bCompletions);
       }
     else
