@@ -6,7 +6,7 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import '../Pages/HomePage.dart';
 import '../Singletons/Account.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import '../Utilities/main.dart';
+import '../main.dart';
 
 String subject1;
 String body;
