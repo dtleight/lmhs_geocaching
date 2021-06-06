@@ -76,8 +76,8 @@ class CacheInfoPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Selector(),
-              //child: InfoSelector(c),
+              //child: Selector(),
+              child: InfoSelector(c),
             )
           ],
         ) );

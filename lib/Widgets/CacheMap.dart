@@ -27,16 +27,21 @@ Cache cache;
   @override
   Widget build(BuildContext context)
   {
-    return GoogleMap
-      (
-      onMapCreated: _onMapCreated,
-      mapType: MapType.satellite,
-      markers: [Marker(markerId: MarkerId("Cache Location"),position: LatLng(cache.location.latitude,cache.location.longitude))].toSet(),
-      initialCameraPosition: CameraPosition(
-        target: _pos,
-        zoom: 17.0,
-      ),
-      myLocationEnabled: true,
+    return FutureBuilder(
+      future: _getLocation(),
+      builder: (context,snapshot) {
+        return GoogleMap
+        (
+        onMapCreated: _onMapCreated,
+        mapType: MapType.satellite,
+        markers: [Marker(markerId: MarkerId("Cache Location"),position: LatLng(cache.location.latitude,cache.location.longitude))].toSet(),
+        initialCameraPosition: CameraPosition(
+          target: snapshot.data,
+          zoom: 17.0,
+        ),
+        myLocationEnabled: true,
+      );
+      },
     );
   }
 
@@ -44,13 +49,8 @@ Cache cache;
     mapController = controller;
   }
 
-  void _getLocation() async {
-    var location = new Location();
-    try {
-      currentLocation = await location.getLocation();
-      setState(() {});
-    } on Exception {
-      currentLocation = null;
-    }
+    _getLocation() async {
+    LocationData locationData =  await Location().getLocation();
+    return LatLng(locationData.latitude,locationData.longitude);
   }
 }

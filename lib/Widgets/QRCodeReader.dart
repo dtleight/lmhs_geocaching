@@ -37,6 +37,13 @@ class QRCodeReaderState extends State<QRCodeReader>
           if(arguments.toString() == cache.completionCode)
           {
             print("Cache code found");
+            showDialog(
+                context: context,
+                builder: (context)
+                {
+                  return new AlertDialog(title: Text("Cache found"),);
+                }
+                );
             new Account().onCacheCompletion(cache);
           }
           setState(() {
