@@ -5,6 +5,7 @@ import 'package:image/image.dart' as dart;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lmhsgeocaching/Singletons/Account.dart';
+import 'package:lmhsgeocaching/Singletons/DatabaseRouting.dart';
 
 class Badge {
   String name;
@@ -36,11 +37,8 @@ class Badge {
   Widget decideFilter(Widget widget) {
     /// Check whether or not this badge has been obtained
     bool obtained = false;
-    for(Map badge in new Account().badgeCompletions) {
-      if(badge["badgeID"] == badgeID) {
-        obtained = true;
-        break;
-      }
+    for(int id in Account().badgeCompletions) {
+      if(id == this.badgeID){obtained = true; break;}
     }
 
 

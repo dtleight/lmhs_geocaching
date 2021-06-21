@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import '../Pages/CompassPage.dart';
 import '../Pages/CacheInfoPage.dart';
 import '../Pages/CacheNearbyPage.dart';
-import '../Pages/CompletionTestPage.dart';
 import '../Objects/Cache.dart';
 
 class CacheContainer extends StatefulWidget

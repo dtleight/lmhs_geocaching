@@ -25,15 +25,6 @@ class BadgeInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool _obtained = false;
-    for(Map badge in new Account().badgeCompletions) {
-      if(badge["badgeID"] == _badgeID) {
-        _obtained = true;
-        _unlockDate = badge["completionDate"].toDate().toString().substring(0, 10);
-        break;
-      }
-    }
-
     return new Scaffold(
       appBar: AppBar(
         title: Text("Badge Info"),
@@ -91,18 +82,6 @@ class BadgeInfoPage extends StatelessWidget {
                 valueColor: AlwaysStoppedAnimation(Colors.red[600]),
                 backgroundColor: ColorTheme.textColor,
               ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-          child: Text(
-            _obtained
-                ? "You earned this badge on: " + _unlockDate.toString()
-                : "You have not earned this badge.",
-            style: TextStyle(
-              color: ColorTheme.textColor,
-              fontSize: 18,
             ),
           ),
         ),

@@ -5,11 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lmhsgeocaching/Pages/CacheTrackerPage.dart';
 import 'package:lmhsgeocaching/Utilities/ColorTheme.dart';
 import 'package:lmhsgeocaching/Widgets/InfoSelector.dart';
-import 'package:lmhsgeocaching/Widgets/QRCodeReader.dart';
-import 'package:lmhsgeocaching/Widgets/Selector.dart';
-import '../Containers/CacheTrackingContainer.dart';
 import '../Objects/Cache.dart';
-import 'CompassPage.dart';
 
 class CacheInfoPage extends StatelessWidget {
   GoogleMapController mapController;

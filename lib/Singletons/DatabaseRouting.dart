@@ -42,8 +42,8 @@ class DatabaseRouting
   }
   Future<QuerySnapshot> loadDatabase(String collection) async
   {
-    CollectionReference ref = Firestore.instance.collection(collection);
-    return await ref.getDocuments();
+    CollectionReference ref = FirebaseFirestore.instance.collection(collection);
+    return await ref.get();
   }
 /**
   List<Cache> getCaches()
@@ -52,54 +52,17 @@ class DatabaseRouting
   }
 **/
 
-  void createUser(Account account)
-  {
-    print("Database write started");
-    Firestore.instance.collection("users").document(account.email).setData(
-        {
-          'joinDate': account.joinDate,
-          'cachesCompleted': account.cacheCompletions,
-          'badgesCompleted': account.badgeCompletions,
-        }
-
-    );
-  }
-
-  Future<void> generateUser(String name, String email, String imageSRC) async
-  {
-    DocumentSnapshot ds = await Firestore.instance.collection("users").document(email).get();
-    if(ds.data != null)
-      {
-        List<dynamic> cCompletions = new List<dynamic>();
-        List<dynamic> bCompletions = new List<dynamic>();
-        cCompletions.addAll(ds.data['cachesCompleted']);
-        bCompletions.addAll(ds.data['badgeCompletions']);
-        Account a = new Account.fromDatabase(name, email, imageSRC, ds.data['joinDate'], cCompletions, bCompletions);
-      }
-    else
-      {
-        createUser(Account.instantiate(name, email, imageSRC, Timestamp.now()));
-      }
-  }
-
-  //Updates a users data
-  void updateUser() async
-  {
-    Firestore.instance.collection('users').document('customer1').updateData({'completionCode':'randomizedString'});
-
-  }
-
   loadCaches() async
   {
     markers = Set();
-    caches = new List();
-    iCaches = new Map();
-    CollectionReference ref = Firestore.instance.collection('caches');
-    StorageReference sref = FirebaseStorage.instance.ref();
-    QuerySnapshot eventsQuery = await ref.getDocuments();
-    eventsQuery.documents.forEach((document) {
+    caches = [];
+    iCaches = {};
+    CollectionReference ref = FirebaseFirestore.instance.collection('caches');
+    Reference sref = FirebaseStorage.instance.ref();
+    QuerySnapshot eventsQuery = await ref.get();
+    eventsQuery.docs.forEach((document) {
       GeoPoint gp = document['location'];
-      Cache temp = new Cache.withMarker(document.documentID, document['cacheID'], document['completionCode'], document['description'],document['location'], new LatLng(gp.latitude, gp.longitude), new MarkerId(document.documentID));
+      Cache temp = new Cache.withMarker(document.id, document['cacheID'], document['completionCode'], document['description'],document['location'], new LatLng(gp.latitude, gp.longitude), new MarkerId(document.id));
       caches.add(temp);
       iCaches[document['cacheID']] = temp;
       markers.add(temp.mapMarker);
@@ -151,11 +114,11 @@ class DatabaseRouting
    return image;
   }
   ///
-  /// Saves data to account
+  /// Saves data to account - Needs to be changed
   ///
   updateAccount(Account a) async
   {
-    await Firestore.instance.collection('users').document(a.email).updateData(
+    await FirebaseFirestore.instance.collection('users').doc(a.email).update(
         {
           'cachesCompleted': a.cacheCompletions,
           'badgesCompleted': a.badgeCompletions
@@ -187,7 +150,7 @@ class DatabaseRouting
     for(Cache cache in this.caches)
     {
 
-      await Firestore.instance.collection('caches').document(cache.name).updateData({'description': ""});
+      await FirebaseFirestore.instance.collection('caches').doc(cache.name).update({'description': ""});
     }
   }
 
@@ -197,10 +160,10 @@ class DatabaseRouting
       {
       String s = generateRandomQrCode();
       print(s);
-      await Firestore.instance.collection('caches').document(cache.name).updateData({'completionCode': generateRandomQrCode()});
+      await FirebaseFirestore.instance.collection('caches').doc(cache.name).update({'completionCode': generateRandomQrCode()});
       }
   }
-  List<String> alreadyUsed = new List<String>();
+  List<String> alreadyUsed = [];
 
    String generateRandomQrCode()
   {

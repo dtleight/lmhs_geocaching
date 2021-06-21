@@ -61,8 +61,7 @@ class _MyHomePageState extends State<HomePage> {
             )),
       ]),
       drawer: UserDrawer(),
-      body: Stack(
-        children: <Widget>[
+      body:
           FutureBuilder(
             future: new DatabaseRouting().loadCaches(),
             builder: (context, snapshot) {
@@ -83,8 +82,6 @@ class _MyHomePageState extends State<HomePage> {
               }
             },
           ),
-        ],
-      ),
     );
   }
 }
