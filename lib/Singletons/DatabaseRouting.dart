@@ -1,7 +1,6 @@
 
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,12 +44,6 @@ class DatabaseRouting
     CollectionReference ref = FirebaseFirestore.instance.collection(collection);
     return await ref.get();
   }
-/**
-  List<Cache> getCaches()
-  {
-    return caches;
-  }
-**/
 
   loadCaches() async
   {
@@ -118,7 +111,8 @@ class DatabaseRouting
   ///
   updateAccount(Account a) async
   {
-    await FirebaseFirestore.instance.collection('users').doc(a.email).update(
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    await FirebaseFirestore.instance.collection('users').doc(uid).update(
         {
           'cachesCompleted': a.cacheCompletions,
           'badgesCompleted': a.badgeCompletions
@@ -126,8 +120,7 @@ class DatabaseRouting
         );
 }
 
-  //Temporary Methods
-
+  ///Temporary Methods
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
@@ -145,6 +138,9 @@ class DatabaseRouting
     return file.writeAsString(qrcode);
   }
 
+  ///
+  /// Update cache descriptions-unused
+  ///
   void writeToCaches() async
   {
     for(Cache cache in this.caches)
@@ -153,7 +149,9 @@ class DatabaseRouting
       await FirebaseFirestore.instance.collection('caches').doc(cache.name).update({'description': ""});
     }
   }
-
+  ///
+  /// Update cache codes- unused
+  ///
   void writeCompletionCodes() async
   {
       for(Cache cache in this.caches)
@@ -163,9 +161,12 @@ class DatabaseRouting
       await FirebaseFirestore.instance.collection('caches').doc(cache.name).update({'completionCode': generateRandomQrCode()});
       }
   }
-  List<String> alreadyUsed = [];
 
-   String generateRandomQrCode()
+  ///
+  /// QR Code Generation-Unused
+  ///
+  List<String> alreadyUsed = [];
+  String generateRandomQrCode()
   {
     String alphanum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     String randomString = '';

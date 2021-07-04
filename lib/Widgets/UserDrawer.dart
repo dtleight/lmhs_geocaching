@@ -50,16 +50,7 @@ class UserDrawer extends Drawer
                       builder: (ctxt) => new BadgeDisplayPage()));
             },
           ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (ctxt) => new SettingsPage()));
-            },
-          ),
+
           ListTile(
             leading: Icon(Icons.announcement),
             title: Text('About'),
@@ -67,7 +58,20 @@ class UserDrawer extends Drawer
               Navigator.push(context,
                   new MaterialPageRoute(builder: (ctxt) => new AboutPage()));
             },
-          )
+          ),
+          Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (ctxt) => new SettingsPage()));
+              },
+            ),
+          ),
         ],
       ),
     );
