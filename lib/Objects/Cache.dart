@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:lmhsgeocaching/Pages/CacheInfoPage.dart';
+
+import '../Pages/CacheInfoPage.dart';
 
 class Cache {
   String name;
@@ -10,31 +10,41 @@ class Cache {
   int cacheID;
   GeoPoint location;
   DateTime foundDate;
-  Marker mapMarker;
   String imgSRC;
   String description;
 
-  Cache(String name, int cacheID, GeoPoint location) {
-    this.name = name;
-    this.cacheID = cacheID;
-    this.location = location;
-    //this.completionCode = completionCode;
-  }
+  Cache(this.name, this.cacheID, this.location /*,this.completionCode*/);
 
-  Cache.withMarker(String name, int cacheID, String completionCode,String description,
-      GeoPoint location, LatLng position, MarkerId markerId) {
-    print(description);
-    this.name = name;
-    this.cacheID = cacheID;
-    this.completionCode = completionCode;
-    this.location = location;
-    this.description = description;
-    this.mapMarker = new Marker(position: position, markerId: markerId,infoWindow: InfoWindow(title: this.name,snippet: position.longitude.toString() + ","+position.latitude.toString(),),);
-  }
+  Cache.withMarker(
+    this.name,
+    this.cacheID,
+    this.completionCode,
+    this.description,
+    this.location,
+  );
 
-  ///Allows for forward referencing of marker
-  void setMarker(Marker marker) {
-    this.mapMarker = mapMarker;
+  Marker buildMarker(BuildContext context, {bool enableInfoWindow = true}) {
+    LatLng position = LatLng(this.location.latitude, this.location.longitude);
+
+    return Marker(
+      position: position,
+      markerId: MarkerId(this.name),
+      infoWindow: enableInfoWindow
+          ? InfoWindow(
+              title: this.name,
+              snippet: position.longitude.toString() +
+                  ", " +
+                  position.latitude.toString(),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (ctxt) => new CacheInfoPage(this)),
+                );
+              },
+            )
+          : null,
+    );
   }
 
   //TODO: Instantiate _badgeCompletionList based on Badge's in Profile.dart
@@ -44,7 +54,7 @@ class Cache {
   }
 
   String getImgSRC() {
-    if(imgSRC != null) {
+    if (imgSRC != null) {
       return imgSRC;
     } else {
       return "badge-images/barn.jpg";

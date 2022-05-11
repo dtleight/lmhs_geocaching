@@ -5,38 +5,34 @@ import 'package:lmhsgeocaching/Utilities/ColorTheme.dart';
 import 'package:text_item_selector/text_item_selector.dart';
 
 class InfoSelector extends StatefulWidget {
-  Cache c;
+  final Cache cache;
+
+  InfoSelector(this.cache);
 
   @override
-  _InfoSelectorState createState() =>
-      _InfoSelectorState(c);
-
-  InfoSelector(Cache cache) {
-    c = cache;
-  }
+  _InfoSelectorState createState() => _InfoSelectorState();
 }
 
 class _InfoSelectorState extends State<InfoSelector> {
   int _activeItem;
   PageController _pageController;
 
-  Cache c;
+  Cache cache;
   List textOptions;
   String activeText;
-
-  _InfoSelectorState(Cache cache) {
-    c = cache;
-  }
 
   @override
   void initState() {
     super.initState();
+    cache = widget.cache;
+
     _pageController = PageController();
     _activeItem = 0;
     textOptions = [
       //todo: I commented out this variable to replace it with text for showcase purposes. Swap back later
-      //c.description
-      c.description != '' ? c.description : 'Here is the history of the place.',
+      cache.description != ''
+          ? cache.description
+          : 'Here is the history of the place.',
       //todo the text description for how to find the cash should also be a variable
       "These are the instructions to find Cache #1.",
     ];
@@ -58,15 +54,24 @@ class _InfoSelectorState extends State<InfoSelector> {
             _activeItem = value;
             activeText = textOptions[value];
           });
-          _pageController.animateToPage(value,
-              duration: Duration(milliseconds: 300), curve: Curves.ease);
+          _pageController.animateToPage(
+            value,
+            duration: Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
         },
         indicatorColor: ColorTheme.textColor,
         itemTextStyle: ItemTextStyle(
           initialStyle: TextStyle(
-              color: ColorTheme.textColor, fontSize: 25, fontWeight: FontWeight.normal),
+            color: ColorTheme.textColor,
+            fontSize: 25,
+            fontWeight: FontWeight.normal,
+          ),
           selectedStyle: TextStyle(
-              color: ColorTheme.textColor, fontSize: 25, fontWeight: FontWeight.bold),
+            color: ColorTheme.textColor,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       Expanded(

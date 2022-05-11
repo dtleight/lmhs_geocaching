@@ -20,9 +20,9 @@ import '../Utilities/Collections.dart';
 class DatabaseRouting
 {
   static final DatabaseRouting _db = DatabaseRouting._internal();
-  Map<int,Cache> iCaches;
+  Map<int, Cache> iCaches;
   List<Cache> caches;
-  Set<Marker> markers;
+  Set<Marker Function(BuildContext context)> markerBuildFunctions;
   List<Badge> badges;
   List<Collection> collections;
   BuildContext context;
@@ -47,18 +47,17 @@ class DatabaseRouting
 
   loadCaches() async
   {
-    markers = Set();
+    markerBuildFunctions = Set();
     caches = [];
     iCaches = {};
     CollectionReference ref = FirebaseFirestore.instance.collection('caches');
     Reference sref = FirebaseStorage.instance.ref();
     QuerySnapshot eventsQuery = await ref.get();
     eventsQuery.docs.forEach((document) {
-      GeoPoint gp = document['location'];
-      Cache temp = new Cache.withMarker(document.id, document['cacheID'], document['completionCode'], document['description'],document['location'], new LatLng(gp.latitude, gp.longitude), new MarkerId(document.id));
+      Cache temp = new Cache.withMarker(document.id, document['cacheID'], document['completionCode'], document['description'],document['location']);
       caches.add(temp);
       iCaches[document['cacheID']] = temp;
-      markers.add(temp.mapMarker);
+      markerBuildFunctions.add(temp.buildMarker);
     });
   }
 

@@ -44,10 +44,11 @@ class _MyHomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double infoBoxPos = -100;
     return Scaffold(
-      appBar: AppBar(title: Text("LMHS Geocaching"), actions: <Widget>[
-        Padding(
+      appBar: AppBar(
+        title: Text("LMHS Geocaching"),
+        actions: <Widget>[
+          Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: GestureDetector(
               onTap: () {
@@ -58,30 +59,46 @@ class _MyHomePageState extends State<HomePage> {
                 Icons.grid_on,
                 size: 26.0,
               ),
-            )),
-      ]),
-      drawer: UserDrawer(),
-      body:
-          FutureBuilder(
-            future: new DatabaseRouting().loadCaches(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return new Text('Loading...');
-                default:
-                  return GoogleMap(
-                    onMapCreated: _onMapCreated,
-                    mapType: MapType.terrain,
-                    initialCameraPosition: CameraPosition(
-                      target: _pos,
-                      zoom: 15.0,
-                    ),
-                    myLocationEnabled: true,
-                    markers: new DatabaseRouting().markers,
-                  );
-              }
-            },
+            ),
           ),
+        ],
+      ),
+      drawer: UserDrawer(),
+      body: FutureBuilder(
+        future: new DatabaseRouting().loadCaches(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return new Text('Loading...');
+            default:
+              return GoogleMap(
+                onMapCreated: _onMapCreated,
+                mapType: MapType.terrain,
+                initialCameraPosition: CameraPosition(
+                  target: _pos,
+                  zoom: 15.0,
+                ),
+                myLocationEnabled: true,
+                markers: buildMarkers(
+                  new DatabaseRouting().markerBuildFunctions,
+                  context,
+                ),
+              );
+          }
+        },
+      ),
     );
+  }
+
+  Set<Marker> buildMarkers(
+    Set<Marker Function(BuildContext context)> buildFunctions,
+    BuildContext context,
+  ) {
+    Set<Marker> markers = Set();
+    for (Marker Function(BuildContext context) build in buildFunctions) {
+      markers.add(build(context));
+    }
+
+    return markers;
   }
 }
