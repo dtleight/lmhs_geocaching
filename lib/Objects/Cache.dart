@@ -12,6 +12,7 @@ class Cache {
   DateTime foundDate;
   String imgSRC;
   String description;
+  String instructions;
 
   Cache(this.name, this.cacheID, this.location /*,this.completionCode*/);
 
@@ -22,6 +23,7 @@ class Cache {
     this.description,
     this.location,
     this.imgSRC,
+    this.instructions,
   );
 
   Marker buildMarker(BuildContext context, {bool enableInfoWindow = true}) {
@@ -52,9 +54,5 @@ class Cache {
 
   void onCacheFound() {
     //updateBadges();
-  }
-
-  String getImgSRC() {
-    return imgSRC.isEmpty ? 'mill.jpg' : imgSRC;
   }
 }

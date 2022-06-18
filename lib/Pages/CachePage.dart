@@ -89,7 +89,7 @@ class CachePage extends StatelessWidget {
                                     flex: 5,
                                     child: FutureBuilder
                                       (
-                                      future: db.loadPicture(thisCache.getImgSRC()),
+                                      future: db.loadPicture(thisCache.imgSRC),
                                       builder: (context,snapshot)
                                       {
                                         if (snapshot.hasData)

@@ -29,12 +29,8 @@ class _InfoSelectorState extends State<InfoSelector> {
     _pageController = PageController();
     _activeItem = 0;
     textOptions = [
-      //todo: I commented out this variable to replace it with text for showcase purposes. Swap back later
-      cache.description != ''
-          ? cache.description
-          : 'Here is the history of the place.',
-      //todo the text description for how to find the cash should also be a variable
-      "These are the instructions to find Cache #1.",
+      cache.description,
+      cache.instructions,
     ];
     activeText = textOptions[_activeItem];
   }
@@ -77,19 +73,20 @@ class _InfoSelectorState extends State<InfoSelector> {
       Expanded(
         child: Container(
           width: double.infinity,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical, //.horizontal
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-              child: Text(
-                '$activeText',
-                style: new TextStyle(
-                  fontSize: 16.0,
-                  color: ColorTheme.textColor,
+          child: ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                child: Text(
+                  '$activeText',
+                  style: new TextStyle(
+                    fontSize: 16.0,
+                    color: ColorTheme.textColor,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
               ),
-            ),
+            ],
           ),
         ),
       ),
