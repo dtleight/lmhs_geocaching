@@ -1,8 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:lmhsgeocaching/Widgets/UserDrawer.dart';
 import '../Singletons/DatabaseRouting.dart';
 import 'CacheInfoPage.dart';
@@ -15,7 +13,7 @@ class CachePage extends StatelessWidget {
 
   CachePage() {
     db = new DatabaseRouting();
-    db.loadPicture();
+    db.loadPicture("mill.jpg");
   }
 
   Widget build(BuildContext context) {
@@ -91,7 +89,7 @@ class CachePage extends StatelessWidget {
                                     flex: 5,
                                     child: FutureBuilder
                                       (
-                                      future: db.loadPicture(),
+                                      future: db.loadPicture(thisCache.getImgSRC()),
                                       builder: (context,snapshot)
                                       {
                                         if (snapshot.hasData)

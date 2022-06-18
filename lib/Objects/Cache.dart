@@ -21,6 +21,7 @@ class Cache {
     this.completionCode,
     this.description,
     this.location,
+    this.imgSRC,
   );
 
   Marker buildMarker(BuildContext context, {bool enableInfoWindow = true}) {
@@ -54,10 +55,6 @@ class Cache {
   }
 
   String getImgSRC() {
-    if (imgSRC != null) {
-      return imgSRC;
-    } else {
-      return "badge-images/barn.jpg";
-    }
+    return imgSRC.isEmpty ? 'mill.jpg' : imgSRC;
   }
 }

@@ -47,6 +47,7 @@ class DatabaseRouting
 
   loadCaches() async
   {
+
     markerBuildFunctions = Set();
     caches = [];
     iCaches = {};
@@ -54,7 +55,7 @@ class DatabaseRouting
     Reference sref = FirebaseStorage.instance.ref();
     QuerySnapshot eventsQuery = await ref.get();
     eventsQuery.docs.forEach((document) {
-      Cache temp = new Cache.withMarker(document.id, document['cacheID'], document['completionCode'], document['description'],document['location']);
+      Cache temp = new Cache.withMarker(document.id, document['cacheID'], document['completionCode'], document['description'],document['location'],document['imgSRC']);
       caches.add(temp);
       iCaches[document['cacheID']] = temp;
       markerBuildFunctions.add(temp.buildMarker);
@@ -100,9 +101,9 @@ class DatabaseRouting
     collections = cl.collections;
   }
 
-  Future<String> loadPicture() async
+  Future<String> loadPicture(String filename) async
   {
-   String image = await FirebaseStorage.instance.ref().child('mill.jpg').getDownloadURL();
+   String image = await FirebaseStorage.instance.ref().child(filename).getDownloadURL();
    return image;
   }
   ///
