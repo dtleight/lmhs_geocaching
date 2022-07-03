@@ -53,7 +53,9 @@ class _CompassState extends State<Compass>
     FlutterCompass.events.listen(_onData);
   }
 
-  void _onData(double x) {
+  void _onData(CompassEvent event) {
+    double x = event.heading;
+
     if(mounted) {
       setState(() {
         if (_userLoc != null) {
@@ -80,7 +82,7 @@ class _CompassState extends State<Compass>
     print('Angle:: getAngle()');
     //print('loading3: $_loading');
 
-    Geolocator()
+    Geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((position) {
       _userLoc = LatLng(position.latitude, position.longitude);

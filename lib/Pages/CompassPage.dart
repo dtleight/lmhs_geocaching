@@ -43,6 +43,7 @@ class _CompassState extends State<Compass>
 {
   LatLng _targetLoc;
   LatLng _userLoc;
+  double _dist = 0;
   double _heading = 0;
   double _north = 0;
   double _angleAdjust;
@@ -55,13 +56,12 @@ class _CompassState extends State<Compass>
 
   String get _readout {
     if(_userLoc != null) {
-      double dist = Geodesy().distanceBetweenTwoGeoPoints(_userLoc, _targetLoc) * 3.28084 /*Meters to feet*/;
-      if(dist < 100) {
+      if(_dist < 100) {
         return "Nearby";
-      } else if(dist < 5280) {
-        return dist.toStringAsFixed(0) + " ft";
+      } else if(_dist < 5280) {
+        return _dist.toStringAsFixed(0) + " ft";
       } else {
-        return (dist / 5280 /*Feet to miles*/).toStringAsFixed(1) + " mi";
+        return (_dist / 5280 /*Feet to miles*/).toStringAsFixed(1) + " mi";
       }
     } else {
       return "Loading...";
@@ -75,22 +75,17 @@ class _CompassState extends State<Compass>
     FlutterCompass.events.listen(_onData);
   }
 
-  void _onData(double x) {
+  void _onData(CompassEvent event) {
+    double x = event.heading;
+
     if(mounted) {
       setState(() {
         if (_userLoc != null) {
-          _angleAdjust = Geodesy().bearingBetweenTwoGeoPoints(_userLoc, _targetLoc);
-          // Overrides the green needle to point north if the user is less than 100 feet away
-          if(Geodesy().distanceBetweenTwoGeoPoints(_userLoc, _targetLoc) < 30.48 /*100 ft in meters*/) {
-            _angleAdjust = 0;
-          }
           _heading = x - _angleAdjust;
           _north = x;
 
           if (!_loading) {
-            //print("loading: $_loading");
             _loading = true;
-            //print('loading2: $_loading');
             getUserLoc();
           }
         }
@@ -100,14 +95,18 @@ class _CompassState extends State<Compass>
 
   Future<void> getUserLoc() async {
     print('Angle:: getAngle()');
-    //print('loading3: $_loading');
 
-    Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((position) {
+    Geolocator
+        .getCurrentPosition().then((position) {
           _userLoc = LatLng(position.latitude, position.longitude);
+          _angleAdjust = Geodesy().bearingBetweenTwoGeoPoints(_userLoc, _targetLoc);
+          // Overrides the green needle to point north if the user is less than 100 feet away
+          if(Geodesy().distanceBetweenTwoGeoPoints(_userLoc, _targetLoc) < 30.48 /*100 ft in meters*/) {
+            _angleAdjust = 0;
+          }
+          _dist = Geodesy().distanceBetweenTwoGeoPoints(_userLoc, _targetLoc) * 3.28084 /*Meters to feet*/;
+
           _loading = false;
-          //print('loading4: $_loading');
     });
   }
 
