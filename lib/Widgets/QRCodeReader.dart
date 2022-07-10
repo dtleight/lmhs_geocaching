@@ -5,27 +5,18 @@ import 'package:lmhsgeocaching/Objects/Cache.dart';
 import 'package:lmhsgeocaching/Singletons/Account.dart';
 
 class QRCodeReader extends StatefulWidget {
-  Cache cache;
+  final Cache cache;
 
-  QRCodeReader(Cache cache) {
-    this.cache = cache;
-  }
+  QRCodeReader(this.cache);
 
   @override
-  State<StatefulWidget> createState() {
-    return QRCodeReaderState(cache);
-  }
+  State<StatefulWidget> createState() => QRCodeReaderState();
 }
 
 class QRCodeReaderState extends State<QRCodeReader> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   var qrText = "";
-  var controller;
-  Cache cache;
-
-  QRCodeReaderState(Cache cache) {
-    this.cache = cache;
-  }
+  QRViewController controller;
 
   @override
   void initState() {
@@ -34,21 +25,23 @@ class QRCodeReaderState extends State<QRCodeReader> {
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
-    controller.scannedDataStream.listen((event) {
-      if (event.code.toString() == cache.completionCode) {
+    controller.scannedDataStream.listen((result) {
+      if (result.code.toString() == widget.cache.completionCode) {
         print("Cache code found");
         showDialog(
           context: context,
           builder: (context) => AlertDialog(title: Text("Cache found")),
         );
-        new Account().onCacheCompletion(cache);
+        new Account().onCacheCompletion(widget.cache);
       }
     });
+    controller.resumeCamera();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Expanded(
           child: FutureBuilder(
@@ -62,7 +55,6 @@ class QRCodeReaderState extends State<QRCodeReader> {
                   : CircularProgressIndicator();
             },
           ),
-          flex: 4,
         ),
       ],
     );

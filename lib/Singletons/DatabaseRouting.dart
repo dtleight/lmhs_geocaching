@@ -57,9 +57,14 @@ class DatabaseRouting {
           ? tempDescription
           : 'This is the history of the place.';
       String tempInstructions = document['instructions'];
+      tempInstructions = tempInstructions.replaceAll("\\n", "\n");
       tempInstructions = tempInstructions.isNotEmpty
           ? tempInstructions
-          : 'These are the instructions to find Cache #1.';
+          : 'These are the instructions to find the cache.';
+      String tempHint = document['hint'];
+      tempHint = tempHint.isNotEmpty
+          ? tempHint
+          : 'This is a hint to help you find where the cache is hidden.';
 
       Cache temp = new Cache.withMarker(
         document.id,
@@ -69,6 +74,7 @@ class DatabaseRouting {
         document['location'],
         tempImgSRC,
         tempInstructions,
+        tempHint,
       );
       caches.add(temp);
       iCaches[document['cacheID']] = temp;

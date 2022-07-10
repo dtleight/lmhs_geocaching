@@ -13,6 +13,7 @@ class Cache {
   String imgSRC;
   String description;
   String instructions;
+  String hint;
 
   Cache(this.name, this.cacheID, this.location /*,this.completionCode*/);
 
@@ -24,6 +25,7 @@ class Cache {
     this.location,
     this.imgSRC,
     this.instructions,
+    this.hint,
   );
 
   Marker buildMarker(BuildContext context, {bool enableInfoWindow = true}) {

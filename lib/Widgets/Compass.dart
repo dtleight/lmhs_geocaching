@@ -1,42 +1,39 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:geodesy/geodesy.dart';
 import 'package:geolocator/geolocator.dart';
-
 import 'package:flutter_compass/flutter_compass.dart';
 
-import '../Objects/Cache.dart';
+class Compass extends StatefulWidget {
+  final LatLng _targetLoc;
 
-class Compass extends StatefulWidget
-{
-  LatLng targetLoc;
+  Compass(GeoPoint targetPoint, {Key key})
+      : _targetLoc = LatLng(targetPoint.latitude, targetPoint.longitude),
+        super(key: key);
 
-  Compass({Key key, this.targetLoc}) : super(key: key);
   @override
-  _CompassState createState() => _CompassState(targetLoc);
+  _CompassState createState() => _CompassState();
 }
 
-class _CompassState extends State<Compass>
-{
-  LatLng _targetLoc;
+class _CompassState extends State<Compass> {
   LatLng _userLoc;
   double _heading = 0;
   double _north = 0;
-  double _angleAdjust;
   bool _loading = false;
 
-  _CompassState(LatLng t) {
-    _targetLoc = t;
+  _CompassState() {
     getUserLoc();
   }
 
   String get _readout {
-    if(_userLoc != null) {
-      double dist = Geodesy().distanceBetweenTwoGeoPoints(_userLoc, _targetLoc) * 3.28084 /*Meters to feet*/;
-      if(dist < 100) {
+    if (_userLoc != null) {
+      double dist =
+          Geodesy().distanceBetweenTwoGeoPoints(_userLoc, widget._targetLoc) *
+              3.28084 /*Meters to feet*/;
+      if (dist < 100) {
         return "Nearby";
-      } else if(dist < 5280) {
+      } else if (dist < 5280) {
         return dist.toStringAsFixed(0) + " ft";
       } else {
         return (dist / 5280 /*Feet to miles*/).toStringAsFixed(1) + " mi";
@@ -47,8 +44,7 @@ class _CompassState extends State<Compass>
   }
 
   @override
-  void initState()
-  {
+  void initState() {
     super.initState();
     FlutterCompass.events.listen(_onData);
   }
@@ -56,12 +52,15 @@ class _CompassState extends State<Compass>
   void _onData(CompassEvent event) {
     double x = event.heading;
 
-    if(mounted) {
+    if (mounted) {
       setState(() {
         if (_userLoc != null) {
-          _angleAdjust = Geodesy().bearingBetweenTwoGeoPoints(_userLoc, _targetLoc);
+          double _angleAdjust =
+              Geodesy().bearingBetweenTwoGeoPoints(_userLoc, widget._targetLoc);
           // Overrides the green needle to point north if the user is less than 100 feet away
-          if(Geodesy().distanceBetweenTwoGeoPoints(_userLoc, _targetLoc) < 30.48 /*100 ft in meters*/) {
+          if (Geodesy()
+                  .distanceBetweenTwoGeoPoints(_userLoc, widget._targetLoc) <
+              30.48 /*100 ft in meters*/) {
             _angleAdjust = 0;
           }
           _heading = x - _angleAdjust;
@@ -82,8 +81,7 @@ class _CompassState extends State<Compass>
     print('Angle:: getAngle()');
     //print('loading3: $_loading');
 
-    Geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((position) {
       _userLoc = LatLng(position.latitude, position.longitude);
       _loading = false;
@@ -99,44 +97,40 @@ class _CompassState extends State<Compass>
 
   @override
   Widget build(BuildContext context) {
-
     return CustomPaint(
-        foregroundPainter: CompassPainter(angle: _north, needleColor: Colors.red[400]),
+        foregroundPainter:
+            CompassPainter(angle: _north, needleColor: Colors.red[400]),
         child: CustomPaint(
-            foregroundPainter: CompassPainter(angle: _heading, needleColor: Colors.green[400]),
-            child: Center(child: Text(_readout, style: _style))
-        )
-    );
+            foregroundPainter:
+                CompassPainter(angle: _heading, needleColor: Colors.green[400]),
+            child: Center(child: Text(_readout, style: _style))));
   }
 }
 
 class CompassPainter extends CustomPainter {
-  CompassPainter({ @required this.angle, @required this.needleColor }) : super();
+  CompassPainter({@required this.angle, @required this.needleColor}) : super();
 
   double angle;
   Color needleColor;
+
   //gets orientation of angle
   double get rotation => -2 * pi * (angle / 360);
 
-  Paint get _brush =>
-      new Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 4.0;
+  Paint get _brush => new Paint()
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 4.0;
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint circle = _brush
-      ..color = Colors.red.withOpacity(0.6);
+    Paint circle = _brush..color = Colors.red.withOpacity(0.6);
 
-    Paint needle = _brush
-      ..color = needleColor;
+    Paint needle = _brush..color = needleColor;
 
     double radius = min(size.width / 2.2, size.height / 2.2);
     Offset center = Offset(size.width / 2, size.height / 2);
     //Location of needle points
     Offset start = Offset.lerp(center, Offset(center.dx, radius), .6);
     Offset end = Offset.lerp(center, Offset(center.dx, radius), 1);
-
 
     //print('ang: $angle');
     //print('rot: $rotation; ' + (-2 * pi * (angle / 360)).toString());
