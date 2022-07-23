@@ -6,24 +6,22 @@ import '../Pages/CacheInfoPage.dart';
 
 class Cache {
   String name;
-  String completionCode;
   int cacheID;
+  String completionCode;
   GeoPoint location;
-  DateTime foundDate;
+  DateTime? foundDate;
   String imgSRC;
   String description;
   String instructions;
   String hint;
 
-  Cache(this.name, this.cacheID, this.location /*,this.completionCode*/);
-
-  Cache.withMarker(
+  Cache(
     this.name,
     this.cacheID,
     this.completionCode,
-    this.description,
     this.location,
     this.imgSRC,
+    this.description,
     this.instructions,
     this.hint,
   );
@@ -48,7 +46,7 @@ class Cache {
                 );
               },
             )
-          : null,
+          : InfoWindow.noText,
     );
   }
 

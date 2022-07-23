@@ -1,24 +1,27 @@
 import 'package:lmhsgeocaching/Containers/LoginContainer.dart';
 import 'package:lmhsgeocaching/Widgets/FormInput.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-LoginContainerState activeState;
 
 class RegisterPage extends StatelessWidget {
-  RegisterPage(LoginContainerState state) {
-    activeState = state;
-  }
+  final LoginContainerState activeState;
+
+  RegisterPage(this.activeState);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: RegisterForm(),
+      body: RegisterForm(activeState),
     );
   }
 }
 
 class RegisterForm extends StatefulWidget {
+  final LoginContainerState activeState;
+
+  RegisterForm(this.activeState);
+
   @override
   State<StatefulWidget> createState() {
     return RegisterFormState();
@@ -36,7 +39,6 @@ class RegisterFormState extends State<RegisterForm> {
     FormInput("Password"),
   ];
 
-  List<TextEditingController> controller;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class RegisterFormState extends State<RegisterForm> {
         TextButton(
           onPressed: () async {
             if (await registerUser()) {
-              activeState.updateState("RegistrationInfoPage");
+              widget.activeState.updateState("RegistrationInfoPage");
             }
           },
           child: Text("Next"),
@@ -61,7 +63,7 @@ class RegisterFormState extends State<RegisterForm> {
         ),
         TextButton(
           onPressed: () {
-            activeState.updateState("LoginHomePage");
+            widget.activeState.updateState("LoginHomePage");
           },
           child: Text("Back"),
           style: ButtonStyle(
@@ -77,7 +79,7 @@ class RegisterFormState extends State<RegisterForm> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: items[1].controller.value.text,
           password: items[2].controller.value.text);
-      await FirebaseAuth.instance.currentUser
+      await FirebaseAuth.instance.currentUser!
           .updateDisplayName(items[0].controller.value.text);
       return true;
     } on FirebaseAuthException catch (e) {

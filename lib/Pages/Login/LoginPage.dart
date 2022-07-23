@@ -1,14 +1,14 @@
 import 'package:lmhsgeocaching/Containers/LoginContainer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginPage extends StatelessWidget {
-  TextEditingController loginController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  LoginContainerState activeState;
+  final TextEditingController loginController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
+  final LoginContainerState activeState;
+
   LoginPage(this.activeState);
 
   @override
@@ -36,7 +36,7 @@ class LoginPage extends StatelessWidget {
               controller: loginController,
               decoration: InputDecoration(
                 hintText: "Email",
-                hintStyle: Theme.of(context).textTheme.headline6.copyWith(
+                hintStyle: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: 18.0,
                     fontWeight: FontWeight.normal,
                     color: Color.fromARGB(255, 206, 175, 112)),
@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 decoration: InputDecoration(
                   hintText: "Password",
-                  hintStyle: Theme.of(context).textTheme.headline6.copyWith(
+                  hintStyle: Theme.of(context).textTheme.headline6!.copyWith(
                       fontSize: 18.0,
                       fontWeight: FontWeight.normal,
                       color: Color.fromARGB(255, 206, 175, 112)),
@@ -141,7 +141,8 @@ class LoginPage extends StatelessWidget {
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    // Should find a way to avoid this null assertion and handle a failed signin
+    final GoogleSignInAccount googleUser = (await GoogleSignIn().signIn())!;
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;

@@ -1,24 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import '../Pages/HomePage.dart';
-import '../Singletons/Account.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import '../main.dart';
 
-String subject1;
-String body;
+import '../Objects/Cache.dart';
+
 final myController = TextEditingController();
 
-class CacheNotFoundPage extends StatefulWidget
+class CacheNotFoundPage extends StatelessWidget
 {
-  @override
-  _CacheNotFoundState createState() => new _CacheNotFoundState();
-}
+  final Cache cache;
 
-class _CacheNotFoundState extends State<CacheNotFoundPage> {
+  CacheNotFoundPage(this.cache);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,17 +35,23 @@ class _CacheNotFoundState extends State<CacheNotFoundPage> {
     );
     }
   }
-enum optionWrong { QrNotWork, NotFound, Other }
+enum ErrorType { QrNotWork, NotFound, Other }
 
 class OptionsNotFound extends StatefulWidget {
-  OptionsNotFound({Key key}) : super(key: key);
-
   @override
-  _OptionsNotFoundState createState() => _OptionsNotFoundState();
+  OptionsNotFoundState createState() => OptionsNotFoundState();
 }
 
-class _OptionsNotFoundState extends State<OptionsNotFound> {
-  optionWrong _option;
+class OptionsNotFoundState extends State<OptionsNotFound> {
+  late ErrorType errorType;
+  late String subject;
+
+  @override
+  void initState() {
+    super.initState();
+    errorType = ErrorType.values[0];
+    subject = "QR Code Does Not Work";
+  }
 
   Widget build(BuildContext context) {
     return Column(
@@ -60,12 +59,12 @@ class _OptionsNotFoundState extends State<OptionsNotFound> {
         ListTile(
           title: const Text("QR Code Does Not Work"),
           leading: Radio(
-            value: optionWrong.QrNotWork,
-            groupValue: _option,
-            onChanged: (optionWrong value) {
+            value: ErrorType.QrNotWork,
+            groupValue: errorType,
+            onChanged: (ErrorType? value) {
               setState(() {
-                _option = value;
-                subject1 = "QR Code Does Not Work";
+                errorType = value!;
+                subject = "QR Code Does Not Work";
               });
             },
           ),
@@ -73,12 +72,12 @@ class _OptionsNotFoundState extends State<OptionsNotFound> {
         ListTile(
           title: const Text("Cache Not Found"),
           leading: Radio(
-            value: optionWrong.NotFound,
-            groupValue: _option,
-            onChanged: (optionWrong value) {
+            value: ErrorType.NotFound,
+            groupValue: errorType,
+            onChanged: (ErrorType? value) {
               setState(() {
-                _option = value;
-                subject1 = "Cache not found";
+                errorType = value!;
+                subject = "Cache not found";
               });
             },
           ),
@@ -87,12 +86,12 @@ class _OptionsNotFoundState extends State<OptionsNotFound> {
           title: const Text("Other"),
 
           leading: Radio(
-            value: optionWrong.Other,
-            groupValue: _option,
-            onChanged: (optionWrong value) {
+            value: ErrorType.Other,
+            groupValue: errorType,
+            onChanged: (ErrorType? value) {
               setState(() {
-                _option = value;
-                subject1 = "Other";
+                errorType = value!;
+                subject = "Other";
               });
             },
           ),
@@ -115,11 +114,17 @@ class _OptionsNotFoundState extends State<OptionsNotFound> {
               splashColor: Colors.blueGrey,
               child: const Text('Send Message'),
               onPressed: () {
-                subject1 = subject1.toString();
-                body = myController.text.toString();
+                subject = subject.toString();
+                String body = myController.text.toString();
                 Email();
-                FlutterEmailSender.send(mailer);
-                _option = null;
+                FlutterEmailSender.send(Email(
+                  subject: subject,
+                  body: body,
+                  recipients: ['dhkreidler@gmail.com', 'mjmagee991@gmail.com'],//temporary
+                  isHTML: false,
+                ));
+                //Reset
+                errorType = ErrorType.values[0];
                 myController.clear();
                 Phoenix.rebirth(context);
               }
@@ -134,7 +139,8 @@ class _OptionsNotFoundState extends State<OptionsNotFound> {
               splashColor: Colors.blueGrey,
               child: const Text('Clear'),
               onPressed: () {setState(() {
-                _option = null;
+                // Reset
+                errorType = ErrorType.values[0];
                 myController.clear();
               });}
           ),
@@ -143,9 +149,3 @@ class _OptionsNotFoundState extends State<OptionsNotFound> {
     );
   }
 }
-Email mailer  = Email(
-  subject: subject1,
-  body: body,
-  recipients: ['dhkreidler@gmail.com'],//temporary
-  isHTML: false,
-);

@@ -1,13 +1,9 @@
-import 'Badge.dart';
 import '../Singletons/Account.dart';
-class Profile {
 
+class Profile {
   Account account;
 
-  Profile(Account account)
-  {
-    this.account = account;
-  }
+  Profile(this.account);
 
-  //TODO: Write profile info to the database
+//TODO: Write profile info to the database
 }

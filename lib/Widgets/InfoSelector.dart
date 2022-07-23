@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lmhsgeocaching/Objects/Cache.dart';
 import 'package:lmhsgeocaching/Utilities/ColorTheme.dart';
-import 'package:text_item_selector/text_item_selector.dart';
 
 class InfoSelector extends StatefulWidget {
   final Cache cache;
@@ -14,62 +12,25 @@ class InfoSelector extends StatefulWidget {
 }
 
 class _InfoSelectorState extends State<InfoSelector> {
-  int _activeItem;
-  PageController _pageController;
+  int _activeItemIndex = 0;
+  final PageController _pageController = PageController();
 
-  Cache cache;
-  List textOptions;
-  String activeText;
+  late List textOptions;
+  late String activeText;
 
   @override
   void initState() {
     super.initState();
-    cache = widget.cache;
-
-    _pageController = PageController();
-    _activeItem = 0;
     textOptions = [
-      cache.description,
-      cache.instructions,
+      widget.cache.description,
+      widget.cache.instructions,
     ];
-    activeText = textOptions[_activeItem];
+    activeText = textOptions[_activeItemIndex];
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      ItemSelectorBar(
-        backgroundColor: ColorTheme.backgroundColor,
-        activeIndex: _activeItem,
-        items: <String>[
-          'History',
-          'Instructions',
-        ],
-        onTap: (int value) {
-          setState(() {
-            _activeItem = value;
-            activeText = textOptions[value];
-          });
-          _pageController.animateToPage(
-            value,
-            duration: Duration(milliseconds: 300),
-            curve: Curves.ease,
-          );
-        },
-        indicatorColor: ColorTheme.textColor,
-        itemTextStyle: ItemTextStyle(
-          initialStyle: TextStyle(
-            color: ColorTheme.textColor,
-            fontSize: 25,
-            fontWeight: FontWeight.normal,
-          ),
-          selectedStyle: TextStyle(
-            color: ColorTheme.textColor,
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
       Expanded(
         child: Container(
           width: double.infinity,
@@ -89,6 +50,34 @@ class _InfoSelectorState extends State<InfoSelector> {
             ],
           ),
         ),
+      ),
+      BottomNavigationBar(
+        backgroundColor: ColorTheme.backgroundColor,
+        currentIndex: _activeItemIndex,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Container(),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: Container(),
+            label: 'Instructions',
+          ),
+        ],
+        onTap: (int value) {
+          setState(() {
+            _activeItemIndex = value;
+            activeText = textOptions[value];
+          });
+          _pageController.animateToPage(
+            value,
+            duration: Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
+        },
+        selectedItemColor: ColorTheme.textColor,
+        selectedFontSize: 22,
+        unselectedFontSize: 20,
       ),
     ]);
   }

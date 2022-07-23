@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lmhsgeocaching/Pages/HomePage.dart';
 import 'package:lmhsgeocaching/Pages/Login/LoginPage.dart';
 import 'package:lmhsgeocaching/Pages/Login/RegisterPage.dart';
-//import 'package:evercast/Pages/Onboarding/IntroScreens.dart';
 import 'package:lmhsgeocaching/Singletons/Account.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 ///LoginContainer is responsible for handling navigation and authentication events
@@ -21,8 +19,9 @@ class LoginContainer extends StatefulWidget {
 }
 
 class LoginContainerState extends State<LoginContainer> {
-  List<Widget> screens;
-  Widget active;
+  late List<Widget> screens;
+  late Widget active;
+
   //Substitute for information providing enums. Not super ideal due to forced string representations
   Map<String, int> enumRelations = {
     "LoginPage": 0,
@@ -46,59 +45,56 @@ class LoginContainerState extends State<LoginContainer> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
-          children: [active],
-        ));
+      children: [active],
+    ));
   }
 
   ///Avoids the need for a navigation stack to handle login page manipulation
   void updateState(String page) {
-    active = screens[enumRelations[page]];
-    setState(() {});
+    setState(() => active = screens[enumRelations[page] ?? 0]);
   }
 
   void moveToHomePage() async {
     Navigator.of(context).pushAndRemoveUntil(
-        new MaterialPageRoute(builder: (ctxt) {
-          return HomePage();
-        }), (Route<dynamic> route) => false);
+      new MaterialPageRoute(builder: (ctxt) => HomePage()),
+      (Route<dynamic> route) => false,
+    );
   }
 
-
   void checkRegistrationStatus() async {
-    var uid = FirebaseAuth.instance.currentUser.uid;
+    var uid = FirebaseAuth.instance.currentUser?.uid;
     CollectionReference collectionReference =
-    FirebaseFirestore.instance.collection("users");
+        FirebaseFirestore.instance.collection("users");
     DocumentSnapshot snapshot = await collectionReference.doc(uid).get();
-    print(uid);
-    if (snapshot.exists) //An account exists for this user, query data from the database
-        {
+    print("UID: $uid");
+    //If an account exists for this user, query data from the database
+    if (snapshot.exists) {
       List<dynamic> items = [];
       items.map((e) => e as int);
       Account.fromDatabase(
-          snapshot.get('name'),
-          snapshot.get('email'),
-          FirebaseAuth.instance.currentUser.photoURL,
-          (snapshot.get('joinDate') as Timestamp),
-          List<int>.from(snapshot.get('cachesCompleted').map((e) => e as int)),
-          List<int>.from(snapshot.get('badgesCompleted').map((e) => e as int)),
-          );
+        snapshot.get('name'),
+        snapshot.get('email'),
+        FirebaseAuth.instance.currentUser!.photoURL!,
+        (snapshot.get('joinDate') as Timestamp),
+        List<int>.from(snapshot.get('cachesCompleted').map((e) => e as int)),
+        List<int>.from(snapshot.get('badgesCompleted').map((e) => e as int)),
+      );
       moveToHomePage();
-    }
-    else{
+    } else {
       createUser();
     }
   }
 
   void createUser() {
-    String uid = FirebaseAuth.instance.currentUser.uid;
-    String name = FirebaseAuth.instance.currentUser.displayName;
-    String email = FirebaseAuth.instance.currentUser.email;
-    String imageSRC = FirebaseAuth.instance.currentUser.photoURL;
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String name = FirebaseAuth.instance.currentUser!.displayName!;
+    String email = FirebaseAuth.instance.currentUser!.email!;
+    String imageSRC = FirebaseAuth.instance.currentUser!.photoURL!;
     FirebaseFirestore.instance.collection("users").doc(uid).set({
       'name': name,
       'email': email,
       'badgesCompleted': [],
-      'cachesCompleted' :[],
+      'cachesCompleted': [],
       'joinDate': Timestamp.fromDate(DateTime.now()),
     });
     //Instantiate UserAccount singleton

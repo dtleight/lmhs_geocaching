@@ -14,17 +14,7 @@ class QRCodeReader extends StatefulWidget {
 }
 
 class QRCodeReaderState extends State<QRCodeReader> {
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  var qrText = "";
-  QRViewController controller;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
     controller.scannedDataStream.listen((result) {
       if (result.code.toString() == widget.cache.completionCode) {
         print("Cache code found");
@@ -49,7 +39,7 @@ class QRCodeReaderState extends State<QRCodeReader> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               return (snapshot.data != null && snapshot.data)
                   ? QRView(
-                key: qrKey,
+                key:  GlobalKey(debugLabel: 'QR'),
                 onQRViewCreated: _onQRViewCreated,
               )
                   : CircularProgressIndicator();

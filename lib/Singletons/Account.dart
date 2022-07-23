@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import '../Singletons/DatabaseRouting.dart';
 import '../Objects/Cache.dart';
-import '../Objects/Badge.dart';
 
 class Account {
-  String name;
-  String email;
-  String imageSrc;
-  Timestamp joinDate;
-  List<dynamic> cacheCompletions;
-  List<dynamic> badgeCompletions;
+  late String name;
+  late String email;
+  late String imageSrc;
+  late Timestamp joinDate;
+  late List<dynamic> cacheCompletions;
+  late List<dynamic> badgeCompletions;
 
   static final Account _account = Account._internal();
 
@@ -24,8 +22,8 @@ class Account {
     _account.email = email;
     _account.imageSrc = imageSRC;
     _account.joinDate = joinDate;
-    _account.cacheCompletions = new List<dynamic>();
-    _account.badgeCompletions = new List<dynamic>();
+    _account.cacheCompletions = <dynamic>[];
+    _account.badgeCompletions = <dynamic>[];
     return _account;
   }
 
@@ -63,7 +61,7 @@ class Account {
         if (!badgeCompletions.contains(badge.badgeID)) {
           badgeCompletions.add({
             "badgeID": badge.badgeID,
-            "completionDate": Timestamp.now()
+            "completionDate": Timestamp.now(),
           });
         }
       }

@@ -18,12 +18,12 @@ import '../Utilities/Collections.dart';
 
 class DatabaseRouting {
   static final DatabaseRouting _db = DatabaseRouting._internal();
-  Map<int, Cache> iCaches;
-  List<Cache> caches;
-  Set<Marker Function(BuildContext context)> markerBuildFunctions;
-  List<Badge> badges;
-  List<Collection> collections;
-  BuildContext context;
+  late Map<int, Cache> iCaches;
+  late List<Cache> caches;
+  late Set<Marker Function(BuildContext context)> markerBuildFunctions;
+  late List<Badge> badges;
+  late List<Collection> collections;
+  late BuildContext context;
 
   factory DatabaseRouting() {
     return _db;
@@ -66,13 +66,13 @@ class DatabaseRouting {
           ? tempHint
           : 'This is a hint to help you find where the cache is hidden.';
 
-      Cache temp = new Cache.withMarker(
+      Cache temp = new Cache(
         document.id,
         document['cacheID'],
         document['completionCode'],
-        tempDescription,
         document['location'],
         tempImgSRC,
+        tempDescription,
         tempInstructions,
         tempHint,
       );
@@ -127,7 +127,7 @@ class DatabaseRouting {
   /// Saves data to account - Needs to be changed
   ///
   updateAccount(Account a) async {
-    String uid = FirebaseAuth.instance.currentUser.uid;
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance.collection('users').doc(uid).update({
       'cachesCompleted': a.cacheCompletions,
       'badgesCompleted': a.badgeCompletions

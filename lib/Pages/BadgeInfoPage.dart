@@ -1,27 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lmhsgeocaching/Singletons/Account.dart';
 import '../Objects/Badge.dart';
 import '../Utilities/ColorTheme.dart';
 
 class BadgeInfoPage extends StatelessWidget {
-  static bool _obtained;
-  static String _badgeName;
-  static int _badgeID;
-  static Widget badgeImage;
-  static String _unlockDate;
-  static String dateGot;
-  static String description;
-  static double progress;
+  final Badge badge;
 
-  //Constructor
-  BadgeInfoPage(Badge B) {
-    _badgeName = B.name;
-    _badgeID = B.badgeID;
-    badgeImage = B.decideFilter(Image.asset(B.imageSRC));
-    description = B.description;
-    progress = B.getProgress();
-  }
+  BadgeInfoPage(this.badge);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +18,7 @@ class BadgeInfoPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.fromLTRB(5, 5, 5, 10),
           child: Text(
-            _badgeName,
+            badge.name,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: ColorTheme.textColor,
@@ -46,12 +30,12 @@ class BadgeInfoPage extends StatelessWidget {
         SizedBox(
           width: double.infinity, // Fits the width of the screen
           height: 250,
-          child: badgeImage,
+          child: badge.decideFilter(Image.asset(badge.imageSRC)),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(5, 10, 5, 20),
           child: Text(
-            description,
+            badge.description,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: ColorTheme.textColor,
@@ -77,7 +61,7 @@ class BadgeInfoPage extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 1,
               child: CircularProgressIndicator(
-                value: progress,
+                value: badge.getProgress(),
                 strokeWidth: 20,
                 valueColor: AlwaysStoppedAnimation(Colors.red[600]),
                 backgroundColor: ColorTheme.textColor,

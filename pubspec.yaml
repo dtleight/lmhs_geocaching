@@ -4,7 +4,7 @@ version: 1.0.0+1
 
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter_phoenix: ^1.0.0
@@ -13,25 +13,21 @@ dependencies:
   flutter_email_sender: ^5.1.0
   flutter:
     sdk: flutter
-  google_maps_flutter: ^0.5.11
+  google_maps_flutter: ^2.0.0
   provider: ^3.0.0
-  location: ^2.3.5
-  flutter_compass: '^0.7.0'
+  location: ^4.0.0
+  flutter_compass: ^0.7.0
   firebase_core: ^1.2.0
   google_sign_in: ^5.0.4
   cloud_firestore: ^2.2.0
   firebase_auth: ^1.2.0
-  qr_code_scanner:
-    git:
-      url: https://github.com/X-SLAYER/qr_code_scanner.git
-      ref: flutter-beta
-  geodesy: 0.3.2
+  qr_code_scanner: ^1.0.0
+  geodesy: 0.4.0-nullsafety.0
   geolocator: ^9.0.0
   cupertino_icons: ^0.1.3
   path_provider: ^2.0.2
   firebase_storage: ^8.1.1
   get: ^3.21.3
-  text_item_selector: any
   flutter_signin_button: ^2.0.0
   permission_handler: ^10.0.0
 

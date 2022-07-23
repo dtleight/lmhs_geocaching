@@ -9,10 +9,9 @@ import '../Pages/HomePage.dart';
 import '../Utilities/ColorTheme.dart';
 
 class CachePage extends StatelessWidget {
-  static DatabaseRouting db;
+  final DatabaseRouting db;
 
-  CachePage() {
-    db = new DatabaseRouting();
+  CachePage() : db = new DatabaseRouting() {
     db.loadPicture("mill.jpg");
   }
 
@@ -87,36 +86,40 @@ class CachePage extends StatelessWidget {
                                 children: <Widget>[
                                   Expanded(
                                     flex: 5,
-                                    child: FutureBuilder
-                                      (
+                                    child: FutureBuilder(
                                       future: db.loadPicture(thisCache.imgSRC),
-                                      builder: (context,snapshot)
-                                      {
-                                        if (snapshot.hasData)
-                                        {
-                                          return Image.network
-                                            (
-
-                                            snapshot.data,
-                                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProcess)
-                                            {
-                                             if(loadingProcess == null)
-                                               {
-                                                 return child;
-                                               }
-                                             else
-                                               {
-                                                 return Center(child: CircularProgressIndicator(value: loadingProcess.expectedTotalBytes != null ? loadingProcess.cumulativeBytesLoaded / loadingProcess.expectedTotalBytes : null,));
-                                               }
+                                      builder: (context, AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.hasData) {
+                                          return Image.network(
+                                            snapshot.data!,
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProcess) {
+                                              if (loadingProcess == null) {
+                                                return child;
+                                              } else {
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                  value: loadingProcess
+                                                              .expectedTotalBytes !=
+                                                          null
+                                                      ? loadingProcess
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProcess
+                                                              .expectedTotalBytes!
+                                                      : null,
+                                                ));
+                                              }
                                             },
                                           );
+                                        } else {
+                                          return CircularProgressIndicator();
                                         }
-                                        else
-                                          {
-                                            return CircularProgressIndicator();
-                                          }
-                                      }
-                                      ,),
+                                      },
+                                    ),
                                     //child: Image.network(db.loadPicture()),
                                   ),
                                   Flexible(
@@ -160,9 +163,9 @@ class CachePage extends StatelessWidget {
             }));
   }
 
-
   Future<Widget> getImage(String image) async {
-    var url = await FirebaseStorage.instance.ref().child(image).getDownloadURL();
+    var url =
+        await FirebaseStorage.instance.ref().child(image).getDownloadURL();
     return Image.network(url);
   }
 }

@@ -1,46 +1,48 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lmhsgeocaching/Objects/Cache.dart';
-import 'package:location/location.dart';
 
-class CacheMap extends StatefulWidget
-{
-  Cache cache;
-  CacheMap(Cache cache){this.cache = cache;}
+class CacheMap extends StatefulWidget {
+  final Cache cache;
+
+  CacheMap(this.cache);
 
   @override
-  State<StatefulWidget> createState()
-  {
-    return CacheMapState(cache);
-  }
+  State<StatefulWidget> createState() => CacheMapState();
 }
 
-class CacheMapState extends State<CacheMap>
-{ GoogleMapController mapController;
-LatLng _pos = const LatLng(40.523938, -75.547719);
-LocationData currentLocation;
-Location location;
-Cache cache;
-
-  CacheMapState(Cache cache){this.cache = cache;}
+class CacheMapState extends State<CacheMap> {
+  late GoogleMapController mapController;
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return FutureBuilder(
       future: _getLocation(),
-      builder: (context,snapshot) {
-        return GoogleMap
-        (
-        onMapCreated: _onMapCreated,
-        mapType: MapType.satellite,
-        markers: [Marker(markerId: MarkerId("Cache Location"),position: LatLng(cache.location.latitude,cache.location.longitude))].toSet(),
-        initialCameraPosition: CameraPosition(
-          target: snapshot.data,
-          zoom: 17.0,
-        ),
-        myLocationEnabled: true,
-      );
+      builder: (context, AsyncSnapshot<LatLng> snapshot) {
+        return snapshot.hasData ? GoogleMap(
+          onMapCreated: _onMapCreated,
+          mapType: MapType.satellite,
+          markers: [
+            Marker(
+              markerId: MarkerId("Cache Location"),
+              position: LatLng(
+                widget.cache.location.latitude,
+                widget.cache.location.longitude,
+              ),
+            )
+          ].toSet(),
+          initialCameraPosition: CameraPosition(
+            // snapshot.data != null because snapshot.hasData == true
+            target: snapshot.data!,
+            zoom: 17.0,
+          ),
+          myLocationEnabled: true,
+        ) : Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.white,
+            ));
       },
     );
   }
@@ -49,8 +51,8 @@ Cache cache;
     mapController = controller;
   }
 
-    _getLocation() async {
-    LocationData locationData =  await Location().getLocation();
-    return LatLng(locationData.latitude,locationData.longitude);
+  Future<LatLng> _getLocation() async {
+    Position currPos = await Geolocator.getCurrentPosition();
+    return LatLng(currPos.latitude, currPos.longitude);
   }
 }
