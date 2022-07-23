@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lmhsgeocaching/Objects/Cache.dart';
-import 'package:lmhsgeocaching/Widgets/QRCodeReader.dart';
-import '../Widgets/Compass.dart';
-import '../Widgets/CacheMap.dart';
-import '../Widgets/LogBook.dart';
+import 'package:lmhsgeocaching/Widgets/Cache%20Tracking/QRCodeReader.dart';
+import '../Widgets/Cache Tracking/Compass.dart';
+import '../Widgets/Cache Tracking/CacheMap.dart';
+import '../Widgets/Cache Tracking/LogBook.dart';
 
 class CacheTrackerPage extends StatefulWidget {
   final List<Widget> widgets;

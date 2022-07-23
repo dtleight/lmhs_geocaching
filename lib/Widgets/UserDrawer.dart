@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lmhsgeocaching/Pages/AboutPage.dart';
 import 'package:lmhsgeocaching/Pages/BadgeDisplayPage.dart';
@@ -15,11 +14,11 @@ class UserDrawer extends Drawer
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(new Account().name??"Temp"),
-            accountEmail: Text(new Account().email??"Temp"),
+            accountName: Text(new Account().name),
+            accountEmail: Text(new Account().email),
             currentAccountPicture: GestureDetector(
               child: CircleAvatar(
-                backgroundImage: NetworkImage(new Account().imageSrc??""),
+                backgroundImage: NetworkImage(new Account().imageSrc),
               ),
             ),
             decoration: BoxDecoration(

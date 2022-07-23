@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FormInput extends StatelessWidget {
-  TextEditingController controller = new TextEditingController();
-  String text;
+  final TextEditingController controller = new TextEditingController();
+  final String text;
 
   FormInput(this.text);
 

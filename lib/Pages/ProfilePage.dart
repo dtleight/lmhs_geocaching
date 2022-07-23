@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lmhsgeocaching/Utilities/ColorTheme.dart';
 import '../Singletons/Account.dart';

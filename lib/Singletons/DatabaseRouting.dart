@@ -47,7 +47,6 @@ class DatabaseRouting {
     caches = [];
     iCaches = {};
     CollectionReference ref = FirebaseFirestore.instance.collection('caches');
-    Reference sref = FirebaseStorage.instance.ref();
     QuerySnapshot eventsQuery = await ref.get();
     eventsQuery.docs.forEach((document) {
       String tempImgSRC = document['imgSRC'];
