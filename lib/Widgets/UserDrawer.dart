@@ -1,15 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lmhsgeocaching/Containers/LoginContainer.dart';
 import 'package:lmhsgeocaching/Pages/AboutPage.dart';
 import 'package:lmhsgeocaching/Pages/BadgeDisplayPage.dart';
 import 'package:lmhsgeocaching/Pages/ProfilePage.dart';
 import 'package:lmhsgeocaching/Pages/SettingsPage.dart';
 import 'package:lmhsgeocaching/Singletons/Account.dart';
 
-class UserDrawer extends Drawer
-{
+class UserDrawer extends Drawer {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget>[
@@ -32,44 +32,46 @@ class UserDrawer extends Drawer
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text('Profile'),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (ctxt) => new ProfilePage()));
-            },
+            onTap: () => Navigator.push(
+              context,
+              new MaterialPageRoute(builder: (ctxt) => new ProfilePage()),
+            ),
           ),
           ListTile(
             leading: Icon(Icons.star_border),
             title: Text('Badges'),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (ctxt) => new BadgeDisplayPage()));
-            },
+            onTap: () => Navigator.push(
+              context,
+              new MaterialPageRoute(builder: (ctxt) => new BadgeDisplayPage()),
+            ),
           ),
-
           ListTile(
             leading: Icon(Icons.announcement),
             title: Text('About'),
-            onTap: () {
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (ctxt) => new AboutPage()));
-            },
-          ),
-          Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (ctxt) => new SettingsPage()));
-              },
+            onTap: () => Navigator.push(
+              context,
+              new MaterialPageRoute(builder: (ctxt) => new AboutPage()),
             ),
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () => Navigator.push(
+              context,
+              new MaterialPageRoute(builder: (ctxt) => new SettingsPage()),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Log out'),
+            onTap: () {
+              FirebaseAuth.instance.signOut();
+              Navigator.popUntil(context, (route) => true);
+              Navigator.push(
+                context,
+                new MaterialPageRoute(builder: (ctxt) => new LoginContainer()),
+              );
+            },
           ),
         ],
       ),
