@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 
-import '../Objects/Cache.dart';
+import '../../Objects/Cache.dart';
 
 final myController = TextEditingController();
 
-class CacheNotFoundPage extends StatelessWidget
+class CacheNotFoundForm extends StatelessWidget
 {
   final Cache cache;
 
-  CacheNotFoundPage(this.cache);
+  CacheNotFoundForm(this.cache);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Cache Not Found Form"),),
       body: ListView(
           children: <Widget>[
             SizedBox(
@@ -113,20 +111,14 @@ class OptionsNotFoundState extends State<OptionsNotFound> {
               textColor: Colors.white,
               splashColor: Colors.blueGrey,
               child: const Text('Send Message'),
-              onPressed: () {
-                subject = subject.toString();
+              onPressed: () async {
                 String body = myController.text.toString();
-                Email();
-                FlutterEmailSender.send(Email(
+                await FlutterEmailSender.send(Email(
                   subject: subject,
                   body: body,
                   recipients: ['dhkreidler@gmail.com', 'mjmagee991@gmail.com'],//temporary
                   isHTML: false,
                 ));
-                //Reset
-                errorType = ErrorType.values[0];
-                myController.clear();
-                Phoenix.rebirth(context);
               }
           ),
         ),

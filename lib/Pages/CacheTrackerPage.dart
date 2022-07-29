@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lmhsgeocaching/Objects/Cache.dart';
+import 'package:lmhsgeocaching/Widgets/Cache%20Tracking/CacheNotFoundForm.dart';
 import 'package:lmhsgeocaching/Widgets/Cache%20Tracking/QRCodeReader.dart';
 import '../Widgets/Cache Tracking/Compass.dart';
 import '../Widgets/Cache Tracking/CacheMap.dart';
@@ -14,6 +15,7 @@ class CacheTrackerPage extends StatefulWidget {
           LogBook(cache),
           QRCodeReader(cache),
           CacheMap(cache),
+          CacheNotFoundForm(cache)
         ];
 
   @override
@@ -55,6 +57,10 @@ class CacheTrackerPageState extends State<CacheTrackerPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
             label: "Map",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.help),
+            label: "Help"
           ),
         ],
         onTap: (index) => setState(() => selectedIndex = index),
