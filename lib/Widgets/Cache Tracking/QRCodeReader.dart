@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:lmhsgeocaching/Pages/CachePage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:lmhsgeocaching/Objects/Cache.dart';
 import 'package:lmhsgeocaching/Singletons/Account.dart';
 
+
 class QRCodeReader extends StatefulWidget {
   final Cache cache;
 
   QRCodeReader(this.cache);
-
   @override
   State<StatefulWidget> createState() => QRCodeReaderState();
 }
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class QRCodeReaderState extends State<QRCodeReader> {
   void _onQRViewCreated(QRViewController controller) {
@@ -20,12 +22,22 @@ class QRCodeReaderState extends State<QRCodeReader> {
         print("Cache code found");
         showDialog(
           context: context,
-          builder: (context) => AlertDialog(title: Text("Cache found")),
-        );
+          builder: (context) => AlertDialog(
+              title: Text("Cache found!"),
+              content: Text("Congratulations, go find more caches."),
+              actions: <Widget> [
+                TextButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CachePage()));},
+                )],
+          ));
+
         new Account().onCacheCompletion(widget.cache);
       }
     });
-    controller.resumeCamera();
+    //controller.resumeCamera();
   }
 
   @override
