@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lmhsgeocaching/Widgets/UserDrawer.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../Pages/CachePage.dart';
 import '../Singletons/DatabaseRouting.dart';
 
@@ -45,7 +46,7 @@ class _MyHomePageState extends State<HomePage> {
       ),
       drawer: UserDrawer(),
       body: FutureBuilder(
-        future: new DatabaseRouting().loadCaches(),
+        future: setUpMap(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
@@ -81,5 +82,21 @@ class _MyHomePageState extends State<HomePage> {
     }
 
     return markers;
+  }
+
+  Future<bool> setUpMap() async {
+    await new DatabaseRouting().loadCaches();
+    return getPermission().isGranted;
+  }
+
+  Future<PermissionStatus> getPermission() async {
+    var status = await Permission.location.status;
+    print(status);
+    if (status == PermissionStatus.denied) {
+      print("Denied");
+      status = await Permission.location.request();
+      print("Status");
+    }
+    return status;
   }
 }

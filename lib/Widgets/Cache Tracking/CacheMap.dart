@@ -20,28 +20,42 @@ class CacheMapState extends State<CacheMap> {
     return FutureBuilder(
       future: _getLocation(),
       builder: (context, AsyncSnapshot<LatLng> snapshot) {
-        return snapshot.hasData ? GoogleMap(
-          onMapCreated: _onMapCreated,
-          mapType: MapType.satellite,
-          markers: [
-            Marker(
-              markerId: MarkerId("Cache Location"),
-              position: LatLng(
-                widget.cache.location.latitude,
-                widget.cache.location.longitude,
-              ),
-            )
-          ].toSet(),
-          initialCameraPosition: CameraPosition(
-            // snapshot.data != null because snapshot.hasData == true
-            target: snapshot.data!,
-            zoom: 17.0,
-          ),
-          myLocationEnabled: true,
-        ) : Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.white,
-            ));
+        LatLng cacheLoc = LatLng(
+          widget.cache.location.latitude,
+          widget.cache.location.longitude,
+        );
+
+        return snapshot.hasData
+            ? GoogleMap(
+                onMapCreated: _onMapCreated,
+                mapType: MapType.satellite,
+                markers: [
+                  Marker(
+                    markerId: MarkerId("Cache Location"),
+                    position: cacheLoc,
+                  )
+                ].toSet(),
+                initialCameraPosition: CameraPosition(
+                  // snapshot.data != null because snapshot.hasData == true
+                  target: snapshot.data!,
+                  zoom: 17.0,
+                ),
+                myLocationEnabled: true,
+                circles: Set.from([
+                  Circle(
+                    circleId: CircleId("Cache Circle"),
+                    center: cacheLoc,
+                    radius: 30.48,
+                    // 100 ft in meters
+                    fillColor: Colors.green.withOpacity(.3),
+                    strokeWidth: 1,
+                    strokeColor: Colors.green,
+                  ),
+                ]))
+            : Center(
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.white,
+              ));
       },
     );
   }

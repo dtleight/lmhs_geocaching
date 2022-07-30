@@ -5,8 +5,7 @@ import '../../Objects/Cache.dart';
 
 final myController = TextEditingController();
 
-class CacheNotFoundForm extends StatelessWidget
-{
+class CacheNotFoundForm extends StatelessWidget {
   final Cache cache;
 
   CacheNotFoundForm(this.cache);
@@ -14,28 +13,33 @@ class CacheNotFoundForm extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-          children: <Widget>[
-            SizedBox(
-              height: 25,
-            ),
-            Text("What seems to be the issue?",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            OptionsNotFound(),
-          ]),
+      body: ListView(children: <Widget>[
+        SizedBox(
+          height: 25,
+        ),
+        Text(
+          "What seems to be the issue?",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        OptionsNotFound(cache),
+      ]),
     );
-    }
   }
+}
+
 enum ErrorType { QrNotWork, NotFound, Other }
 
 class OptionsNotFound extends StatefulWidget {
+  final Cache cache;
+
+  OptionsNotFound(this.cache);
+
   @override
   OptionsNotFoundState createState() => OptionsNotFoundState();
 }
@@ -82,7 +86,6 @@ class OptionsNotFoundState extends State<OptionsNotFound> {
         ),
         ListTile(
           title: const Text("Other"),
-
           leading: Radio(
             value: ErrorType.Other,
             groupValue: errorType,
@@ -112,29 +115,29 @@ class OptionsNotFoundState extends State<OptionsNotFound> {
               splashColor: Colors.blueGrey,
               child: const Text('Send Message'),
               onPressed: () async {
-                String body = myController.text.toString();
                 await FlutterEmailSender.send(Email(
-                  subject: subject,
-                  body: body,
-                  recipients: ['dhkreidler@gmail.com', 'mjmagee991@gmail.com'],//temporary
+                  subject: subject +
+                      " (Cache " +
+                      widget.cache.cacheID.toString() +
+                      ")",
+                  body: myController.text.toString(),
+                  recipients: ['lmthistoryapps@gmail.com'],
                   isHTML: false,
                 ));
-              }
-          ),
+              }),
         ),
-
         Align(
           alignment: Alignment.bottomCenter,
           child: RaisedButton(
-              color: Colors.red,
-              textColor: Colors.white,
-              splashColor: Colors.blueGrey,
-              child: const Text('Clear'),
-              onPressed: () {setState(() {
-                // Reset
-                errorType = ErrorType.values[0];
-                myController.clear();
-              });}
+            color: Colors.red,
+            textColor: Colors.white,
+            splashColor: Colors.blueGrey,
+            child: const Text('Clear'),
+            onPressed: () => setState(() {
+              // Reset
+              errorType = ErrorType.values[0];
+              myController.clear();
+            }),
           ),
         ),
       ],
