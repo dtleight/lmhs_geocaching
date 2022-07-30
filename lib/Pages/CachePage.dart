@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lmhsgeocaching/Singletons/Account.dart';
 import 'package:lmhsgeocaching/Widgets/UserDrawer.dart';
 import '../Singletons/DatabaseRouting.dart';
 import 'CacheInfoPage.dart';
@@ -81,77 +82,93 @@ class CachePage extends StatelessWidget {
                           width: 150,
                           child: Card(
                             color: Colors.grey[200],
-                            child: InkWell(
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 5,
-                                    child: FutureBuilder(
-                                      future: db.loadPicture(thisCache.imgSRC),
-                                      builder: (context, AsyncSnapshot<String> snapshot) {
-                                        if (snapshot.hasData) {
-                                          return Image.network(
-                                            snapshot.data!,
-                                            loadingBuilder:
-                                                (BuildContext context,
-                                                    Widget child,
-                                                    ImageChunkEvent?
-                                                        loadingProcess) {
-                                              if (loadingProcess == null) {
-                                                return child;
-                                              } else {
-                                                return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                  value: loadingProcess
-                                                              .expectedTotalBytes !=
-                                                          null
-                                                      ? loadingProcess
-                                                              .cumulativeBytesLoaded /
-                                                          loadingProcess
-                                                              .expectedTotalBytes!
-                                                      : null,
-                                                ));
-                                              }
-                                            },
-                                          );
-                                        } else {
-                                          return CircularProgressIndicator();
-                                        }
-                                      },
-                                    ),
-                                    //child: Image.network(db.loadPicture()),
+                            child: Stack(
+                              children: [
+                                InkWell(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 5,
+                                        child: FutureBuilder(
+                                          future:
+                                              db.loadPicture(thisCache.imgSRC),
+                                          builder: (context,
+                                              AsyncSnapshot<String> snapshot) {
+                                            if (snapshot.hasData) {
+                                              return Image.network(
+                                                snapshot.data!,
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProcess) {
+                                                  if (loadingProcess == null) {
+                                                    return child;
+                                                  } else {
+                                                    return Center(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                      value: loadingProcess
+                                                                  .expectedTotalBytes !=
+                                                              null
+                                                          ? loadingProcess
+                                                                  .cumulativeBytesLoaded /
+                                                              loadingProcess
+                                                                  .expectedTotalBytes!
+                                                          : null,
+                                                    ));
+                                                  }
+                                                },
+                                              );
+                                            } else {
+                                              return CircularProgressIndicator();
+                                            }
+                                          },
+                                        ),
+                                        //child: Image.network(db.loadPicture()),
+                                      ),
+                                      Flexible(
+                                        flex: 2,
+                                        child: Center(
+                                            child: Text(
+                                          thisCache.name,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 15),
+                                        )),
+                                      ),
+                                      Flexible(
+                                        flex: 1,
+                                        child: Center(
+                                            child: Text(
+                                          thisCache.location.latitude
+                                                  .toString() +
+                                              ", " +
+                                              thisCache.location.longitude
+                                                  .toString(),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 10),
+                                        )),
+                                      )
+                                    ],
                                   ),
-                                  Flexible(
-                                    flex: 2,
-                                    child: Center(
-                                        child: Text(
-                                      thisCache.name,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 15),
-                                    )),
-                                  ),
-                                  Flexible(
-                                    flex: 1,
-                                    child: Center(
-                                        child: Text(
-                                      thisCache.location.latitude.toString() +
-                                          ", " +
-                                          thisCache.location.longitude
-                                              .toString(),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 10),
-                                    )),
-                                  )
-                                ],
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    new MaterialPageRoute(
-                                        builder: (ctxt) =>
-                                            new CacheInfoPage(thisCache)));
-                              },
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                            builder: (ctxt) =>
+                                                new CacheInfoPage(thisCache)));
+                                  },
+                                ),
+                                Visibility(
+                                    visible: Account().cacheCompletions.contains(thisCache.cacheID),
+                                    child: Align(
+                                        alignment: Alignment.topRight,
+                                        child: Icon(
+                                          Icons.check_circle,
+                                          color: Colors.green,
+                                          size: 50.0,
+                                        )))
+                              ],
                             ),
                           ),
                         );
