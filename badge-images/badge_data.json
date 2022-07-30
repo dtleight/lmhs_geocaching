@@ -1,9 +1,8 @@
 {
-  "badges":
-  [
+  "badges": [
     {
       "name": "Ready, Set, Go",
-      "description": "Find your first cache.",
+      "description": "Find your first cache",
       "src": "badge-images/barn.jpg",
       "id": 1,
       "requirement": 1
@@ -11,37 +10,81 @@
     {
       "name": "Gaining Steam",
       "description": "Find 5 caches",
-      "src": "badge-images/barn.jpg",
+      "src": "badge-images/steam.jpg",
       "id": 2,
       "requirement": 5
     },
     {
-      "name": "Freshman",
-      "description" : "Find all the schoolhouses in Macungie",
-      "src": "badge-images/school.jpg",
+      "name": "Alpha Tester",
+      "description": "Find all the alpha test caches",
+      "src": "badge-images/alpha_tester.jpg",
       "id": 3,
-      "requirement": [1,2,3,4]
+      "requirement": [
+        0,
+        25,
+        26,
+        42
+      ]
+    },
+    {
+      "name": "Freshman",
+      "description": "Find all the schoolhouses in Macungie",
+      "src": "badge-images/school.jpg",
+      "id": 4,
+      "requirement": [
+        1,
+        2,
+        3,
+        4
+      ]
     },
     {
       "name": "Hotel Hunter",
-      "description" : "Find all the hotel caches",
+      "description": "Find all the hotel caches",
       "src": "badge-images/hotel.jpg",
-      "id": 4,
-      "requirement": [32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
+      "id": 5,
+      "requirement": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ]
     },
     {
       "name": "Millions of Mills",
-      "description" : "Find all the mill caches",
+      "description": "Find all the mill caches",
       "src": "badge-images/mill.jpg",
-      "id": 5,
-      "requirement": [22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+      "id": 6,
+      "requirement": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
     },
     {
       "name": "Double Double",
-      "description" : "Find the caches at both pairs of mills and schools",
+      "description": "Find the caches at both pairs of mills and schools",
       "src": "badge-images/coin.jpg",
-      "id": 6,
-      "requirement": [9, 27, 5, 25]
+      "id": 7,
+      "requirement": [
+        9,
+        27,
+        5,
+        25
+      ]
     }
   ]
 }

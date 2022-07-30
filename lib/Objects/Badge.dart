@@ -54,8 +54,7 @@ class Badge {
   }
 
   double getProgress() {
-    List<int> cachesCompleted = <int>[];
-    cachesCompleted.add(1);
+    List<int> cachesCompleted = Account().cacheCompletions;
     if (requirement is int) {
       return cachesCompleted.length / (requirement.toDouble());
     } else {
@@ -70,19 +69,15 @@ class Badge {
   }
 
   /// Handles requirements
-  bool isCompleted(List<dynamic> cachesCompleted) {
-    print(requirement.runtimeType);
-
+  bool isCompleted(List<int> cachesCompleted) {
     if (requirement is int) {
       return cachesCompleted.length >= requirement;
-    } else if (requirement is List<int>) {
+    } else {
       bool test = true;
       for (int i in requirement) {
-        //account.cachesCompleted
         test = test && cachesCompleted.contains(i);
       }
       return test;
     }
-    return false;
   }
 }

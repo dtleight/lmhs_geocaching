@@ -47,6 +47,7 @@ flutter:
   assets:
     - badge-images/badge_data.json
     - badge-images/collection_data.json
+    - badge-images/alpha_tester.jpg
     - badge-images/barn.jpg
     - badge-images/church.jpg
     - badge-images/double.jpg
@@ -54,5 +55,6 @@ flutter:
     - badge-images/hotel.jpg
     - badge-images/mill.jpg
     - badge-images/school.jpg
+    - badge-images/steam.jpg
     - badge-images/coin.jpg
     - badge-images/logo.png

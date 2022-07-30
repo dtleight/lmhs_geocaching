@@ -7,8 +7,8 @@ class Account {
   late String email;
   late String imageSrc;
   late Timestamp joinDate;
-  late List<dynamic> cacheCompletions;
-  late List<dynamic> badgeCompletions;
+  late List<int> cacheCompletions;
+  late List<int> badgeCompletions;
 
   static final Account _account = Account._internal();
 
@@ -22,8 +22,8 @@ class Account {
     _account.email = email;
     _account.imageSrc = imageSRC;
     _account.joinDate = joinDate;
-    _account.cacheCompletions = <dynamic>[];
-    _account.badgeCompletions = <dynamic>[];
+    _account.cacheCompletions = <int>[];
+    _account.badgeCompletions = <int>[];
     return _account;
   }
 
@@ -32,8 +32,8 @@ class Account {
       String email,
       String imageSRC,
       Timestamp joinDate,
-      List<dynamic> cacheCompletions,
-      List<dynamic> badgeCompletions) {
+      List<int> cacheCompletions,
+      List<int> badgeCompletions) {
     _account.name = name;
     _account.email = email;
     _account.imageSrc = imageSRC;
@@ -59,10 +59,7 @@ class Account {
     new DatabaseRouting().badges.forEach((badge) {
       if (badge.isCompleted(cacheCompletions)) {
         if (!badgeCompletions.contains(badge.badgeID)) {
-          badgeCompletions.add({
-            "badgeID": badge.badgeID,
-            "completionDate": Timestamp.now(),
-          });
+          badgeCompletions.add(badge.badgeID);
         }
       }
     });

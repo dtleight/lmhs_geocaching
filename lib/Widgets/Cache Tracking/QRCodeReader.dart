@@ -5,7 +5,6 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:lmhsgeocaching/Objects/Cache.dart';
 import 'package:lmhsgeocaching/Singletons/Account.dart';
 
-
 class QRCodeReader extends StatefulWidget {
   final Cache cache;
 
@@ -13,12 +12,14 @@ class QRCodeReader extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => QRCodeReaderState();
 }
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class QRCodeReaderState extends State<QRCodeReader> {
+  bool cacheFound = false;
+
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((result) {
-      if (result.code.toString() == widget.cache.completionCode) {
+      if (!cacheFound && result.code.toString() == widget.cache.completionCode) {
+        cacheFound = true;
         print("Cache code found");
         showDialog(
           context: context,
@@ -37,7 +38,7 @@ class QRCodeReaderState extends State<QRCodeReader> {
         new Account().onCacheCompletion(widget.cache);
       }
     });
-    //controller.resumeCamera();
+    controller.resumeCamera();
   }
 
   @override

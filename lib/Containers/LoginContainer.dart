@@ -76,8 +76,8 @@ class LoginContainerState extends State<LoginContainer> {
         snapshot.get('email'),
         FirebaseAuth.instance.currentUser!.photoURL!,
         (snapshot.get('joinDate') as Timestamp),
-        List<int>.from(snapshot.get('cachesCompleted').map((e) => e as int)),
-        List<int>.from(snapshot.get('badgesCompleted').map((e) => e as int)),
+        List<int>.from(snapshot.get('cachesCompleted')),
+        List<int>.from(snapshot.get('badgesCompleted')),
       );
       moveToHomePage();
     } else {
