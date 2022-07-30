@@ -24,13 +24,6 @@ class CompassState extends State<Compass> {
   double _north = 0;
   bool _loading = false;
 
-  @override
-  void initState() {
-    super.initState();
-    getUserLoc();
-    FlutterCompass.events!.listen(_onData);
-  }
-
   String get _readout {
     if (_userLoc != null) {
       double dist =
@@ -48,44 +41,15 @@ class CompassState extends State<Compass> {
     }
   }
 
-  void _onData(CompassEvent event) {
-    double? x = event.heading;
-
-    if (mounted) {
-      setState(() {
-        if (_userLoc != null && x != null) {
-          double _angleAdjust =
-              Geodesy().bearingBetweenTwoGeoPoints(_userLoc!, widget._targetLoc) as double;
-          // Overrides the green needle to point north if the user is less than 100 feet away
-          if (Geodesy()
-                  .distanceBetweenTwoGeoPoints(_userLoc!, widget._targetLoc) <
-              30.48 /*100 ft in meters*/) {
-            _angleAdjust = 0;
-          }
-          _heading = x - _angleAdjust;
-          _north = x;
-
-          if (!_loading) {
-            //print("loading: $_loading");
-            _loading = true;
-            //print('loading2: $_loading');
-            getUserLoc();
-          }
-        }
-      });
-    }
-  }
-
   Future<void> getUserLoc() async {
     print('Angle:: getAngle()');
     //print('loading3: $_loading');
 
-    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((position) {
-      _userLoc = LatLng(position.latitude, position.longitude);
-      _loading = false;
-      //print('loading4: $_loading');
-    });
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    _userLoc = LatLng(position.latitude, position.longitude);
+    _loading = false;
+    //print('loading4: $_loading');
   }
 
   final TextStyle _style = TextStyle(
@@ -96,13 +60,49 @@ class CompassState extends State<Compass> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-        foregroundPainter:
-            CompassPainter(angle: _north, needleColor: Colors.red.shade400),
-        child: CustomPaint(
-            foregroundPainter:
-                CompassPainter(angle: _heading, needleColor: Colors.green.shade400),
-            child: Center(child: Text(_readout, style: _style))));
+    return StreamBuilder<CompassEvent>(
+      stream: FlutterCompass.events,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          double? x = snapshot.data?.heading;
+
+          if (_userLoc != null && x != null) {
+            double _angleAdjust =
+            Geodesy().bearingBetweenTwoGeoPoints(_userLoc!, widget._targetLoc)
+            as double;
+            // Overrides the green needle to point north if the user is less than 100 feet away
+            if (Geodesy()
+                .distanceBetweenTwoGeoPoints(_userLoc!, widget._targetLoc) <
+                30.48 /*100 ft in meters*/) {
+              _angleAdjust = 0;
+            }
+            _heading = x - _angleAdjust;
+            _north = x;
+          }
+          if (!_loading) {
+            //print("loading: $_loading");
+            _loading = true;
+            //print('loading2: $_loading');
+            getUserLoc();
+          }
+        }
+
+
+        return CustomPaint(
+          foregroundPainter: CompassPainter(
+            angle: _north,
+            needleColor: Colors.red.shade400,
+          ),
+          child: CustomPaint(
+            foregroundPainter: CompassPainter(
+              angle: _heading,
+              needleColor: Colors.green.shade400,
+            ),
+            child: Center(child: Text(_readout, style: _style)),
+          ),
+        );
+      },
+    );
   }
 }
 
