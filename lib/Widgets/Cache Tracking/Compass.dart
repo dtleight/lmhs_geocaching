@@ -60,48 +60,71 @@ class CompassState extends State<Compass> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<CompassEvent>(
-      stream: FlutterCompass.events,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          double? x = snapshot.data?.heading;
+    return Container(
+      color: Colors.black,
+      width: double.infinity,
+      height: double.infinity,
+      child: StreamBuilder<CompassEvent>(
+        stream: FlutterCompass.events,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            double? x = snapshot.data?.heading;
 
-          if (_userLoc != null && x != null) {
-            double _angleAdjust =
-            Geodesy().bearingBetweenTwoGeoPoints(_userLoc!, widget._targetLoc)
-            as double;
-            // Overrides the green needle to point north if the user is less than 100 feet away
-            if (Geodesy()
-                .distanceBetweenTwoGeoPoints(_userLoc!, widget._targetLoc) <
-                30.48 /*100 ft in meters*/) {
-              _angleAdjust = 0;
+            if (_userLoc != null && x != null) {
+              double _angleAdjust =
+              Geodesy().bearingBetweenTwoGeoPoints(_userLoc!, widget._targetLoc)
+              as double;
+              // Overrides the green needle to point north if the user is less than 100 feet away
+              if (Geodesy()
+                  .distanceBetweenTwoGeoPoints(_userLoc!, widget._targetLoc) <
+                  30.48 /*100 ft in meters*/) {
+                _angleAdjust = 0;
+              }
+              _heading = x - _angleAdjust;
+              _north = x;
             }
-            _heading = x - _angleAdjust;
-            _north = x;
+            if (!_loading) {
+              //print("loading: $_loading");
+              _loading = true;
+              //print('loading2: $_loading');
+              getUserLoc();
+            }
+          } else {
+            if (snapshot.hasError) {
+              return Text('Error reading heading: ${snapshot.error}');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Text("Device is waiting for sensors."),
+              );
+            }
+            double? direction = snapshot.data!.heading;
+
+            // if direction is null, then device does not support this sensor
+            // show error message
+            if (direction == null)
+              return Center(
+                child: Text("Device does not have sensors!"),
+              );
           }
-          if (!_loading) {
-            //print("loading: $_loading");
-            _loading = true;
-            //print('loading2: $_loading');
-            getUserLoc();
-          }
-        }
 
 
-        return CustomPaint(
-          foregroundPainter: CompassPainter(
-            angle: _north,
-            needleColor: Colors.red.shade400,
-          ),
-          child: CustomPaint(
+          return CustomPaint(
             foregroundPainter: CompassPainter(
-              angle: _heading,
-              needleColor: Colors.green.shade400,
+              angle: _north,
+              needleColor: Colors.red.shade400,
             ),
-            child: Center(child: Text(_readout, style: _style)),
-          ),
-        );
-      },
+            child: CustomPaint(
+              foregroundPainter: CompassPainter(
+                angle: _heading,
+                needleColor: Colors.green.shade400,
+              ),
+              child: Center(child: Text(_readout, style: _style)),
+            ),
+          );
+        },
+      ),
     );
   }
 }

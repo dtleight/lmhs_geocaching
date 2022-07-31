@@ -28,7 +28,6 @@ class CacheTrackerPageState extends State<CacheTrackerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text("Cache Tracker"),
         leading: IconButton(

@@ -15,21 +15,23 @@ class LogBookState extends State<LogBook> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          widget.cache.instructions,
-          style: TextStyle(color: Colors.white),
-        ),
-        TextButton(
-          onPressed: () => setState(() => isHintVisible = !isHintVisible),
-          child: Text(isHintVisible ? "Hide hint" : "Show hint"),
-        ),
-        Visibility(
-          visible: isHintVisible,
-          child: Text(widget.cache.hint, style: TextStyle(color: Colors.white)),
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Text(
+            widget.cache.instructions,
+          ),
+          TextButton(
+            onPressed: () => setState(() => isHintVisible = !isHintVisible),
+            child: Text(isHintVisible ? "Hide hint" : "Show hint"),
+          ),
+          Visibility(
+            visible: isHintVisible,
+            child: Text(widget.cache.hint),
+          )
+        ],
+      ),
     );
   }
 }
