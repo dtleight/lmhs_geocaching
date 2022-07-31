@@ -69,6 +69,7 @@ class CacheTrackerPageState extends State<CacheTrackerPage> {
           Expanded(child: widget.widgets[selectedIndex]),
         ],
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

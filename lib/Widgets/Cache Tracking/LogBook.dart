@@ -22,7 +22,7 @@ class LogBookState extends State<LogBook> {
           Text(
             widget.cache.instructions,
           ),
-          TextButton(
+          ElevatedButton(
             onPressed: () => setState(() => isHintVisible = !isHintVisible),
             child: Text(isHintVisible ? "Hide hint" : "Show hint"),
           ),
