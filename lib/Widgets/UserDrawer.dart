@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:lmhsgeocaching/Containers/LoginContainer.dart';
 import 'package:lmhsgeocaching/Pages/AboutPage.dart';
 import 'package:lmhsgeocaching/Pages/BadgeDisplayPage.dart';
@@ -52,6 +53,16 @@ class UserDrawer extends Drawer {
               context,
               new MaterialPageRoute(builder: (ctxt) => new AboutPage()),
             ),
+          ),
+          ListTile(
+            leading: Icon(Icons.bug_report),
+            title: Text('Bug Report'),
+            onTap: () => FlutterEmailSender.send(Email(
+                subject: "Bug Report",
+                recipients: ["lmthistoryapps@gmail.com"],
+                body: "Account Email: " +
+                    Account().email +
+                    "\n\nBug Description:\n\n")),
           ),
           ListTile(
             leading: Icon(Icons.settings),
