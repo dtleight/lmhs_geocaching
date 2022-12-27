@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -50,7 +49,7 @@ class DatabaseRouting {
     QuerySnapshot eventsQuery = await ref.get();
     eventsQuery.docs.forEach((document) {
       String tempImgSRC = document['imgSRC'];
-      tempImgSRC = tempImgSRC.isNotEmpty ? tempImgSRC : 'mill.jpg';
+      tempImgSRC = tempImgSRC.isNotEmpty ? tempImgSRC : 'https://firebasestorage.googleapis.com/v0/b/lmhs-firebase-free.appspot.com/o/mill.jpg?alt=media&token=58974820-68d0-4c75-94e3-5a34cb9be8aa';
       String tempDescription = document['description'];
       tempDescription = tempDescription.isNotEmpty
           ? tempDescription
@@ -114,12 +113,6 @@ class DatabaseRouting {
     final jsonResponse = json.decode(jsonString);
     Collections cl = new Collections.fromJson(jsonResponse);
     collections = cl.collections;
-  }
-
-  Future<String> loadPicture(String filename) async {
-    String image =
-        await FirebaseStorage.instance.ref().child(filename).getDownloadURL();
-    return image;
   }
 
   ///

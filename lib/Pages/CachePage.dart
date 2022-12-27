@@ -12,9 +12,7 @@ import '../Utilities/ColorTheme.dart';
 class CachePage extends StatelessWidget {
   final DatabaseRouting db;
 
-  CachePage() : db = new DatabaseRouting() {
-    db.loadPicture("mill.jpg");
-  }
+  CachePage() : db = new DatabaseRouting();
 
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -89,39 +87,26 @@ class CachePage extends StatelessWidget {
                                     children: <Widget>[
                                       Expanded(
                                         flex: 5,
-                                        child: FutureBuilder(
-                                          future:
-                                              db.loadPicture(thisCache.imgSRC),
-                                          builder: (context,
-                                              AsyncSnapshot<String> snapshot) {
-                                            if (snapshot.hasData) {
-                                              return Image.network(
-                                                snapshot.data!,
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProcess) {
-                                                  if (loadingProcess == null) {
-                                                    return child;
-                                                  } else {
-                                                    return Center(
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                      value: loadingProcess
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProcess
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProcess
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ));
-                                                  }
-                                                },
-                                              );
+                                        child: Image.network(
+                                          thisCache.imgSRC,
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent? loadingProcess) {
+                                            if (loadingProcess == null) {
+                                              return child;
                                             } else {
-                                              return CircularProgressIndicator();
+                                              return Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                value: loadingProcess
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProcess
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProcess
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ));
                                             }
                                           },
                                         ),
@@ -160,7 +145,9 @@ class CachePage extends StatelessWidget {
                                   },
                                 ),
                                 Visibility(
-                                    visible: Account().cacheCompletions.contains(thisCache.cacheID),
+                                    visible: Account()
+                                        .cacheCompletions
+                                        .contains(thisCache.cacheID),
                                     child: Align(
                                         alignment: Alignment.topRight,
                                         child: Icon(

@@ -23,19 +23,20 @@ class SelectorState extends State<Selector> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Expanded(
-                child: FlatButton(
-                  onPressed: () => onButtonPressed(0),
-                  child: Text("One"),
-                ),
-              ),
-              //SizedBox(height: 50.0,width: 0.4,child: Container(color: Colors.blue,),),
-              Expanded(
-                child: FlatButton(
-                  onPressed: () => onButtonPressed(1),
-                  child: Text("Two"),
-                ),
-              )
+              // TODO: Delete this if it's not necessary
+              // Expanded(
+              //   child: FlatButton(
+              //     onPressed: () => onButtonPressed(0),
+              //     child: Text("One"),
+              //   ),
+              // ),
+              // //SizedBox(height: 50.0,width: 0.4,child: Container(color: Colors.blue,),),
+              // Expanded(
+              //   child: FlatButton(
+              //     onPressed: () => onButtonPressed(1),
+              //     child: Text("Two"),
+              //   ),
+              // )
             ],
           ),
           Divider(
